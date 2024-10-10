@@ -1,0 +1,1333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.1">
+<title>MDRefine.Functions API documentation</title>
+<meta name="description" content="Tools to perform reweighting using several refinements.
+It also includes optimization of the hyperparameters through minimization of the chi2 on the …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>MDRefine.Functions</code></h1>
+</header>
+<section id="section-intro">
+<p>Tools to perform reweighting using several refinements.
+It also includes optimization of the hyperparameters through minimization of the chi2 on the test set.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="MDRefine.Functions.MDRefinement"><code class="name flex">
+<span>def <span class="ident">MDRefinement</span></span>(<span>infos: dict, *, regularization: dict = None, stride: int = 1, starting_alpha: float = inf, starting_beta: float = inf, starting_gamma: float = inf, random_states=5, which_set: str = 'validation', gtol: float = 0.5, ftol: float = 0.05, results_folder_name: str = 'results', n_parallel_jobs: int = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is the main tool of the package: it loads data, searches for the optimal hyperparameters and minimizes the loss function on the whole data set
+by using the opimized hyperparameters. The output variables are then saved in a folder; they include <code>input</code> values, <code>min_lambdas</code> (optimal lambda coefficients for Ensemble Refinement, when performed),
+<code>result</code>, <code>hyper_search</code> (steps in the search for optimal hyperparameters) (<code>.csv</code> files) and the <code>.npy</code> arrays with the new weights determined in the refinement.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>infos</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary of information used to load data with <code><a title="MDRefine.Functions.load_data" href="#MDRefine.Functions.load_data">load_data()</a></code> (see in the Examples directory).</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary which can include two keys: <code>force_field_reg</code> and <code>forward_model_reg</code>, to specify the regularizations to the force-field correction and the forward model, respectively;
+the first key is either a string (among <code>plain l2</code>, <code>constraint 1</code>, <code>constraint 2</code>, <code>KL divergence</code>) or a user-defined
+function which takes as input <code>pars_ff</code> and returns the regularization term to be multiplied by the hyperparameter <code>beta</code>;
+the second key is a user-defined function which takes as input <code>pars_fm</code> and <code>forward_coeffs_0</code> (current and refined forward-model coefficients) and
+returns the regularization term to be multiplied by the hyperparameter <code>gamma</code>.</dd>
+<dt><strong><code>stride</code></strong> :&ensp;<code>int</code></dt>
+<dd>The stride of the frames used to load data employed in search for optimal hyperparameters
+(in order to reduce the computational cost, at the price of a lower representativeness of the ensembles).</dd>
+<dt><strong><code>starting_alpha</code></strong>, <strong><code>starting_beta</code></strong>, <strong><code>starting_gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Starting values of the hyperparameters (<code>np.inf</code> by default, namely no refinement in that direction).</dd>
+<dt><strong><code>random_states</code></strong> :&ensp;<code>int</code> or <code>list</code> of <code>integers</code></dt>
+<dd>Random states (i.e., seeds) used to split the data set in cross validation (if integer, then <code>random_states = np.arange(random_states)</code>.</dd>
+<dt><strong><code>which_set</code></strong> :&ensp;<code>str</code></dt>
+<dd>String chosen among <code>'training'</code>, <code>'validation'</code> or <code>'test'</code>, which specifies how to determine optimal hyperparameters:
+if minimizing the (average) chi2 on the training set for <code>'training'</code>, on training observables and test frames for <code>'validation'</code>,
+on test observables for <code>'test'</code>.</dd>
+<dt><strong><code>gtol</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>gtol</code> (on the gradient) of scipy.optimize.minimize (0.5 by default).</dd>
+<dt><strong><code>ftol</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>ftol</code> of scipy.optimize.minimize (0.05 by default).</dd>
+<dt><strong><code>results_folder_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>String for the prefix of the folder where to save results; the complete folder name is <code>results_folder_name + '_' + time</code> where <code>time</code> is the current time
+when the algorithm has finished, in order to uniquely identify the folder with the results.</dd>
+<dt><strong><code>n_parallel_jobs</code></strong> :&ensp;<code>int</code></dt>
+<dd>How many jobs are run in parallel (<code>None</code> by default).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.Functions.check_and_skip"><code class="name flex">
+<span>def <span class="ident">check_and_skip</span></span>(<span>data, *, stride=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function is an internal tool used in <code><a title="MDRefine.Functions.load_data" href="#MDRefine.Functions.load_data">load_data()</a></code> to modify input <code>data</code>:</p>
+<ul>
+<li>
+<p>weights are normalized;</p>
+</li>
+<li>
+<p>it appends observables computed through forward models (if any) to <code>data.g</code>;</p>
+</li>
+<li>
+<p>if <code>hasattr(data, 'selected_obs')</code>: it removes non-selected observables from <code>data.forward_qs</code>;</p>
+</li>
+<li>
+<p>select frames with given <code>stride</code>;</p>
+</li>
+<li>
+<p>count n. experiments and n. frames (<code>data[name_sys].n_frames</code> and <code>data[name_sys].n_experiments</code>)
+and check corresponding matching.</p>
+</li>
+</ul></div>
+</dd>
+<dt id="MDRefine.Functions.compute_D_KL"><code class="name flex">
+<span>def <span class="ident">compute_D_KL</span></span>(<span>weights_P: numpy.ndarray, correction_ff: numpy.ndarray, temperature: float, logZ_P: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the Kullback-Leibler divergence of P(x) = 1/Z P_0 (x) e^(-V(x)/T)
+with respect to P_0 as <code>av(V)/T + log Z</code> where av(V) is the average value of the potential V(x) over P(x).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>weights_P</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array for the normalized weights P(x).</dd>
+<dt><strong><code>correction_ff</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array for the reweighting potential V(x).</dd>
+<dt><strong><code>temperature</code></strong> :&ensp;<code>float</code></dt>
+<dd>The value of temperature T, in measure units consistently with V(x), namely, such that V(x)/T is adimensional.</dd>
+<dt><strong><code>logZ_P</code></strong> :&ensp;<code>float</code></dt>
+<dd>The value of log Z.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.Functions.compute_DeltaDeltaG_terms"><code class="name flex">
+<span>def <span class="ident">compute_DeltaDeltaG_terms</span></span>(<span>data, logZ_P)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the chi2 for Delta Delta G (free-energy differences from thermodynamic cycles),
+contributing to the loss function with alchemical calculations.</p>
+<h2 id="parameters">Parameters</h2>
+<p>data : dict
+Object <code>data</code>; here, <code>data['global']</code> has the attribute <code>cycle_names</code> (list of names of the thermodynamic cycles);
+<code>for s in data['global'].cycle_names</code>: <code>data[s]</code> has attributes <code>temperature</code> (of the cycle) and <code>gexp_DDG</code>;
+<code>for s in data['global'].cycle_names</code>: <code>data[s+k]</code> <code>for k in '_MD', '_MS', '_AD', '_AS'</code> has attributes <code>temperature</code> (of the system) and <code>logZ</code>.</p>
+<p>logZ_P : dict
+Dictionary for logarithm of the partition function $Z_P$, namely, average value of $e^{-V_\phi(x)/temperature}$ over the original ensemble.</p>
+<hr>
+<h2 id="output-variables">Output variables:</h2>
+<p>new_av_DG : dict
+Dictionary of reweighted averages of Delta G.</p>
+<p>chi2 : dict
+Dictionary of chi2 (one for each thermodynamic cycle).</p>
+<p>loss : float
+Total contribution to the loss function from free-energy differences Delta Delta G,
+given by 1/2 of the total chi2.</p></div>
+</dd>
+<dt id="MDRefine.Functions.compute_chi2"><code class="name flex">
+<span>def <span class="ident">compute_chi2</span></span>(<span>ref, weights, g, gexp, if_separate=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the chi2 (for a given molecular system).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ref</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for references (<code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;&lt;</code>) used to compute the appropriate chi2.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array of weights.</dd>
+<dt><strong><code>g</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of observables specific for the given molecular system.</dd>
+<dt><strong><code>gexp</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of experimental values specific for the given molecular system (coherently with <code>g</code>).</dd>
+<dt><strong><code>if_separate</code></strong> :&ensp;<code>bool</code></dt>
+<dd>
+<p>Boolean variable, True if you are distinguishing between LOWER and UPPER bounds (<code>name_type + ' LOWER'</code> or</p>
+<h2 id="name_type-upper-needed-for-minimizations-with-double-bounds"><code>name_type + ' UPPER'</code>), needed for minimizations with double bounds.</h2>
+</dd>
+</dl>
+<h2 id="output-variables">Output variables:</h2>
+<p>This tool returns 4 variables: 3 dictionaries (with keys running over different kinds of observables) and 1 float:</p>
+<p>av_g : dict
+Dictionary of average values of the observables <code>g</code>.</p>
+<p>chi2 : dict
+Dictionary of chi2.</p>
+<p>rel_diffs: dict
+Dicionary of relative differences.</p>
+<p>tot_chi2: float
+Total chi2 for the given molecular system.</p></div>
+</dd>
+<dt id="MDRefine.Functions.compute_chi2_tot"><code class="name flex">
+<span>def <span class="ident">compute_chi2_tot</span></span>(<span>pars_ff_fm, lambdas, data, regularization, alpha, beta, gamma, which_set)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function is an internal tool used in <code><a title="MDRefine.Functions.compute_hypergradient" href="#MDRefine.Functions.compute_hypergradient">compute_hypergradient()</a></code> and <code><a title="MDRefine.Functions.hyper_minimizer" href="#MDRefine.Functions.hyper_minimizer">hyper_minimizer()</a></code>
+to compute the total chi2 (float variable) for the training or test data set and its derivatives
+(with respect to <code>pars_ff_fm</code> and <code>lambdas</code>). The choice of the data set is indicated by <code>which_set</code>
+(<code>which_set = 'training'</code> for chi2 on the training set, <code>'validation'</code> for chi2 on training observables and test frames,
+<code>'test'</code> for chi2 on test observables and test frames, through validation function).</p>
+<h2 id="input-values">Input values:</h2>
+<p>pars_ff_fm, lambdas: array_like
+Numpy arrays for (force-field + forward-model) parameters and lambdas parameters, respectively.</p>
+<p>data: dict
+Dictionary of data set object.</p>
+<p>regularization: dict
+Specified regularizations of force-field and forward-model corrections (see in <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>).</p>
+<p>alpha, beta, gamma: float
+Values of the hyperparameters.</p>
+<p>which_set: str
+String variable, chosen among <code>'training'</code>, <code>'validation'</code> or <code>'test'</code> as explained above.</p></div>
+</dd>
+<dt id="MDRefine.Functions.compute_details_ER"><code class="name flex">
+<span>def <span class="ident">compute_details_ER</span></span>(<span>weights_P, g, data, lambdas, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code> which computes explicitely the contribution to the loss function due to Ensemble Refinement
+(namely, 1/2 chi2 + alpha D_KL) and compare this value with -alpha*Gamma (they are equal in the minimum: check).
+It cycles over different systems. It acts after the minimization of the loss function inside <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code> (not for the minimization
+itself, since we exploit the Gamma function).</p>
+<p>Be careful to use either: normalized values for <code>lambdas</code> and <code>g</code> (if <code>hasattr(data,'normg_mean')</code>) or non-normalized ones
+(if <code>not hasattr(data,'normg_mean')</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>weights_P</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of Numpy arrays, namely, the weights on which Ensemble Refinement acts (those with force-field correction
+in the fully combined refinement).</dd>
+<dt><strong><code>g</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of dictionaries, like for <code>data[name_sys].g</code>, corresponding to the observables (computed with updated forward-model coefficients).</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The original data object.</dd>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of Numpy arrays, corresponding to the coefficients for Ensemble Refinement.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>float</code></dt>
+<dd>The alpha hyperparameter, for Ensemble Refinement.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.Functions.compute_hyperderivatives"><code class="name flex">
+<span>def <span class="ident">compute_hyperderivatives</span></span>(<span>pars_ff_fm, lambdas, data, regularization, derivatives_funs, log10_alpha=inf, log10_beta=inf, log10_gamma=inf)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.Functions.compute_hypergradient" href="#MDRefine.Functions.compute_hypergradient">compute_hypergradient()</a></code> which computes the derivatives of parameters with respect to hyperparameters,
+which are going to be used later to compute the derivatives of chi2 w.r.t. hyperparameters.
+It returns an instance of the class <code>derivatives</code>, which includes as attributes the numerical values of
+the derivatives <code>dlambdas_dlogalpha</code>, <code>dlambdas_dpars</code>, <code>dpars_dlogalpha</code>, <code>dpars_dlogbeta</code>, <code>dpars_dloggamma</code>.</p>
+<h2 id="input-values">Input values:</h2>
+<p>pars_ff_fm: array_like
+Numpy array for force-field and forward-model coefficients.</p>
+<p>lambdas: array_like
+Numpy array for lambdas coefficients (those for ensemble refinement).</p>
+<p>data: dict
+The <code>data</code> object.</p>
+<p>regularization: dict
+The regularization of force-field and forward-model corrections (see in <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>).</p>
+<p>derivatives_funs: class instance
+Instance of the <code>derivatives_funs_class</code> class of derivatives functions computed by Jax.</p>
+<p>log10_alpha, log10_beta, log10_gamma: floats
+Logarithms (in base 10) of the corresponding hyperparameters alpha, beta, gamma (<code>np.inf</code> by default).</p></div>
+</dd>
+<dt id="MDRefine.Functions.compute_hypergradient"><code class="name flex">
+<span>def <span class="ident">compute_hypergradient</span></span>(<span>pars_ff_fm, lambdas, log10_alpha, log10_beta, log10_gamma, data_train, regularization, which_set, data_test, derivatives_funs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.Functions.mini_and_chi2_and_grad" href="#MDRefine.Functions.mini_and_chi2_and_grad">mini_and_chi2_and_grad()</a></code>, which employs previously defined functions (<code><a title="MDRefine.Functions.compute_hyperderivatives" href="#MDRefine.Functions.compute_hyperderivatives">compute_hyperderivatives()</a></code>, <code><a title="MDRefine.Functions.compute_chi2_tot" href="#MDRefine.Functions.compute_chi2_tot">compute_chi2_tot()</a></code>,
+<code><a title="MDRefine.Functions.put_together" href="#MDRefine.Functions.put_together">put_together()</a></code>) to return selected chi2 and its gradient w.r.t hyperparameters.</p>
+<h2 id="input-values">Input values:</h2>
+<p>pars_ff_fm: array_like
+Numpy array of (force-field and forward-model) parameters.</p>
+<p>lambdas: dict
+Dictionary of dictionaries with lambda coefficients (corresponding to Ensemble Refinement).</p>
+<p>log10_alpha, log10_beta, log10_gamma: floats
+Logarithms (in base 10) of the hyperparameters alpha, beta, gamma.</p>
+<p>data_train: dict
+The training data set object, which is anyway required to compute the derivatives of parameters w.r.t. hyper-parameters.</p>
+<p>regularization: dict
+Specified regularizations (see in <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>).</p>
+<p>which_set: str
+String indicating which set defines the chi2 to minimize in order to get the optimal hyperparameters (see in <code><a title="MDRefine.Functions.compute_chi2_tot" href="#MDRefine.Functions.compute_chi2_tot">compute_chi2_tot()</a></code>).</p>
+<p>data_test: dict
+The test data set object, which is required to compute the chi2 on the test set (when <code>which_set == 'validation' or 'test'</code>;
+otherwise, if <code>which_set = 'training'</code>, it is useless, so it can be set to <code>None</code>).</p>
+<p>derivatives_funs: class instance
+Instance of the <code>derivatives_funs_class</code> class of derivatives functions computed by Jax Autodiff (they include those employed in <code><a title="MDRefine.Functions.compute_hyperderivatives" href="#MDRefine.Functions.compute_hyperderivatives">compute_hyperderivatives()</a></code>
+and <code>dchi2_dpars</code> and/or <code>dchi2_dlambdas</code>).</p></div>
+</dd>
+<dt id="MDRefine.Functions.compute_js"><code class="name flex">
+<span>def <span class="ident">compute_js</span></span>(<span>n_experiments)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the indices <code>js</code> (defined by cumulative sums) for lambdas corresponding to different molecular systems and
+types of observables. Be careful to follow always the same order: let's choose it as that of <code>data.n_experiments</code>,
+which is a dictionary <code>n_experiments[name_sys][name]</code>.</p></div>
+</dd>
+<dt id="MDRefine.Functions.compute_new_weights"><code class="name flex">
+<span>def <span class="ident">compute_new_weights</span></span>(<span>weights: numpy.ndarray, correction: numpy.ndarray)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the new weights as weights*exp(-correction).
+It modifies Parameters <code>weights</code> are normalized and <code>correction</code> is shifted by <code>correction -= shift</code>, where <code>shift = np.min(correction)</code>.
+It returns two variables: a Numpy array <code>new_weights</code> and a float <code>logZ</code>.</p></div>
+</dd>
+<dt id="MDRefine.Functions.deconvolve_lambdas"><code class="name flex">
+<span>def <span class="ident">deconvolve_lambdas</span></span>(<span>data, lambdas: numpy.ndarray, if_denormalize: bool = True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool deconvolves <code>lambdas</code> from Numpy array to dictionary of dictionaries (corresponding to <code>data[name_sys].g</code>);
+if <code>if_denormalize</code>, then <code>lambdas</code> has been computed with normalized data, so use <code>data[name_sys].normg_std</code> and <code>data[name_sys].normg_mean</code>
+in order to go back to corresponding lambdas for non-normalized data. The order of <code>lambdas</code> is the one described in <code><a title="MDRefine.Functions.compute_js" href="#MDRefine.Functions.compute_js">compute_js()</a></code>.</p></div>
+</dd>
+<dt id="MDRefine.Functions.gamma_function"><code class="name flex">
+<span>def <span class="ident">gamma_function</span></span>(<span>lambdas: numpy.ndarray, g: numpy.ndarray, gexp: numpy.ndarray, weights: numpy.ndarray, alpha: float, if_gradient: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes gamma function and (if <code>if_gradient</code>) its derivatives and the average values of the observables <code>av_g</code>.
+Make sure that <code>lambdas</code> follow the same order as <code>g</code>, <code>gexp</code> (let's use that of <code>data.n_experiments</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array of length N, where <code>lambdas[j]</code> is the lambda value for the j-th observable.</dd>
+<dt><strong><code>g</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 2-dimensional array (M x N); <code>g[i,j]</code> is the j-th observable computed in the i-th frame.</dd>
+<dt><strong><code>gexp</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 2-dimensional array (N x 2); <code>gexp[j,0]</code> is the experimental value of the j-th observable, <code>gexp[j,1]</code> is the associated experimental uncertainty.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array of length M; <code>w[i]</code> is the weight of the i-th frame (possibly non-normalized).</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>float</code></dt>
+<dd>The value of the alpha hyperparameter.</dd>
+<dt><strong><code>if_gradient</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If true, return also the gradient of the gamma function.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.Functions.hyper_function"><code class="name flex">
+<span>def <span class="ident">hyper_function</span></span>(<span>log10_hyperpars, map_hyperpars, data, regularization, test_obs, test_frames, which_set, derivatives_funs, starting_pars, n_parallel_jobs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function is an internal tool of <code><a title="MDRefine.Functions.hyper_minimizer" href="#MDRefine.Functions.hyper_minimizer">hyper_minimizer()</a></code> which determines the optimal parameters by minimizing the loss function at given hyperparameters;
+then, it computes chi2 and its gradient w.r.t hyperparameters (for the optimal parameters).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>log10_hyperpars</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy array for log10 hyperparameters alpha, beta, gamma (in this order, when present).</dd>
+<dt><strong><code>map_hyperpars</code></strong> :&ensp;<code>list</code></dt>
+<dd>Legend for <code>log10_hyperpars</code> (they refer to alpha, beta, gamma in this order,
+but some of them may not be present, if fixed to <code>+np.inf</code>).</dd>
+<dt><strong><code>data</code></strong>, <strong><code>regularization</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for <code>data</code> and <code>regularization</code> objects.</dd>
+<dt><strong><code>test_obs</code></strong>, <strong><code>test_frames</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for test observables and test frames, indicized by seeds.</dd>
+<dt><strong><code>which_set</code></strong> :&ensp;<code>str</code></dt>
+<dd>String, see for <code><a title="MDRefine.Functions.compute_chi2_tot" href="#MDRefine.Functions.compute_chi2_tot">compute_chi2_tot()</a></code>.</dd>
+<dt><strong><code>derivatives_funs</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Derivative functions computed by <code>Jax</code> and employed in <code><a title="MDRefine.Functions.compute_hypergradient" href="#MDRefine.Functions.compute_hypergradient">compute_hypergradient()</a></code>.</dd>
+<dt><strong><code>starting_pars</code></strong> :&ensp;<code>float</code></dt>
+<dd>Starting values of the parameters, if user-defined; <code>None</code> otherwise.</dd>
+<dt><strong><code>n_parallel_jobs</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of parallel jobs.</dd>
+</dl>
+<hr>
+<h2 id="output-variables">Output variables:</h2>
+<p>tot_chi2: float
+Float value of total chi2.</p>
+<p>tot_gradient: array_like
+Numpy array for gradient of total chi2 with respect to the hyperparameters.</p>
+<p>Results: class instance
+Results given by <code><a title="MDRefine.Functions.minimizer" href="#MDRefine.Functions.minimizer">minimizer()</a></code>.</p>
+<hr>
+<p>Global variable: <code>hyper_intermediate</code>, in order to follow steps of minimization.</p></div>
+</dd>
+<dt id="MDRefine.Functions.hyper_minimizer"><code class="name flex">
+<span>def <span class="ident">hyper_minimizer</span></span>(<span>data, starting_alpha=inf, starting_beta=inf, starting_gamma=inf, regularization=None, random_states=1, replica_infos=None, which_set='validation', gtol=0.5, ftol=0.05, starting_pars=None, n_parallel_jobs=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool optimizes the hyperparameters by minimizing the selected chi2 (training, validation or test)
+over several (randomly) splits of the full data set into training/test set.</p>
+<h2 id="input-values">Input values:</h2>
+<p>data : dict
+Object <code>data</code>, with the full data set previously loaded.</p>
+<p>starting_alpha, starting_beta, starting_gamma : floats
+Starting points of the hyperparameters (<code>+np.inf</code> by default, namely no refinement in that direction).</p>
+<p>regularization : dict
+Dictionary for the defined regularizations of force-field and forward-model corrections (<code>None</code> by default); see for <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>.</p>
+<p>replica_infos : dict
+Dictionary with information required to split frames following continuous trajectories in replica exchange ("demuxing"); see <code><a title="MDRefine.Functions.select_traintest" href="#MDRefine.Functions.select_traintest">select_traintest()</a></code> for further details.</p>
+<p>random_states : int or list
+Random states (i.e., seeds) used in <code><a title="MDRefine.Functions.select_traintest" href="#MDRefine.Functions.select_traintest">select_traintest()</a></code> to split the data set into training and test set (see <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>); 1 by default.</p>
+<p>which_set : str
+String choosen among <code>'training'</code>, <code>'validation'</code>, <code>'test'</code> (see in <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>); <code><a title="MDRefine.Functions.validation" href="#MDRefine.Functions.validation">validation()</a></code> by default.</p>
+<p>gtol : float
+Tolerance <code>gtol</code> of <code>scipy.optimize.minimize</code> (0.5 by default).</p>
+<p>ftol : float
+Tolerance <code>ftol</code> of <code>scipy.optimize.minimize</code> (0.05 by default).</p>
+<p>starting_pars : array_like
+Numpy array of starting values for the minimization of parameters <code>pars_ff_fm</code> (<code>None</code> by default).</p>
+<p>n_parallel_jobs : int
+Number of jobs run in parallel (<code>None</code> by default).</p></div>
+</dd>
+<dt id="MDRefine.Functions.l2_regularization"><code class="name flex">
+<span>def <span class="ident">l2_regularization</span></span>(<span>pars: numpy.ndarray, choice: str = 'plain l2')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the L2 regularization for the force-field correction coefficients <code>pars</code> as specified by <code>choice</code>. It includes:</p>
+<ul>
+<li>
+<p><code>'plain l2'</code> (plain L2 regularization of <code>pars</code>);</p>
+</li>
+<li>
+<p>L2 regularization for alchemical calculations with charges (as described by Valerio Piomponi et al., see main paper):
+<code>pars[:-1]</code> are the charges and <code>pars[-1]</code> is V_eta; there is the constraint on the total charge, and there are 3 <code>pars[4]</code> charges in the molecule;
+so, <code>'constraint 1'</code> is the L2 regularization on charges, while <code>'constraint 2'</code> is the L2 regularization on charges and on V_eta.</p>
+</li>
+</ul>
+<p>Output values: lossf_reg and gradient (floats).</p></div>
+</dd>
+<dt id="MDRefine.Functions.load_data"><code class="name flex">
+<span>def <span class="ident">load_data</span></span>(<span>infos, *, stride=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool loads data from specified directory as indicated by the user in <code>infos</code>
+to a dictionary <code>data</code> of classes, which includes <code>data['global']</code> (global properties) and <code>data[system_name]</code>;
+for alchemical calculations, there is also <code>data[cycle_name]</code>.</p></div>
+</dd>
+<dt id="MDRefine.Functions.loss_function"><code class="name flex">
+<span>def <span class="ident">loss_function</span></span>(<span>pars_ff_fm: numpy.ndarray, data: dict, regularization: dict, alpha: float = inf, beta: float = inf, gamma: float = inf, fixed_lambdas: numpy.ndarray = None, gtol_inn: float = 0.001, if_save: bool = False, bounds: dict = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the fully-combined loss function (to minimize), taking advantage of the inner minimization with Gamma function.</p>
+<p>If <code>not np.isinf(alpha)</code>:</p>
+<ul>
+<li>
+<p>if <code>fixed_lambdas == None</code>, then do the inner minimization of Gamma (in this case, you have the global variable <code>lambdas</code>,
+corresponding to the starting point of the minimization; it is a Numpy array sorted as in <code><a title="MDRefine.Functions.compute_js" href="#MDRefine.Functions.compute_js">compute_js()</a></code>).</p>
+</li>
+<li>
+<p>else: <code>lambdas</code> is fixed (<code>fixed_lambdas</code> is not <code>None</code>) and the Gamma function is evaluated at this value of lambda, which must
+correspond to its point of minimum, otherwise there is a mismatch between the Gamma function and the Ensemble Refinement loss.</p>
+</li>
+</ul>
+<p>The order followed for <code>lambdas</code> is the one of <code><a title="MDRefine.Functions.compute_js" href="#MDRefine.Functions.compute_js">compute_js()</a></code>, which is not modified in any step.</p>
+<p>If <code>if_save</code>: <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code> will return <code>Details</code> class instance with the detailed results; otherwise, it will return just the loss value.</p>
+<p>The input data will not be modified by <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code> (neither explicitely by <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code> nor by its inner functions):
+for forward-model updating, you are going to define a new variable <code>g</code> (through <code>copy.deepcopy</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars_ff_fm</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array with parameters for force-field corrections and/or forward models.
+These parameters are sorted as: first force-field correction (ff), then forward model (fm);
+order for ff: <code>names_ff_pars = []</code>; <code>for k in system_names: [names_ff_pars.append(x) for x in data[k].f.keys() if x not in names_ff_pars]</code>;
+order for fm: the same as <code>data.forward_coeffs_0</code>.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of class instances as organised in <code><a title="MDRefine.Functions.load_data" href="#MDRefine.Functions.load_data">load_data()</a></code>, which constitutes the <code>data</code> object.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the force-field and forward-model correction regularizations (see <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>The hyperparameters of the three refinements (respectively, to: the ensemble, the force-field, the forward-model);
+(<code>+np.inf</code> by default, namely no refinement in that direction).</dd>
+<dt><strong><code>fixed_lambdas</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array of fixed values of <code>lambdas</code> (coefficients for Ensemble Refinement, organized as in <code><a title="MDRefine.Functions.compute_js" href="#MDRefine.Functions.compute_js">compute_js()</a></code>).
+(<code>None</code> by default).</dd>
+<dt><strong><code>gtol_inn</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>gtol</code> for the inner minimization of Gamma function (<code>1e-3</code> by default).</dd>
+<dt><strong><code>if_save</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Boolean variable (<code>False</code> by default).</dd>
+<dt><strong><code>bounds</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of boundaries for the inner minimization (<code>None</code> by default).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.Functions.loss_function_and_grad"><code class="name flex">
+<span>def <span class="ident">loss_function_and_grad</span></span>(<span>pars: numpy.ndarray, data: dict, regularization: dict, alpha: float, beta: float, gamma: float, gtol_inn: float, boundaries: dict, gradient_fun)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool returns <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code> and its gradient; the gradient function, which is going to be evaluated, is computed by Jax and passed as input variable <code>gradient_fun</code>.
+If <code>not np.isinf(alpha)</code>, it appends also loss and lambdas to <code>intermediates.loss</code> and <code>intermediates.lambdas</code>, respectively.</p>
+<p>Global variable: <code>intermediates</code> (intermediate values during the minimization steps of <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code>).</p>
+<h2 id="input-parameters">Input parameters:</h2>
+<p>pars : array_like
+Numpy array of parameters for force-field correction and forward model, respectively.</p>
+<p>data, regularization: dicts
+Dictionaries for <code>data</code> object and regularizations (see in <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>).</p>
+<p>alpha, beta, gamma: floats
+Values of the hyperparameters.</p>
+<p>gtol_inn: float
+Tolerance <code>gtol</code> for the inner minimization in <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code>.</p>
+<p>boundaries: dict
+Dictionary of boundaries for the inner minimization in <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code>.</p>
+<p>gradient_fun: function
+Gradient function of <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code>, computed by Jax.</p></div>
+</dd>
+<dt id="MDRefine.Functions.mini_and_chi2_and_grad"><code class="name flex">
+<span>def <span class="ident">mini_and_chi2_and_grad</span></span>(<span>data, test_frames, test_obs, regularization, alpha, beta, gamma, starting_pars, which_set, derivatives_funs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.Functions.hyper_function" href="#MDRefine.Functions.hyper_function">hyper_function()</a></code> which minimizes the loss function at given hyperparameters, computes the chi2 and
+its gradient w.r.t. the hyperparameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary which constitutes the <code>data</code> object.</dd>
+<dt><strong><code>test_frames</code></strong>, <strong><code>test_obs</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for test frames and test observables (for a given <code>random_state</code>).</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the regularizations (see in <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Values of the hyperparameters.</dd>
+<dt><strong><code>starting_pars</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array for starting values of the coefficients in <code><a title="MDRefine.Functions.minimizer" href="#MDRefine.Functions.minimizer">minimizer()</a></code>.</dd>
+<dt><strong><code>which_set</code></strong> :&ensp;<code>str</code></dt>
+<dd>String among <code>'training'</code>, <code>'validation'</code> or <code>'test'</code> (see in <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>).</dd>
+<dt><strong><code>derivatives_funs</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Instance of the <code>derivatives_funs_class</code> class of derivatives functions computed by Jax Autodiff.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.Functions.minimizer"><code class="name flex">
+<span>def <span class="ident">minimizer</span></span>(<span>original_data, *, regularization: dict = None, alpha: float = inf, beta: float = inf, gamma: float = inf, gtol: float = 0.001, gtol_inn: float = 0.001, data_test: dict = None, starting_pars: numpy.ndarray = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool minimizes loss_function on <code>original_data</code> and do <code><a title="MDRefine.Functions.validation" href="#MDRefine.Functions.validation">validation()</a></code> on <code>data_test</code> (if <code>not None</code>), at given hyperparameters.</p>
+<h2 id="input-values">Input values:</h2>
+<p>original_data: dict
+Dictionary for <code>data</code>-like object employed for the minimization of <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code>.</p>
+<p>regularization: dict
+Dictionary for the regularizations (see in <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>).</p>
+<p>alpha, beta, gamma: floats
+Values of the hyperparameters for combined refinement (<code>+np.inf</code> by default: no refinement in that direction).</p>
+<p>gtol, gtol_inn: floats
+Tolerances <code>gtol</code> for the minimizations of <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code> and inner <code><a title="MDRefine.Functions.gamma_function" href="#MDRefine.Functions.gamma_function">gamma_function()</a></code>, respectively.</p>
+<p>data_test: dict
+Dictionary for <code>data</code>-like object employed as test set (<code>None</code> by default, namely no validation, just minimization).</p>
+<p>starting_pars: array_like
+Numpy 1-dimensional array for pre-defined starting point of <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code> minimization (<code>None</code> by default).</p></div>
+</dd>
+<dt id="MDRefine.Functions.normalize_observables"><code class="name flex">
+<span>def <span class="ident">normalize_observables</span></span>(<span>gexp, g, weights=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool normalizes <code>g</code> and <code>gexp</code>. Since experimental observables have different units, it is better to normalize them, in order that
+varying any lambda coefficient by the same value epsilon would result in comparable effects to the ensemble.
+This results to be useful in the minimization of <code><a title="MDRefine.Functions.gamma_function" href="#MDRefine.Functions.gamma_function">gamma_function()</a></code>.</p>
+<h2 id="parameters">Parameters</h2>
+<p>gexp, g : dicts
+Dictionaries corresponding to <code>data[name_sys].gexp</code> and <code>data[name_sys].g</code>.</p>
+<p>weights : array-like
+Numpy 1-dimensional array, by default <code>None</code> (namely, equal weight for each frame).</p>
+<hr>
+<h2 id="output-parameters">Output parameters:</h2>
+<p>norm_g, norm_gexp : dict
+Dictionaries for normalized g and gexp.</p>
+<p>norm_gmean, norm_gstd : dict
+Dictionaries for the reference values for normalization (average and standard deviation).</p></div>
+</dd>
+<dt id="MDRefine.Functions.put_together"><code class="name flex">
+<span>def <span class="ident">put_together</span></span>(<span>dchi2_dpars, dchi2_dlambdas, derivatives)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.Functions.compute_hypergradient" href="#MDRefine.Functions.compute_hypergradient">compute_hypergradient()</a></code> which applies the chain rule in order to get the derivatives of chi2 w.r.t hyperparameters from
+derivatives of chi2 w.r.t. parameters and derivatives of parameters w.r.t. hyperparameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dchi2_dpars</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Numpy 1-dimensional array with derivatives of chi2 w.r.t. <code>pars_ff_fm</code> (force-field and forward-model parameters).</dd>
+<dt><strong><code>dchi2_dlambdas</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Numpy 1-dimensional array with derivatives of chi2 w.r.t. <code>lambdas</code> (same order of <code>lambdas</code> in <code>dchi2_dlambdas</code> and in <code>derivatives</code>).</dd>
+<dt><strong><code>derivatives</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Class instance with derivatives of <code>pars_ff_fm</code> and <code>lambdas</code> w.r.t. hyperparameters (determined in <code><a title="MDRefine.Functions.compute_hyperderivatives" href="#MDRefine.Functions.compute_hyperderivatives">compute_hyperderivatives()</a></code>).</dd>
+</dl>
+<hr>
+<p>Output variable: class instance whose attributes can include <code>dchi2_dlogalpha</code>, <code>dchi2_dlogbeta</code>, <code>dchi2_dloggamma</code>,
+depending on which hyperparameters are not fixed to <code>+np.inf</code>.</p></div>
+</dd>
+<dt id="MDRefine.Functions.save_txt"><code class="name flex">
+<span>def <span class="ident">save_txt</span></span>(<span>input_values, Result, coeff_names, folder_name='Result')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code> used to save <code>input_values</code> and output <code>Result</code> as <code>csv</code> and <code>npy</code> files in a folder whose name is
+<code>folder_name + '_' + date</code> where date is the current time when the computation ended (it uses <code>date_time</code>
+to generate unique file name, on the assumption of a single folder name at given time).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>input_values</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary with input values of the refinement, such as stride, starting values of the hyperparameters, random_states, which_set, tolerances (see <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>).</dd>
+<dt><strong><code>Result</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Class instance with the results of <code><a title="MDRefine.Functions.minimizer" href="#MDRefine.Functions.minimizer">minimizer()</a></code> and the search for the optimal hyperparameters.</dd>
+<dt><strong><code>coeff_names</code></strong> :&ensp;<code>list</code></dt>
+<dd>List with the names of the coefficients (force-field and forward-model corrections).</dd>
+<dt><strong><code>folder_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>String for the prefix of the folder name (by default, <code>'Result'</code>).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.Functions.select_traintest"><code class="name flex">
+<span>def <span class="ident">select_traintest</span></span>(<span>data, *, test_frames_size: float = 0.2, test_obs_size: float = 0.2, random_state: int = None, test_frames: dict = None, test_obs: dict = None, if_all_frames: bool = False, replica_infos: dict = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool splits the data set into training and test set. You can either randomly select the frames and/or the observables (accordingly to <code>test_frames_size</code>, <code>test_obs_size</code>, <code>random_state</code>) or pass the dictionaries <code>test_obs</code> and/or <code>test_frames</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the <code>data</code> object.</dd>
+<dt><strong><code>test_frames_size</code></strong>, <strong><code>test_obs_size</code></strong> :&ensp;<code>float</code></dt>
+<dd>Values for the fractions of frames and observables for the test set, respectively. Each of them is a number in (0,1) (same fraction for every system),
+by default <code>0.2</code>.</dd>
+<dt><strong><code>random_state</code></strong> :&ensp;<code>int</code></dt>
+<dd>The random state (or seed), used to make the same choice for different hyperparameters; if <code>None</code>,
+it is randomly taken.</dd>
+<dt><strong><code>test_frames</code></strong>, <strong><code>test_obs</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for the test frames and observables.</dd>
+<dt><strong><code>if_all_frames</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Boolean variable, <code>False</code> by default; if <code>True</code>, then use all the frames for the test observables in the test set,
+otherwise just the test frames.</dd>
+<dt><strong><code>replica_infos</code></strong> :&ensp;<code>dict</code></dt>
+<dd>
+<p>Dictionary of information used to select frames based on continuous trajectories ("demuxing"), by default <code>None</code> (just randomly select frames).
+It includes: <code>n_temp_replica</code>, <code>path_directory</code>, <code>stride</code>. If not <code>None</code>, <code><a title="MDRefine.Functions.select_traintest" href="#MDRefine.Functions.select_traintest">select_traintest()</a></code> will read <code>replica_temp.npy</code> files
+with shape <code>(n_frames, n_replicas)</code> containing numbers from 0 to <code>n_replicas - 1</code> which indicate corresponding</p>
+<h2 id="temperatures-for-each-replica-index-in-axis1">temperatures (for each replica index in <code>axis=1</code>).</h2>
+<h2 id="output-variables">Output variables:</h2>
+<p>data_train, data_test : dicts
+Dictionaries for training and test data; <code>data_test</code> includes:
+trained observables and non-trained (test) frames (where it is not specified <code>new</code>);
+non-trained (test) observables and non-trained/all (accordingly to <code>if_all_frames</code>) frames (where specified <code>new</code>).</p>
+</dd>
+</dl>
+<p>test_obs, test_frames : dicts
+Dictionaries for the observables and frames selected for the test set.</p></div>
+</dd>
+<dt id="MDRefine.Functions.unwrap_2dict"><code class="name flex">
+<span>def <span class="ident">unwrap_2dict</span></span>(<span>my_2dict)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Tool to unwrap a 2-layer dictionary <code>my_2dict</code> into list of values and list of keys.</p></div>
+</dd>
+<dt id="MDRefine.Functions.validation"><code class="name flex">
+<span>def <span class="ident">validation</span></span>(<span>pars_ff_fm, lambdas, data_test, *, regularization=None, alpha=inf, beta=inf, gamma=inf, data_train=None, which_return='details')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool evaluates <code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function()</a></code> in detail over the test set; then,</p>
+<ul>
+<li>
+<p>if <code>which_return == 'chi2 validation'</code>, it returns the total chi2 on the <code>'validation'</code> data set (training observables, test frames);
+this is required to compute the derivatives of the chi2 in <code>'validation'</code> with Jax;</p>
+</li>
+<li>
+<p>elif <code>which_return == 'chi2 test'</code>, it returns the total chi2 on the <code>'test'</code> data set (test observables, test frames
+or all frames if <code>data_train is not None</code>); this is required to compute the derivatives of the chi2 in <code>'test'</code> with Jax;</p>
+</li>
+<li>
+<p>else, it returns <code>Validation_values</code> class instance, with all the computed values (both chi2 and regularizations).</p>
+</li>
+</ul>
+<h2 id="input-values">Input values:</h2>
+<p>pars_ff_fm: array_like
+Numpy 1-dimensional array for the force-field and forward-model coefficients.</p>
+<p>lambdas: array_like
+Numpy 1-dimensional array of lambdas coefficients (those for ensemble refinement).</p>
+<p>data_test: dict
+Dictionary for the test data set, <code>data</code>-like object, as returned by <code><a title="MDRefine.Functions.select_traintest" href="#MDRefine.Functions.select_traintest">select_traintest()</a></code>.</p>
+<p>regularization: dict
+Dictionary for the regularizations (see in <code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement()</a></code>), by default, <code>None</code>.</p>
+<p>alpha, beta, gamma: floats
+Values for the hyperparameters (by default, <code>+np.inf</code>, namely, no refinement).</p>
+<p>data_train: dict
+Dictionary for the training data set, <code>data</code>-like object, as returned by <code><a title="MDRefine.Functions.select_traintest" href="#MDRefine.Functions.select_traintest">select_traintest()</a></code> (<code>None</code> by default,
+namely use only test frames for new observables).</p>
+<p>which_return: str
+String described above (by default <code>'details'</code>).</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="MDRefine.Functions.class_test"><code class="flex name class">
+<span>class <span class="ident">class_test</span></span>
+<span>(</span><span>data_sys, test_frames_sys, test_obs_sys, if_all_frames, data_train_sys)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for test data set, with similar structure as <code><a title="MDRefine.Functions.data_class" href="#MDRefine.Functions.data_class">data_class</a></code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class class_test:
+    &#34;&#34;&#34;
+    Class for test data set, with similar structure as `data_class`.
+    &#34;&#34;&#34;
+    def __init__(self, data_sys, test_frames_sys, test_obs_sys, if_all_frames, data_train_sys):
+
+        # A. split weights
+        try:
+            w = data_sys.weights[test_frames_sys]
+        except:
+            w = data_sys.weights[list(test_frames_sys)]
+        self.logZ = np.log(np.sum(w))
+        self.weights = w/np.sum(w)
+        self.n_frames = np.shape(w)[0]
+
+        # B. split force-field terms
+        if hasattr(data_sys, &#39;f&#39;):
+            self.ff_correction = data_sys.ff_correction
+            try:
+                self.f = data_sys.f[test_frames_sys, :]
+            except:
+                self.f = data_sys.f[list(test_frames_sys), :]
+
+        # C. split experimental values gexp, normg_mean and normg_std, observables g
+
+        if hasattr(data_sys, &#39;gexp&#39;):
+            self.gexp_new = {}
+            self.n_experiments_new = {}
+
+            for name_type in data_sys.gexp.keys():
+
+                try:
+                    self.gexp_new[name_type] = data_sys.gexp[name_type][list(test_obs_sys[name_type])]
+                except:
+                    self.gexp_new[name_type] = data_sys.gexp[name_type][test_obs_sys[name_type]]
+
+                self.n_experiments_new[name_type] = len(test_obs_sys[name_type])
+
+        if hasattr(data_sys, &#39;names&#39;):
+
+            self.names_new = {}
+
+            for name_type in data_sys.names.keys():
+                self.names_new[name_type] = data_sys.names[name_type][list(test_obs_sys[name_type])]
+
+        if hasattr(data_sys, &#39;g&#39;):
+
+            self.g_new = {}
+            if if_all_frames:
+                self.g_new_old = {}
+            self.g = {}
+
+            for name_type in data_sys.g.keys():
+
+                # split g into: train, test1 (non-trained obs, all frames or only non-used ones),
+                # test2 (trained obs, non-used frames)
+                # if not test_obs[name_sys][name_type] == []:
+                self.g_new[name_type] = (data_sys.g[name_type][test_frames_sys, :].T)[test_obs_sys[name_type], :].T
+
+                if if_all_frames:  # new observables on trained frames
+                    self.g_new_old[name_type] = np.delete(
+                        data_sys.g[name_type], test_frames_sys, axis=0)[:, list(test_obs_sys[name_type])]
+
+                g3 = np.delete(data_sys.g[name_type], test_obs_sys[name_type], axis=1)
+                self.g[name_type] = g3[test_frames_sys, :]
+
+        if hasattr(data_sys, &#39;forward_qs&#39;):
+
+            self.forward_qs = {}
+
+            for name_type in data_sys.forward_qs.keys():
+                self.forward_qs[name_type] = data_sys.forward_qs[name_type][list(test_frames_sys), :]
+
+            if if_all_frames:
+                self.forward_qs_trained = data_train_sys.forward_qs
+
+        if hasattr(data_sys, &#39;forward_model&#39;):
+            self.forward_model = data_sys.forward_model
+
+        self.ref = data_sys.ref
+        self.selected_obs = data_train_sys.selected_obs  # same observables as in training
+        self.selected_obs_new = test_obs_sys
+
+        self.gexp = data_train_sys.gexp
+        self.n_experiments = data_train_sys.n_experiments
+        self.temperature = data_sys.temperature</code></pre>
+</details>
+</dd>
+<dt id="MDRefine.Functions.class_train"><code class="flex name class">
+<span>class <span class="ident">class_train</span></span>
+<span>(</span><span>data_sys, test_frames_sys, test_obs_sys)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for training data set, with similar structure as <code><a title="MDRefine.Functions.data_class" href="#MDRefine.Functions.data_class">data_class</a></code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class class_train:
+    &#34;&#34;&#34;
+    Class for training data set, with similar structure as `data_class`.
+    &#34;&#34;&#34;
+    def __init__(self, data_sys, test_frames_sys, test_obs_sys):
+
+        # training observables
+        train_obs = {}
+        for s in data_sys.n_experiments.keys():
+            train_obs[s] = [i for i in range(data_sys.n_experiments[s]) if i not in test_obs_sys[s]]
+        self.selected_obs = train_obs
+
+        # A. split weights
+        w = np.delete(data_sys.weights, test_frames_sys)
+        self.logZ = np.log(np.sum(w))
+        self.weights = w/np.sum(w)
+        self.n_frames = np.shape(w)[0]
+
+        # B. split force-field terms
+
+        if hasattr(data_sys, &#39;f&#39;):
+            self.ff_correction = data_sys.ff_correction
+            self.f = np.delete(data_sys.f, test_frames_sys, axis=0)
+
+        # C. split experimental values gexp, normg_mean and normg_std, observables g
+
+        if hasattr(data_sys, &#39;gexp&#39;):
+
+            self.gexp = {}
+            self.n_experiments = {}
+
+            for name_type in data_sys.gexp.keys():
+                self.gexp[name_type] = np.delete(data_sys.gexp[name_type], test_obs_sys[name_type], axis=0)
+                self.n_experiments[name_type] = np.shape(self.gexp[name_type])[0]
+
+        if hasattr(data_sys, &#39;names&#39;):
+
+            self.names = {}
+
+            for name_type in data_sys.names.keys():
+                self.names[name_type] = data_sys.names[name_type][train_obs[name_type]]
+
+        if hasattr(data_sys, &#39;g&#39;):
+
+            self.g = {}
+
+            for name_type in data_sys.g.keys():
+                train_g = np.delete(data_sys.g[name_type], test_frames_sys, axis=0)
+                self.g[name_type] = np.delete(train_g, test_obs_sys[name_type], axis=1)
+
+        if hasattr(data_sys, &#39;forward_qs&#39;):
+
+            self.forward_qs = {}
+
+            for name_type in data_sys.forward_qs.keys():
+                self.forward_qs[name_type] = np.delete(data_sys.forward_qs[name_type], test_frames_sys, axis=0)
+
+        if hasattr(data_sys, &#39;forward_model&#39;):
+            self.forward_model = data_sys.forward_model
+
+        self.ref = data_sys.ref
+
+        self.temperature = data_sys.temperature</code></pre>
+</details>
+</dd>
+<dt id="MDRefine.Functions.data_class"><code class="flex name class">
+<span>class <span class="ident">data_class</span></span>
+<span>(</span><span>info, path_directory, name_sys)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Data object of a molecular system.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>info</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the information about the data of <code>name_sys</code> molecular system in <code>path_directory</code>.</dd>
+<dt><strong><code>path_directory</code></strong> :&ensp;<code>str</code></dt>
+<dd>String for the path of the directory with data of the molecular system <code>name_sys</code>.</dd>
+<dt><strong><code>name_sys</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the molecular system taken into account.</dd>
+</dl>
+<hr>
+<h2 id="instance-variables">Instance variables:</h2>
+<p>temperature : float
+Value for the temperature at which the trajectory is simulated.</p>
+<p>gexp : dict
+Dictionary of Numpy 2-dimensional arrays (N x 2); <code>gexp[j,0]</code> is the experimental value of the j-th observable, <code>gexp[j,1]</code> is the corresponding uncertainty;
+the size N depends on the type of observable.</p>
+<p>names : dict
+Dictionary of Numpy 1-dimensional arrays of length N with the names of the observables of each type.</p>
+<p>ref : dict
+Dictionary of strings with signs `'=', '&gt;', '&lt;', '&gt;&lt;' used to define the chi2 to compute,
+depending on the observable type.</p>
+<p>g : dict
+Dictionary of Numpy 2-dimensional arrays (M x N), where <code>g[name][i,j]</code> is the j-th observable of that type computed in the i-th frame.</p>
+<p>forward_qs : dict
+Dictionary of Numpy 2-dimensional arrays (M x N) with the quantities required for the forward model.</p>
+<p>forward_model: function
+Function for the forward model, whose input variables are the forward-model coefficients <code>fm_coeffs</code> and the <code>forward_qs</code> dictionary;
+a third optional argument is the <code>selected_obs</code> (dictionary with indices of selected observables).</p>
+<p>weights: array_like
+Numpy 1-dimensional array of length M with the weights (not required to be normalized).</p>
+<p>f: dict
+Numpy 2-dimensional array (M x P) of terms required to compute the force-field correction,
+where P is the n. of parameters <code>pars</code> and M is the n. of frames.</p>
+<p>ff_correction: function
+Function for the force-field correction, whose input variables are the force-field correction parameters <code>pars</code> and the <code>f</code> array (sorted consistently with each other).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class data_class:
+    &#34;&#34;&#34;
+    Data object of a molecular system.
+
+    Parameters
+    ----------------
+    info: dict
+        Dictionary for the information about the data of `name_sys` molecular system in `path_directory`. 
+
+    path_directory: str
+        String for the path of the directory with data of the molecular system `name_sys`.
+
+    name_sys: str
+        Name of the molecular system taken into account.
+    
+    --------------
+    Instance variables:
+    --------------
+    temperature : float
+        Value for the temperature at which the trajectory is simulated.
+    
+    gexp : dict
+        Dictionary of Numpy 2-dimensional arrays (N x 2); `gexp[j,0]` is the experimental value of the j-th observable, `gexp[j,1]` is the corresponding uncertainty;
+        the size N depends on the type of observable.
+    
+    names : dict
+        Dictionary of Numpy 1-dimensional arrays of length N with the names of the observables of each type.
+    
+    ref : dict
+        Dictionary of strings with signs `&#39;=&#39;, &#39;&gt;&#39;, &#39;&lt;&#39;, &#39;&gt;&lt;&#39; used to define the chi2 to compute,
+        depending on the observable type.
+    
+    g : dict
+        Dictionary of Numpy 2-dimensional arrays (M x N), where `g[name][i,j]` is the j-th observable of that type computed in the i-th frame.
+    
+    forward_qs : dict
+        Dictionary of Numpy 2-dimensional arrays (M x N) with the quantities required for the forward model.
+    
+    forward_model: function
+        Function for the forward model, whose input variables are the forward-model coefficients `fm_coeffs` and the `forward_qs` dictionary;
+        a third optional argument is the `selected_obs` (dictionary with indices of selected observables).
+    
+    weights: array_like
+        Numpy 1-dimensional array of length M with the weights (not required to be normalized).
+    
+    f: dict
+        Numpy 2-dimensional array (M x P) of terms required to compute the force-field correction,
+        where P is the n. of parameters `pars` and M is the n. of frames.
+    
+    ff_correction: function
+        Function for the force-field correction, whose input variables are the force-field correction parameters `pars` and the `f` array (sorted consistently with each other).
+    &#34;&#34;&#34;
+    def __init__(self, info, path_directory, name_sys):
+
+        # 0. temperature
+
+        if &#39;temperature&#39; in info.keys():
+            self.temperature = info[&#39;temperature&#39;]
+            &#34;&#34;&#34;`float` value for the temperature&#34;&#34;&#34;
+        else:
+            self.temperature = 1.0
+
+        # 1. gexp (experimental values) and names of the observables
+
+        if &#39;g_exp&#39; in info.keys():
+
+            self.gexp = {}
+            &#34;&#34;&#34;dictionary of `numpy.ndarray` containing gexp values and uncertainties&#34;&#34;&#34;
+            self.names = {}
+            &#34;&#34;&#34;dictionary of `numpy.ndarray` containing names of experimental observables&#34;&#34;&#34;
+            self.ref = {}  # if data.gexp are boundary or puntual values
+            &#34;&#34;&#34;dictionary of `numpy.ndarray` containing references&#34;&#34;&#34;
+
+            if info[&#39;g_exp&#39;] is None:
+                if info[&#39;DDGs&#39;][&#39;if_DDGs&#39;] is False:
+                    print(&#39;error, some experimental data is missing&#39;)
+            else:
+                if info[&#39;g_exp&#39;] == []:
+                    info[&#39;g_exp&#39;] = [f[:-4] for f in os.listdir(path_directory+&#39;%s/g_exp&#39; % name_sys)]
+
+                for name in info[&#39;g_exp&#39;]:
+                    if type(name) is tuple:
+                        if len(name) == 5:
+                            for i in range(2):
+                                if name[2*i+2] == &#39;&gt;&#39;:
+                                    s = &#39; LOWER&#39;
+                                elif name[2*i+2] == &#39;&lt;&#39;:
+                                    s = &#39; UPPER&#39;
+                                else:
+                                    print(&#39;error in the sign of gexp&#39;)
+                                    return
+
+                                if os.path.isfile(path_directory+&#39;%s/g_exp/%s%s.npy&#39; % (name_sys, name[0], name[2*i+1])):
+                                    self.gexp[name[0]+s] = np.load(
+                                        path_directory+&#39;%s/g_exp/%s%s.npy&#39; % (name_sys, name[0], name[2*i+1]))
+                                elif os.path.isfile(path_directory+&#39;%s/g_exp/%s%s&#39; % (name_sys, name[0], name[2*i+1])):
+                                    self.gexp[name[0]+s] = numpy.loadtxt(
+                                        path_directory+&#39;%s/g_exp/%s%s&#39; % (name_sys, name[0], name[2*i+1]))
+
+                            self.ref[name[0]] = &#39;&gt;&lt;&#39;
+
+                        elif name[1] == &#39;=&#39; or name[1] == &#39;&gt;&#39; or name[1] == &#39;&lt;&#39;:
+                            if os.path.isfile(path_directory+&#39;%s/g_exp/%s.npy&#39; % (name_sys, name[0])):
+                                self.gexp[name[0]] = np.load(path_directory+&#39;%s/g_exp/%s.npy&#39; % (name_sys, name[0]))
+                            elif os.path.isfile(path_directory+&#39;%s/g_exp/%s&#39; % (name_sys, name[0])):
+                                self.gexp[name[0]] = numpy.loadtxt(path_directory+&#39;%s/g_exp/%s&#39; % (name_sys, name[0]))
+                            self.ref[name[0]] = name[1]
+
+                        else:
+                            print(&#39;error on specified sign of gexp&#39;)
+                            return
+
+                    else:
+                        if os.path.isfile(path_directory+&#39;%s/g_exp/%s.npy&#39; % (name_sys, name)):
+                            self.gexp[name] = np.load(path_directory+&#39;%s/g_exp/%s.npy&#39; % (name_sys, name))
+                        elif os.path.isfile(path_directory+&#39;%s/g_exp/%s&#39; % (name_sys, name)):
+                            self.gexp[name] = numpy.loadtxt(path_directory+&#39;%s/g_exp/%s&#39; % (name_sys, name))
+                        self.ref[name] = &#39;=&#39;
+
+                    if type(name) is tuple:
+                        name = name[0]
+                    if os.path.isfile(path_directory+&#39;%s/names/%s.npy&#39; % (name_sys, name)):
+                        self.names[name] = np.load(path_directory+&#39;%s/names/%s.npy&#39; % (name_sys, name))
+                    elif os.path.isfile(path_directory+&#39;%s/names/%s&#39; % (name_sys, name)):
+                        self.names[name] = numpy.loadtxt(path_directory+&#39;%s/names/%s&#39; % (name_sys, name))
+
+        # 2. g (observables)
+
+        if &#39;obs&#39; in info.keys():
+
+            self.g = {}
+
+            if info[&#39;obs&#39;] is not None:
+                if info[&#39;obs&#39;] == []:
+                    info[&#39;obs&#39;] = [f[:-4] for f in os.listdir(path_directory+&#39;%s/observables&#39; % name_sys)]
+                for name in info[&#39;obs&#39;]:
+                    if os.path.isfile(path_directory+&#39;%s/observables/%s.npy&#39; % (name_sys, name)):
+                        self.g[name] = np.load(path_directory+&#39;%s/observables/%s.npy&#39; % (name_sys, name), mmap_mode=&#39;r&#39;)
+                    elif os.path.isfile(path_directory+&#39;%s/observables/%s&#39; % (name_sys, name)):
+                        self.g[name] = numpy.loadtxt(path_directory+&#39;%s/observables/%s&#39; % (name_sys, name))
+
+        # 3. forward_qs (quantities for the forward model) and forward_model
+
+        if &#39;forward_qs&#39; in info.keys():
+
+            # in this way, you can define forward model either with or without selected_obs (c)
+            def my_forward_model(a, b, c=None):
+                try:
+                    out = info[&#39;forward_model&#39;](a, b, c)
+                except:
+                    assert c is None, &#39;you have selected_obs but the forward model is not suitably defined!&#39;
+                    out = info[&#39;forward_model&#39;](a, b)
+                return out
+
+            self.forward_model = my_forward_model  # info[&#39;forward_model&#39;]
+
+            self.forward_qs = {}
+
+            for name in info[&#39;forward_qs&#39;]:
+                if info[&#39;forward_qs&#39;] is not None:
+                    if info[&#39;forward_qs&#39;] == []:
+                        info[&#39;forward_qs&#39;] = [f[:-4] for f in os.listdir(path_directory+&#39;%s/forward_qs&#39; % name_sys)]
+                    for name in info[&#39;forward_qs&#39;]:
+                        if os.path.isfile(path_directory+&#39;%s/forward_qs/%s.npy&#39; % (name_sys, name)):
+                            self.forward_qs[name] = np.load(
+                                path_directory+&#39;%s/forward_qs/%s.npy&#39; % (name_sys, name), mmap_mode=&#39;r&#39;)
+                        elif os.path.isfile(path_directory+&#39;%s/forward_qs/%s&#39; % (name_sys, name)):
+                            self.forward_qs[name] = numpy.loadtxt(path_directory+&#39;%s/forward_qs/%s&#39; % (name_sys, name))
+
+        # 4. weights (normalized)
+
+        if os.path.isfile(path_directory+&#39;%s/weights.npy&#39; % name_sys):
+            self.weights = np.load(path_directory+&#39;%s/weights.npy&#39; % name_sys)
+        elif os.path.isfile(path_directory+&#39;%s/weights&#39; % name_sys):
+            self.weights = numpy.loadtxt(path_directory+&#39;%s/weights&#39; % name_sys)
+        else:
+            if (&#39;obs&#39; in info.keys()) and not (info[&#39;obs&#39;] is None):
+                name = list(self.g.keys())[0]
+                self.weights = np.ones(len(self.g[name]))
+            elif (&#39;forward_qs&#39; in info.keys()) and not (info[&#39;forward_qs&#39;] is None):
+                name = list(self.forward_qs.keys())[0]
+                self.weights = np.ones(len(self.forward_qs[info[&#39;forward_qs&#39;][0]]))
+            else:
+                print(&#39;error: missing MD data for %s!&#39; % name_sys)
+
+        self.weights = self.weights/np.sum(self.weights)
+
+        # 5. f (force field correction terms) and function
+
+        if (&#39;ff_correction&#39; in info.keys()) and (info[&#39;ff_correction&#39;] is not None):
+
+            if info[&#39;ff_correction&#39;] == &#39;linear&#39;:
+                self.ff_correction = lambda pars, f: np.matmul(f, pars)
+            else:
+                self.ff_correction = info[&#39;ff_correction&#39;]
+
+            ff_path = path_directory + &#39;%s/ff_terms&#39; % name_sys
+            self.f = np.load(ff_path + &#39;.npy&#39;)</code></pre>
+</details>
+</dd>
+<dt id="MDRefine.Functions.data_cycle_class"><code class="flex name class">
+<span>class <span class="ident">data_cycle_class</span></span>
+<span>(</span><span>cycle_name, DDGs_exp, info)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Data object of a thermodynamic cycle.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>cycle_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>String with the name of the thermodynamic cycle taken into account.</dd>
+<dt><strong><code>DDGs_exp</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Pandas.DataFrame with the experimental values and uncertainties of Delta Delta G in labelled thermodynamic cycles.</dd>
+<dt><strong><code>info</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the information about the temperature of <code>cycle_name</code> thermodynamic cycle.</dd>
+</dl>
+<hr>
+<h2 id="instance-variables">Instance variables:</h2>
+<p>gexp_DDG : list
+List of two elements: the experimental value and uncertainty of the Delta Delta G.</p>
+<p>temperature : float
+Value of temperature.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class data_cycle_class:
+    &#34;&#34;&#34;
+    Data object of a thermodynamic cycle.
+    
+    Parameters
+    -------------------
+    cycle_name : str
+        String with the name of the thermodynamic cycle taken into account.
+    
+    DDGs_exp : pandas.DataFrame
+        Pandas.DataFrame with the experimental values and uncertainties of Delta Delta G in labelled thermodynamic cycles.
+
+    info: dict
+        Dictionary for the information about the temperature of `cycle_name` thermodynamic cycle. 
+
+    -------------------
+    Instance variables:
+    -------------------
+    gexp_DDG : list
+        List of two elements: the experimental value and uncertainty of the Delta Delta G.
+    
+    temperature : float
+        Value of temperature.
+    &#34;&#34;&#34;
+    def __init__(self, cycle_name, DDGs_exp, info):
+
+        self.gexp_DDG = [DDGs_exp.loc[:, cycle_name].iloc[0], DDGs_exp.loc[:, cycle_name].iloc[1]]
+
+        if &#39;temperature&#39; in info.keys():
+            self.temperature = info[&#39;temperature&#39;]
+            &#34;&#34;&#34;Temperature.&#34;&#34;&#34;
+        else:
+            self.temperature = 1.0
+            &#34;&#34;&#34;Temperature&#34;&#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="MDRefine.Functions.data_global_class"><code class="flex name class">
+<span>class <span class="ident">data_global_class</span></span>
+<span>(</span><span>info_global, path_directory)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Global data, common to all the investigated molecular systems.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>info_global</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary with global information:
+<code>info_global['system_names']</code> with list of names of the molecular systems;
+<code>info_global['cycle_names']</code> with list of names of the thermodynamic cycles;
+<code>info_global['forward_coeffs']</code> with string for the file name of forward coefficients;
+<code>info_global['names_ff_pars']</code> with list of names of the force-field correction coefficients.</dd>
+<dt><strong><code>path_directory</code></strong> :&ensp;<code>str</code></dt>
+<dd>String with the path of the directory with input files.</dd>
+</dl>
+<hr>
+<h2 id="instance-variables">Instance variables:</h2>
+<p>system_names : list
+List of names of the investigated molecular systems.</p>
+<p>forward_coeffs_0 : list
+List of the forward-model coefficients.</p>
+<p>names_ff_pars : list
+List of names of the force-field correction parameters.</p>
+<p>cycle_names : list
+List of names of the investigated thermodynamic cycles.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class data_global_class:
+    &#34;&#34;&#34;Global data, common to all the investigated molecular systems.
+    
+    Parameters
+    -----------
+
+    info_global: dict
+        Dictionary with global information:
+        `info_global[&#39;system_names&#39;]` with list of names of the molecular systems;
+        `info_global[&#39;cycle_names&#39;]` with list of names of the thermodynamic cycles;
+        `info_global[&#39;forward_coeffs&#39;]` with string for the file name of forward coefficients;
+        `info_global[&#39;names_ff_pars&#39;]` with list of names of the force-field correction coefficients.
+
+    path_directory: str
+        String with the path of the directory with input files.
+
+    ----------------
+    Instance variables:
+    ----------------
+    system_names : list
+        List of names of the investigated molecular systems.
+    
+    forward_coeffs_0 : list
+        List of the forward-model coefficients.
+    
+    names_ff_pars : list
+        List of names of the force-field correction parameters.
+
+    cycle_names : list
+        List of names of the investigated thermodynamic cycles.
+    &#34;&#34;&#34;
+    def __init__(self, info_global, path_directory):
+
+        self.system_names = info_global[&#39;system_names&#39;]
+
+        if &#39;forward_coeffs&#39; in info_global.keys():
+            temp = pandas.read_csv(path_directory + info_global[&#39;forward_coeffs&#39;], header=None)
+            temp.index = temp.iloc[:, 0]
+            self.forward_coeffs_0 = temp.iloc[:, 1]
+
+            # temp = pandas.read_csv(path_directory+&#39;%s&#39; % info_global[&#39;forward_coeffs&#39;], index_col=0)
+            # if temp.shape[0] == 1:
+            #     self.forward_coeffs_0 = temp.iloc[:, 0]
+            # else:
+            #     self.forward_coeffs_0 = temp.squeeze()
+
+        if &#39;names_ff_pars&#39; in info_global.keys():
+            self.names_ff_pars = info_global[&#39;names_ff_pars&#39;]
+        
+        if &#39;cycle_names&#39; in info_global.keys():
+            self.cycle_names = info_global[&#39;cycle_names&#39;]
+
+    def tot_n_experiments(self, data):
+        &#34;&#34;&#34;This method computes the total n. of experiments.&#34;&#34;&#34;
+        
+        tot = 0
+
+        for k in self.system_names:
+            for item in data[k].n_experiments.values():
+                tot += item
+        return tot</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="MDRefine.Functions.data_global_class.tot_n_experiments"><code class="name flex">
+<span>def <span class="ident">tot_n_experiments</span></span>(<span>self, data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method computes the total n. of experiments.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="MDRefine.Functions.intermediates_class"><code class="flex name class">
+<span>class <span class="ident">intermediates_class</span></span>
+<span>(</span><span>alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for the intermediate steps of the minimization of the loss function.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class intermediates_class:
+    &#34;&#34;&#34;Class for the intermediate steps of the minimization of the loss function.&#34;&#34;&#34;
+    def __init__(self, alpha):
+        
+        self.loss = []
+        self.pars = []
+
+        if not np.isinf(alpha):
+            self.lambdas = []
+            self.minis = []</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="MDRefine" href="index.html">MDRefine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="MDRefine.Functions.MDRefinement" href="#MDRefine.Functions.MDRefinement">MDRefinement</a></code></li>
+<li><code><a title="MDRefine.Functions.check_and_skip" href="#MDRefine.Functions.check_and_skip">check_and_skip</a></code></li>
+<li><code><a title="MDRefine.Functions.compute_D_KL" href="#MDRefine.Functions.compute_D_KL">compute_D_KL</a></code></li>
+<li><code><a title="MDRefine.Functions.compute_DeltaDeltaG_terms" href="#MDRefine.Functions.compute_DeltaDeltaG_terms">compute_DeltaDeltaG_terms</a></code></li>
+<li><code><a title="MDRefine.Functions.compute_chi2" href="#MDRefine.Functions.compute_chi2">compute_chi2</a></code></li>
+<li><code><a title="MDRefine.Functions.compute_chi2_tot" href="#MDRefine.Functions.compute_chi2_tot">compute_chi2_tot</a></code></li>
+<li><code><a title="MDRefine.Functions.compute_details_ER" href="#MDRefine.Functions.compute_details_ER">compute_details_ER</a></code></li>
+<li><code><a title="MDRefine.Functions.compute_hyperderivatives" href="#MDRefine.Functions.compute_hyperderivatives">compute_hyperderivatives</a></code></li>
+<li><code><a title="MDRefine.Functions.compute_hypergradient" href="#MDRefine.Functions.compute_hypergradient">compute_hypergradient</a></code></li>
+<li><code><a title="MDRefine.Functions.compute_js" href="#MDRefine.Functions.compute_js">compute_js</a></code></li>
+<li><code><a title="MDRefine.Functions.compute_new_weights" href="#MDRefine.Functions.compute_new_weights">compute_new_weights</a></code></li>
+<li><code><a title="MDRefine.Functions.deconvolve_lambdas" href="#MDRefine.Functions.deconvolve_lambdas">deconvolve_lambdas</a></code></li>
+<li><code><a title="MDRefine.Functions.gamma_function" href="#MDRefine.Functions.gamma_function">gamma_function</a></code></li>
+<li><code><a title="MDRefine.Functions.hyper_function" href="#MDRefine.Functions.hyper_function">hyper_function</a></code></li>
+<li><code><a title="MDRefine.Functions.hyper_minimizer" href="#MDRefine.Functions.hyper_minimizer">hyper_minimizer</a></code></li>
+<li><code><a title="MDRefine.Functions.l2_regularization" href="#MDRefine.Functions.l2_regularization">l2_regularization</a></code></li>
+<li><code><a title="MDRefine.Functions.load_data" href="#MDRefine.Functions.load_data">load_data</a></code></li>
+<li><code><a title="MDRefine.Functions.loss_function" href="#MDRefine.Functions.loss_function">loss_function</a></code></li>
+<li><code><a title="MDRefine.Functions.loss_function_and_grad" href="#MDRefine.Functions.loss_function_and_grad">loss_function_and_grad</a></code></li>
+<li><code><a title="MDRefine.Functions.mini_and_chi2_and_grad" href="#MDRefine.Functions.mini_and_chi2_and_grad">mini_and_chi2_and_grad</a></code></li>
+<li><code><a title="MDRefine.Functions.minimizer" href="#MDRefine.Functions.minimizer">minimizer</a></code></li>
+<li><code><a title="MDRefine.Functions.normalize_observables" href="#MDRefine.Functions.normalize_observables">normalize_observables</a></code></li>
+<li><code><a title="MDRefine.Functions.put_together" href="#MDRefine.Functions.put_together">put_together</a></code></li>
+<li><code><a title="MDRefine.Functions.save_txt" href="#MDRefine.Functions.save_txt">save_txt</a></code></li>
+<li><code><a title="MDRefine.Functions.select_traintest" href="#MDRefine.Functions.select_traintest">select_traintest</a></code></li>
+<li><code><a title="MDRefine.Functions.unwrap_2dict" href="#MDRefine.Functions.unwrap_2dict">unwrap_2dict</a></code></li>
+<li><code><a title="MDRefine.Functions.validation" href="#MDRefine.Functions.validation">validation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="MDRefine.Functions.class_test" href="#MDRefine.Functions.class_test">class_test</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.Functions.class_train" href="#MDRefine.Functions.class_train">class_train</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.Functions.data_class" href="#MDRefine.Functions.data_class">data_class</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.Functions.data_cycle_class" href="#MDRefine.Functions.data_cycle_class">data_cycle_class</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.Functions.data_global_class" href="#MDRefine.Functions.data_global_class">data_global_class</a></code></h4>
+<ul class="">
+<li><code><a title="MDRefine.Functions.data_global_class.tot_n_experiments" href="#MDRefine.Functions.data_global_class.tot_n_experiments">tot_n_experiments</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="MDRefine.Functions.intermediates_class" href="#MDRefine.Functions.intermediates_class">intermediates_class</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.1</a>.</p>
+</footer>
+</body>
+</html>
