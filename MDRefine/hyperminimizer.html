@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.1">
+<title>MDRefine.hyperminimizer API documentation</title>
+<meta name="description" content="Tools n. 3: hyperminimizer.
+It performs the automatic search for the optimal hyperparameters.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>MDRefine.hyperminimizer</code></h1>
+</header>
+<section id="section-intro">
+<p>Tools n. 3: hyperminimizer.
+It performs the automatic search for the optimal hyperparameters.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="MDRefine.hyperminimizer.compute_chi2_tot"><code class="name flex">
+<span>def <span class="ident">compute_chi2_tot</span></span>(<span>pars_ff_fm, lambdas, data, regularization, alpha, beta, gamma, which_set)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function is an internal tool used in <code><a title="MDRefine.hyperminimizer.compute_hypergradient" href="#MDRefine.hyperminimizer.compute_hypergradient">compute_hypergradient()</a></code> and <code><a title="MDRefine.hyperminimizer.hyper_minimizer" href="#MDRefine.hyperminimizer.hyper_minimizer">hyper_minimizer()</a></code>
+to compute the total chi2 (float variable) for the training or test data set and its derivatives
+(with respect to <code>pars_ff_fm</code> and <code>lambdas</code>). The choice of the data set is indicated by <code>which_set</code>
+(<code>which_set = 'training'</code> for chi2 on the training set, <code>'validation'</code> for chi2 on training observables and test frames,
+<code>'test'</code> for chi2 on test observables and test frames, through validation function).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars_ff_fm</code></strong>, <strong><code>lambdas</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy arrays for (force-field + forward-model) parameters and lambdas parameters, respectively.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of data set object.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Specified regularizations of force-field and forward-model corrections (see in <code>MDRefinement</code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>float</code></dt>
+<dd>Values of the hyperparameters.</dd>
+<dt><strong><code>which_set</code></strong> :&ensp;<code>str</code></dt>
+<dd>String variable, chosen among <code>'training'</code>, <code>'validation'</code> or <code>'test'</code> as explained above.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.hyperminimizer.compute_hyperderivatives"><code class="name flex">
+<span>def <span class="ident">compute_hyperderivatives</span></span>(<span>pars_ff_fm, lambdas, data, regularization, derivatives_funs, log10_alpha=inf, log10_beta=inf, log10_gamma=inf)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.hyperminimizer.compute_hypergradient" href="#MDRefine.hyperminimizer.compute_hypergradient">compute_hypergradient()</a></code> which computes the derivatives of parameters with respect to hyperparameters,
+which are going to be used later to compute the derivatives of chi2 w.r.t. hyperparameters.
+It returns an instance of the class <code>derivatives</code>, which includes as attributes the numerical values of
+the derivatives <code>dlambdas_dlogalpha</code>, <code>dlambdas_dpars</code>, <code>dpars_dlogalpha</code>, <code>dpars_dlogbeta</code>, <code>dpars_dloggamma</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars_ff_fm</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy array for force-field and forward-model coefficients.</dd>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy array for lambdas coefficients (those for ensemble refinement).</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The <code>data</code> object.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The regularization of force-field and forward-model corrections (see in <code>MDRefinement</code>).</dd>
+<dt><strong><code>derivatives_funs</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Instance of the <code>derivatives_funs_class</code> class of derivatives functions computed by Jax.</dd>
+<dt><strong><code>log10_alpha</code></strong>, <strong><code>log10_beta</code></strong>, <strong><code>log10_gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Logarithms (in base 10) of the corresponding hyperparameters alpha, beta, gamma (<code>np.inf</code> by default).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.hyperminimizer.compute_hypergradient"><code class="name flex">
+<span>def <span class="ident">compute_hypergradient</span></span>(<span>pars_ff_fm, lambdas, log10_alpha, log10_beta, log10_gamma, data_train, regularization, which_set, data_test, derivatives_funs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.hyperminimizer.mini_and_chi2_and_grad" href="#MDRefine.hyperminimizer.mini_and_chi2_and_grad">mini_and_chi2_and_grad()</a></code>, which employs previously defined functions (<code><a title="MDRefine.hyperminimizer.compute_hyperderivatives" href="#MDRefine.hyperminimizer.compute_hyperderivatives">compute_hyperderivatives()</a></code>, <code><a title="MDRefine.hyperminimizer.compute_chi2_tot" href="#MDRefine.hyperminimizer.compute_chi2_tot">compute_chi2_tot()</a></code>,
+<code><a title="MDRefine.hyperminimizer.put_together" href="#MDRefine.hyperminimizer.put_together">put_together()</a></code>) to return selected chi2 and its gradient w.r.t hyperparameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars_ff_fm</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy array of (force-field and forward-model) parameters.</dd>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of dictionaries with lambda coefficients (corresponding to Ensemble Refinement).</dd>
+<dt><strong><code>log10_alpha</code></strong>, <strong><code>log10_beta</code></strong>, <strong><code>log10_gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Logarithms (in base 10) of the hyperparameters alpha, beta, gamma.</dd>
+<dt><strong><code>data_train</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>The training data set object, which is anyway required to compute the derivatives of parameters w.r.t. hyper-parameters.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Specified regularizations (see in <code>MDRefinement</code>).</dd>
+<dt><strong><code>which_set</code></strong> :&ensp;<code>str</code></dt>
+<dd>String indicating which set defines the chi2 to minimize in order to get the optimal hyperparameters (see in <code><a title="MDRefine.hyperminimizer.compute_chi2_tot" href="#MDRefine.hyperminimizer.compute_chi2_tot">compute_chi2_tot()</a></code>).</dd>
+<dt><strong><code>data_test</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>The test data set object, which is required to compute the chi2 on the test set (when <code>which_set == 'validation' or 'test'</code>;
+otherwise, if <code>which_set = 'training'</code>, it is useless, so it can be set to <code>None</code>).</dd>
+<dt><strong><code>derivatives_funs</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Instance of the <code>derivatives_funs_class</code> class of derivatives functions computed by Jax Autodiff (they include those employed in <code><a title="MDRefine.hyperminimizer.compute_hyperderivatives" href="#MDRefine.hyperminimizer.compute_hyperderivatives">compute_hyperderivatives()</a></code>
+and <code>dchi2_dpars</code> and/or <code>dchi2_dlambdas</code>).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.hyperminimizer.hyper_function"><code class="name flex">
+<span>def <span class="ident">hyper_function</span></span>(<span>log10_hyperpars, map_hyperpars, data, regularization, test_obs, test_frames, which_set, derivatives_funs, starting_pars, n_parallel_jobs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function is an internal tool of <code><a title="MDRefine.hyperminimizer.hyper_minimizer" href="#MDRefine.hyperminimizer.hyper_minimizer">hyper_minimizer()</a></code> which determines the optimal parameters by minimizing the loss function at given hyperparameters;
+then, it computes chi2 and its gradient w.r.t hyperparameters (for the optimal parameters).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>log10_hyperpars</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy array for log10 hyperparameters alpha, beta, gamma (in this order, when present).</dd>
+<dt><strong><code>map_hyperpars</code></strong> :&ensp;<code>list</code></dt>
+<dd>Legend for <code>log10_hyperpars</code> (they refer to alpha, beta, gamma in this order,
+but some of them may not be present, if fixed to <code>+np.inf</code>).</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Class instance for <code>data</code> object.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionaries for <code>regularization</code> object.</dd>
+<dt><strong><code>test_obs</code></strong>, <strong><code>test_frames</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for test observables and test frames, indicized by seeds.</dd>
+<dt><strong><code>which_set</code></strong> :&ensp;<code>str</code></dt>
+<dd>String, see for <code><a title="MDRefine.hyperminimizer.compute_chi2_tot" href="#MDRefine.hyperminimizer.compute_chi2_tot">compute_chi2_tot()</a></code>.</dd>
+<dt><strong><code>derivatives_funs</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Derivative functions computed by <code>Jax</code> and employed in <code><a title="MDRefine.hyperminimizer.compute_hypergradient" href="#MDRefine.hyperminimizer.compute_hypergradient">compute_hypergradient()</a></code>.</dd>
+<dt><strong><code>starting_pars</code></strong> :&ensp;<code>float</code></dt>
+<dd>Starting values of the parameters, if user-defined; <code>None</code> otherwise.</dd>
+<dt><strong><code>n_parallel_jobs</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of parallel jobs.</dd>
+</dl>
+<hr>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>tot_chi2</code></strong> :&ensp;<code>float</code></dt>
+<dd>Float value of total chi2.</dd>
+<dt><strong><code>tot_gradient</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy array for gradient of total chi2 with respect to the hyperparameters.</dd>
+<dt><strong><code>Results</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Results given by <code>minimizer</code>.</dd>
+</dl>
+<hr>
+<p>Global variable: <code>hyper_intermediate</code>, in order to follow steps of minimization.</p></div>
+</dd>
+<dt id="MDRefine.hyperminimizer.hyper_minimizer"><code class="name flex">
+<span>def <span class="ident">hyper_minimizer</span></span>(<span>data, starting_alpha=inf, starting_beta=inf, starting_gamma=inf, regularization=None, random_states=1, replica_infos=None, which_set='validation', gtol=0.5, ftol=0.05, starting_pars=None, n_parallel_jobs=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool optimizes the hyperparameters by minimizing the selected chi2 (training, validation or test)
+over several (randomly) splits of the full data set into training/test set.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Object <code>data</code>, with the full data set previously loaded.</dd>
+<dt><strong><code>starting_alpha</code></strong>, <strong><code>starting_beta</code></strong>, <strong><code>starting_gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Starting points of the hyperparameters (<code>+np.inf</code> by default, namely no refinement in that direction).</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the defined regularizations of force-field and forward-model corrections (<code>None</code> by default); see for <code>MDRefinement</code>.</dd>
+<dt><strong><code>replica_infos</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary with information required to split frames following continuous trajectories in replica exchange ("demuxing"); see <code>select_traintest</code> for further details.</dd>
+<dt><strong><code>random_states</code></strong> :&ensp;<code>int</code> or <code>list</code></dt>
+<dd>Random states (i.e., seeds) used in <code>select_traintest</code> to split the data set into training and test set (see <code>MDRefinement</code>); 1 by default.</dd>
+<dt><strong><code>which_set</code></strong> :&ensp;<code>str</code></dt>
+<dd>String choosen among <code>'training'</code>, <code>'validation'</code>, <code>'test'</code> (see in <code>MDRefinement</code>); <code>validation</code> by default.</dd>
+<dt><strong><code>gtol</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>gtol</code> of <code>scipy.optimize.minimize</code> (0.5 by default).</dd>
+<dt><strong><code>ftol</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>ftol</code> of <code>scipy.optimize.minimize</code> (0.05 by default).</dd>
+<dt><strong><code>starting_pars</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy array of starting values for the minimization of parameters <code>pars_ff_fm</code> (<code>None</code> by default).</dd>
+<dt><strong><code>n_parallel_jobs</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of jobs run in parallel (<code>None</code> by default).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.hyperminimizer.mini_and_chi2_and_grad"><code class="name flex">
+<span>def <span class="ident">mini_and_chi2_and_grad</span></span>(<span>data, test_frames, test_obs, regularization, alpha, beta, gamma, starting_pars, which_set, derivatives_funs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.hyperminimizer.hyper_function" href="#MDRefine.hyperminimizer.hyper_function">hyper_function()</a></code> which minimizes the loss function at given hyperparameters, computes the chi2 and
+its gradient w.r.t. the hyperparameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Class instance which constitutes the <code>data</code> object.</dd>
+<dt><strong><code>test_frames</code></strong>, <strong><code>test_obs</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for test frames and test observables (for a given <code>random_state</code>).</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the regularizations (see in <code>MDRefinement</code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Values of the hyperparameters.</dd>
+<dt><strong><code>starting_pars</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array for starting values of the coefficients in <code>minimizer</code>.</dd>
+<dt><strong><code>which_set</code></strong> :&ensp;<code>str</code></dt>
+<dd>String among <code>'training'</code>, <code>'validation'</code> or <code>'test'</code> (see in <code>MDRefinement</code>).</dd>
+<dt><strong><code>derivatives_funs</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Instance of the <code>derivatives_funs_class</code> class of derivatives functions computed by Jax Autodiff.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.hyperminimizer.put_together"><code class="name flex">
+<span>def <span class="ident">put_together</span></span>(<span>dchi2_dpars, dchi2_dlambdas, derivatives)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.hyperminimizer.compute_hypergradient" href="#MDRefine.hyperminimizer.compute_hypergradient">compute_hypergradient()</a></code> which applies the chain rule in order to get the derivatives of chi2 w.r.t hyperparameters from
+derivatives of chi2 w.r.t. parameters and derivatives of parameters w.r.t. hyperparameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dchi2_dpars</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Numpy 1-dimensional array with derivatives of chi2 w.r.t. <code>pars_ff_fm</code> (force-field and forward-model parameters).</dd>
+<dt><strong><code>dchi2_dlambdas</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Numpy 1-dimensional array with derivatives of chi2 w.r.t. <code>lambdas</code> (same order of <code>lambdas</code> in <code>dchi2_dlambdas</code> and in <code>derivatives</code>).</dd>
+<dt><strong><code>derivatives</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Class instance with derivatives of <code>pars_ff_fm</code> and <code>lambdas</code> w.r.t. hyperparameters (determined in <code><a title="MDRefine.hyperminimizer.compute_hyperderivatives" href="#MDRefine.hyperminimizer.compute_hyperderivatives">compute_hyperderivatives()</a></code>).</dd>
+</dl>
+<hr>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>out</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Class instance whose attributes can include <code>dchi2_dlogalpha</code>, <code>dchi2_dlogbeta</code>, <code>dchi2_dloggamma</code>,</dd>
+</dl>
+<p>depending on which hyperparameters are not fixed to <code>+np.inf</code>.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="MDRefine" href="index.html">MDRefine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="MDRefine.hyperminimizer.compute_chi2_tot" href="#MDRefine.hyperminimizer.compute_chi2_tot">compute_chi2_tot</a></code></li>
+<li><code><a title="MDRefine.hyperminimizer.compute_hyperderivatives" href="#MDRefine.hyperminimizer.compute_hyperderivatives">compute_hyperderivatives</a></code></li>
+<li><code><a title="MDRefine.hyperminimizer.compute_hypergradient" href="#MDRefine.hyperminimizer.compute_hypergradient">compute_hypergradient</a></code></li>
+<li><code><a title="MDRefine.hyperminimizer.hyper_function" href="#MDRefine.hyperminimizer.hyper_function">hyper_function</a></code></li>
+<li><code><a title="MDRefine.hyperminimizer.hyper_minimizer" href="#MDRefine.hyperminimizer.hyper_minimizer">hyper_minimizer</a></code></li>
+<li><code><a title="MDRefine.hyperminimizer.mini_and_chi2_and_grad" href="#MDRefine.hyperminimizer.mini_and_chi2_and_grad">mini_and_chi2_and_grad</a></code></li>
+<li><code><a title="MDRefine.hyperminimizer.put_together" href="#MDRefine.hyperminimizer.put_together">put_together</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.1</a>.</p>
+</footer>
+</body>
+</html>

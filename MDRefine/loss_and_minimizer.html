@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.1">
+<title>MDRefine.loss_and_minimizer API documentation</title>
+<meta name="description" content="Tools n. 2: loss_and_minimizer.
+It defines the loss functions and minimizes it.
+It includes also `select_traintest` and `validation`.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>MDRefine.loss_and_minimizer</code></h1>
+</header>
+<section id="section-intro">
+<p>Tools n. 2: loss_and_minimizer.
+It defines the loss functions and minimizes it.
+It includes also <code><a title="MDRefine.loss_and_minimizer.select_traintest" href="#MDRefine.loss_and_minimizer.select_traintest">select_traintest()</a></code> and <code><a title="MDRefine.loss_and_minimizer.validation" href="#MDRefine.loss_and_minimizer.validation">validation()</a></code>.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="MDRefine.loss_and_minimizer.compute_D_KL"><code class="name flex">
+<span>def <span class="ident">compute_D_KL</span></span>(<span>weights_P: numpy.ndarray, correction_ff: numpy.ndarray, temperature: float, logZ_P: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the Kullback-Leibler divergence of P(x) = 1/Z P_0 (x) e^(-V(x)/T)
+with respect to P_0 as <code>av(V)/T + log Z</code> where av(V) is the average value of the potential V(x) over P(x).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>weights_P</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array for the normalized weights P(x).</dd>
+<dt><strong><code>correction_ff</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array for the reweighting potential V(x).</dd>
+<dt><strong><code>temperature</code></strong> :&ensp;<code>float</code></dt>
+<dd>The value of temperature T, in measure units consistently with V(x), namely, such that V(x)/T is adimensional.</dd>
+<dt><strong><code>logZ_P</code></strong> :&ensp;<code>float</code></dt>
+<dd>The value of log Z.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_DeltaDeltaG_terms"><code class="name flex">
+<span>def <span class="ident">compute_DeltaDeltaG_terms</span></span>(<span>data, logZ_P)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the chi2 for Delta Delta G (free-energy differences from thermodynamic cycles),
+contributing to the loss function with alchemical calculations.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Object <code>data</code>; here, <code>data._global_</code> has the attribute <code>cycle_names</code> (list of names of the thermodynamic cycles);
+<code>for s in data._global_.cycle_names</code>: <code>data.cycle[s]</code> has attributes <code>temperature</code> (of the cycle) and <code>gexp_DDG</code>;
+<code>for s in my_list</code> (where <code>my_list</code> is the list of system names associated to a thermodynamic cycle
+<code>my_list = [x2 for x in list(data._global_.cycle_names.values()) for x2 in x]</code>):
+<code>data.sys[s]</code> has attributes <code>temperature</code> (of the system) and <code>logZ</code>.</dd>
+<dt><strong><code>logZ_P</code></strong> :&ensp;<code>dict</code></dt>
+<dd>
+<p>&nbsp;</p>
+<h2 id="dictionary-for-logarithm-of-the-partition-function-z_p-namely-average-value-of-exp-v_phixtemperature-over-the-original-ensemble">Dictionary for logarithm of the partition function Z_P, namely, average value of exp(-V_phi(x)/temperature) over the original ensemble.</h2>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>new_av_DG</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of reweighted averages of Delta G.</dd>
+<dt><strong><code>chi2</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of chi2 (one for each thermodynamic cycle).</dd>
+<dt><strong><code>loss</code></strong> :&ensp;<code>float</code></dt>
+<dd>Total contribution to the loss function from free-energy differences Delta Delta G,
+given by 1/2 of the total chi2.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_chi2"><code class="name flex">
+<span>def <span class="ident">compute_chi2</span></span>(<span>ref, weights, g, gexp, if_separate=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the chi2 (for a given molecular system).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ref</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for references (<code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;&lt;</code>) used to compute the appropriate chi2.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array of weights.</dd>
+<dt><strong><code>g</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of observables specific for the given molecular system.</dd>
+<dt><strong><code>gexp</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of experimental values specific for the given molecular system (coherently with <code>g</code>).</dd>
+<dt><strong><code>if_separate</code></strong> :&ensp;<code>bool</code></dt>
+<dd>
+<p>Boolean variable, True if you are distinguishing between LOWER and UPPER bounds (<code>name_type + ' LOWER'</code> or</p>
+<h2 id="name_type-upper-needed-for-minimizations-with-double-bounds"><code>name_type + ' UPPER'</code>), needed for minimizations with double bounds.</h2>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>This tool returns 4 variables: 3 dictionaries (with keys running over different kinds</code> of <code>observables) and 1 float:</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>av_g</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of average values of the observables <code>g</code>.</dd>
+<dt><strong><code>chi2</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of chi2.</dd>
+<dt><strong><code>rel_diffs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dicionary of relative differences.</dd>
+<dt><strong><code>tot_chi2</code></strong> :&ensp;<code>float</code></dt>
+<dd>Total chi2 for the given molecular system.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_details_ER"><code class="name flex">
+<span>def <span class="ident">compute_details_ER</span></span>(<span>weights_P, g, data, lambdas, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> which computes explicitely the contribution to the loss function due to Ensemble Refinement
+(namely, 1/2 chi2 + alpha D_KL) and compare this value with -alpha*Gamma (they are equal in the minimum: check).
+It cycles over different systems. It acts after the minimization of the loss function inside <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> (not for the minimization
+itself, since we exploit the Gamma function).</p>
+<p>Be careful to use either: normalized values for <code>lambdas</code> and <code>g</code> (if <code>hasattr(data.sys[name_sys],'normg_mean')</code>) or non-normalized ones
+(if <code>not hasattr(data.sys[name_sys],'normg_mean')</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>weights_P</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of Numpy arrays, namely, the weights on which Ensemble Refinement acts (those with force-field correction
+in the fully combined refinement).</dd>
+<dt><strong><code>g</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of dictionaries, like for <code>data.sys[name_sys].g</code>, corresponding to the observables (computed with updated forward-model coefficients).</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The original data object.</dd>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of Numpy arrays, corresponding to the coefficients for Ensemble Refinement.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>float</code></dt>
+<dd>The alpha hyperparameter, for Ensemble Refinement.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_js"><code class="name flex">
+<span>def <span class="ident">compute_js</span></span>(<span>n_experiments)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the indices <code>js</code> (defined by cumulative sums) for lambdas corresponding to different molecular systems and
+types of observables. Be careful to follow always the same order: let's choose it as that of <code>data.n_experiments</code>,
+which is a dictionary <code>n_experiments[name_sys][name]</code>.</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_new_weights"><code class="name flex">
+<span>def <span class="ident">compute_new_weights</span></span>(<span>weights: numpy.ndarray, correction: numpy.ndarray)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the new weights as weights*exp(-correction).
+It modifies Parameters <code>weights</code> are normalized and <code>correction</code> is shifted by <code>correction -= shift</code>, where <code>shift = np.min(correction)</code>.
+It returns two variables: a Numpy array <code>new_weights</code> and a float <code>logZ</code>.</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.deconvolve_lambdas"><code class="name flex">
+<span>def <span class="ident">deconvolve_lambdas</span></span>(<span>data, lambdas: numpy.ndarray, if_denormalize: bool = True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool deconvolves <code>lambdas</code> from Numpy array to dictionary of dictionaries (corresponding to <code>data.sys[name_sys].g</code>);
+if <code>if_denormalize</code>, then <code>lambdas</code> has been computed with normalized data, so use <code>data.sys[name_sys].normg_std</code> and <code>data.sys[name_sys].normg_mean</code>
+in order to go back to corresponding lambdas for non-normalized data. The order of <code>lambdas</code> is the one described in <code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js()</a></code>.</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.gamma_function"><code class="name flex">
+<span>def <span class="ident">gamma_function</span></span>(<span>lambdas: numpy.ndarray, g: numpy.ndarray, gexp: numpy.ndarray, weights: numpy.ndarray, alpha: float, if_gradient: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes gamma function and (if <code>if_gradient</code>) its derivatives and the average values of the observables <code>av_g</code>.
+Make sure that <code>lambdas</code> follow the same order as <code>g</code>, <code>gexp</code> (let's use that of <code>data.n_experiments</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array of length N, where <code>lambdas[j]</code> is the lambda value for the j-th observable.</dd>
+<dt><strong><code>g</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 2-dimensional array (M x N); <code>g[i,j]</code> is the j-th observable computed in the i-th frame.</dd>
+<dt><strong><code>gexp</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 2-dimensional array (N x 2); <code>gexp[j,0]</code> is the experimental value of the j-th observable, <code>gexp[j,1]</code> is the associated experimental uncertainty.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array of length M; <code>w[i]</code> is the weight of the i-th frame (possibly non-normalized).</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>float</code></dt>
+<dd>The value of the alpha hyperparameter.</dd>
+<dt><strong><code>if_gradient</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If true, return also the gradient of the gamma function.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.l2_regularization"><code class="name flex">
+<span>def <span class="ident">l2_regularization</span></span>(<span>pars: numpy.ndarray, choice: str = 'plain l2')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the L2 regularization for the force-field correction coefficients <code>pars</code> as specified by <code>choice</code>. It includes:</p>
+<ul>
+<li>
+<p><code>'plain l2'</code> (plain L2 regularization of <code>pars</code>);</p>
+</li>
+<li>
+<p>L2 regularization for alchemical calculations with charges (as described by Valerio Piomponi et al., see main paper):
+<code>pars[:-1]</code> are the charges and <code>pars[-1]</code> is V_eta; there is the constraint on the total charge, and there are 3 <code>pars[4]</code> charges in the molecule;
+so, <code>'constraint 1'</code> is the L2 regularization on charges, while <code>'constraint 2'</code> is the L2 regularization on charges and on V_eta.</p>
+</li>
+</ul>
+<p>Output values: lossf_reg and gradient (floats).</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.loss_function"><code class="name flex">
+<span>def <span class="ident">loss_function</span></span>(<span>pars_ff_fm: numpy.ndarray, data: dict, regularization: dict, alpha: float = inf, beta: float = inf, gamma: float = inf, fixed_lambdas: numpy.ndarray = None, gtol_inn: float = 0.001, if_save: bool = False, bounds: dict = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool computes the fully-combined loss function (to minimize), taking advantage of the inner minimization with Gamma function.</p>
+<p>If <code>not np.isinf(alpha)</code>:</p>
+<ul>
+<li>
+<p>if <code>fixed_lambdas == None</code>, then do the inner minimization of Gamma (in this case, you have the global variable <code>lambdas</code>,
+corresponding to the starting point of the minimization; it is a Numpy array sorted as in <code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js()</a></code>).</p>
+</li>
+<li>
+<p>else: <code>lambdas</code> is fixed (<code>fixed_lambdas</code> is not <code>None</code>) and the Gamma function is evaluated at this value of lambda, which must
+correspond to its point of minimum, otherwise there is a mismatch between the Gamma function and the Ensemble Refinement loss.</p>
+</li>
+</ul>
+<p>The order followed for <code>lambdas</code> is the one of <code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js()</a></code>, which is not modified in any step.</p>
+<p>If <code>if_save</code>: <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> will return <code>Details</code> class instance with the detailed results; otherwise, it will return just the loss value.</p>
+<p>The input data will not be modified by <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> (neither explicitely by <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> nor by its inner functions):
+for forward-model updating, you are going to define a new variable <code>g</code> (through <code>copy.deepcopy</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars_ff_fm</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array with parameters for force-field corrections and/or forward models.
+These parameters are sorted as: first force-field correction (ff), then forward model (fm);
+order for ff: <code>names_ff_pars = []</code>; <code>for k in system_names: [names_ff_pars.append(x) for x in data[k].f.keys() if x not in names_ff_pars]</code>;
+order for fm: the same as <code>data.forward_coeffs_0</code>.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of class instances as organised in <code>load_data</code>, which constitutes the <code>data</code> object.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the force-field and forward-model correction regularizations (see <code>MDRefinement</code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>The hyperparameters of the three refinements (respectively, to: the ensemble, the force-field, the forward-model);
+(<code>+np.inf</code> by default, namely no refinement in that direction).</dd>
+<dt><strong><code>fixed_lambdas</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array of fixed values of <code>lambdas</code> (coefficients for Ensemble Refinement, organized as in <code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js()</a></code>).
+(<code>None</code> by default).</dd>
+<dt><strong><code>gtol_inn</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>gtol</code> for the inner minimization of Gamma function (<code>1e-3</code> by default).</dd>
+<dt><strong><code>if_save</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Boolean variable (<code>False</code> by default).</dd>
+<dt><strong><code>bounds</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of boundaries for the inner minimization (<code>None</code> by default).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.loss_function_and_grad"><code class="name flex">
+<span>def <span class="ident">loss_function_and_grad</span></span>(<span>pars: numpy.ndarray, data: dict, regularization: dict, alpha: float, beta: float, gamma: float, gtol_inn: float, boundaries: dict, gradient_fun)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool returns <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> and its gradient; the gradient function, which is going to be evaluated, is computed by Jax and passed as input variable <code>gradient_fun</code>.
+If <code>not np.isinf(alpha)</code>, it appends also loss and lambdas to <code>intermediates.loss</code> and <code>intermediates.lambdas</code>, respectively.</p>
+<p>Global variable: <code>intermediates</code> (intermediate values during the minimization steps of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy array of parameters for force-field correction and forward model, respectively.</dd>
+<dt><strong><code>data</code></strong>, <strong><code>regularization</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for <code>data</code> object and regularizations (see in <code>MDRefinement</code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Values of the hyperparameters.</dd>
+<dt><strong><code>gtol_inn</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>gtol</code> for the inner minimization in <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>.</dd>
+<dt><strong><code>boundaries</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of boundaries for the inner minimization in <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>.</dd>
+<dt><strong><code>gradient_fun</code></strong> :&ensp;<code>function</code></dt>
+<dd>Gradient function of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>, computed by Jax.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.minimizer"><code class="name flex">
+<span>def <span class="ident">minimizer</span></span>(<span>original_data, *, regularization: dict = None, alpha: float = inf, beta: float = inf, gamma: float = inf, gtol: float = 0.001, gtol_inn: float = 0.001, data_test: dict = None, starting_pars: numpy.ndarray = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool minimizes loss_function on <code>original_data</code> and do <code><a title="MDRefine.loss_and_minimizer.validation" href="#MDRefine.loss_and_minimizer.validation">validation()</a></code> on <code>data_test</code> (if <code>not None</code>), at given hyperparameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>original_data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for <code>data</code>-like object employed for the minimization of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the regularizations (see in <code>MDRefinement</code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Values of the hyperparameters for combined refinement (<code>+np.inf</code> by default: no refinement in that direction).</dd>
+<dt><strong><code>gtol</code></strong>, <strong><code>gtol_inn</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Tolerances <code>gtol</code> for the minimizations of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> and inner <code><a title="MDRefine.loss_and_minimizer.gamma_function" href="#MDRefine.loss_and_minimizer.gamma_function">gamma_function()</a></code>, respectively.</dd>
+<dt><strong><code>data_test</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for <code>data</code>-like object employed as test set (<code>None</code> by default, namely no validation, just minimization).</dd>
+<dt><strong><code>starting_pars</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array for pre-defined starting point of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> minimization (<code>None</code> by default).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.normalize_observables"><code class="name flex">
+<span>def <span class="ident">normalize_observables</span></span>(<span>gexp, g, weights=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool normalizes <code>g</code> and <code>gexp</code>. Since experimental observables have different units, it is better to normalize them, in order that
+varying any lambda coefficient by the same value epsilon would result in comparable effects to the ensemble.
+This results to be useful in the minimization of <code><a title="MDRefine.loss_and_minimizer.gamma_function" href="#MDRefine.loss_and_minimizer.gamma_function">gamma_function()</a></code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>gexp</code></strong>, <strong><code>g</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries corresponding to <code>data.sys[name_sys].gexp</code> and <code>data.sys[name_sys].g</code>.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>
+<p>&nbsp;</p>
+<h2 id="numpy-1-dimensional-array-by-default-none-namely-equal-weight-for-each-frame">Numpy 1-dimensional array, by default <code>None</code> (namely, equal weight for each frame).</h2>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>norm_g</code></strong>, <strong><code>norm_gexp</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionaries for normalized g and gexp.</dd>
+<dt><strong><code>norm_gmean</code></strong>, <strong><code>norm_gstd</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionaries for the reference values for normalization (average and standard deviation).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.select_traintest"><code class="name flex">
+<span>def <span class="ident">select_traintest</span></span>(<span>data, *, test_frames_size: float = 0.2, test_obs_size: float = 0.2, random_state: int = None, test_frames: dict = None, test_obs: dict = None, if_all_frames: bool = False, replica_infos: dict = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool splits the data set into training and test set. You can either randomly select the frames and/or the observables (accordingly to <code>test_frames_size</code>, <code>test_obs_size</code>, <code>random_state</code>) or pass the dictionaries <code>test_obs</code> and/or <code>test_frames</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Class instance for the <code>data</code> object.</dd>
+<dt><strong><code>test_frames_size</code></strong>, <strong><code>test_obs_size</code></strong> :&ensp;<code>float</code></dt>
+<dd>Values for the fractions of frames and observables for the test set, respectively. Each of them is a number in (0,1) (same fraction for every system),
+by default <code>0.2</code>.</dd>
+<dt><strong><code>random_state</code></strong> :&ensp;<code>int</code></dt>
+<dd>The random state (or seed), used to make the same choice for different hyperparameters; if <code>None</code>,
+it is randomly taken.</dd>
+<dt><strong><code>test_frames</code></strong>, <strong><code>test_obs</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for the test frames and observables.</dd>
+<dt><strong><code>if_all_frames</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Boolean variable, <code>False</code> by default; if <code>True</code>, then use all the frames for the test observables in the test set,
+otherwise just the test frames.</dd>
+<dt><strong><code>replica_infos</code></strong> :&ensp;<code>dict</code></dt>
+<dd>
+<p>Dictionary of information used to select frames based on continuous trajectories ("demuxing"), by default <code>None</code> (just randomly select frames).
+It includes: <code>n_temp_replica</code>, <code>path_directory</code>, <code>stride</code>. If not <code>None</code>, <code><a title="MDRefine.loss_and_minimizer.select_traintest" href="#MDRefine.loss_and_minimizer.select_traintest">select_traintest()</a></code> will read <code>replica_temp.npy</code> files
+with shape <code>(n_frames, n_replicas)</code> containing numbers from 0 to <code>n_replicas - 1</code> which indicate corresponding</p>
+<h2 id="temperatures-for-each-replica-index-in-axis1">temperatures (for each replica index in <code>axis=1</code>).</h2>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>data_train</code></strong>, <strong><code>data_test</code></strong> :&ensp;<code>class instances</code></dt>
+<dd>Class instances for training and test data; <code>data_test</code> includes:
+trained observables and non-trained (test) frames (where it is not specified <code>new</code>);
+non-trained (test) observables and non-trained/all (accordingly to <code>if_all_frames</code>) frames (where specified <code>new</code>).</dd>
+<dt><strong><code>test_obs</code></strong>, <strong><code>test_frames</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for the observables and frames selected for the test set.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.validation"><code class="name flex">
+<span>def <span class="ident">validation</span></span>(<span>pars_ff_fm, lambdas, data_test, *, regularization=None, alpha=inf, beta=inf, gamma=inf, data_train=None, which_return='details')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This tool evaluates <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> in detail over the test set; then,</p>
+<ul>
+<li>
+<p>if <code>which_return == 'chi2 validation'</code>, it returns the total chi2 on the <code>'validation'</code> data set (training observables, test frames);
+this is required to compute the derivatives of the chi2 in <code>'validation'</code> with Jax;</p>
+</li>
+<li>
+<p>elif <code>which_return == 'chi2 test'</code>, it returns the total chi2 on the <code>'test'</code> data set (test observables, test frames
+or all frames if <code>data_train is not None</code>); this is required to compute the derivatives of the chi2 in <code>'test'</code> with Jax;</p>
+</li>
+<li>
+<p>else, it returns <code>Validation_values</code> class instance, with all the computed values (both chi2 and regularizations).</p>
+</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars_ff_fm</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array for the force-field and forward-model coefficients.</dd>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Numpy 1-dimensional array of lambdas coefficients (those for ensemble refinement).</dd>
+<dt><strong><code>data_test</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the test data set, <code>data</code>-like object, as returned by <code><a title="MDRefine.loss_and_minimizer.select_traintest" href="#MDRefine.loss_and_minimizer.select_traintest">select_traintest()</a></code>.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the regularizations (see in <code>MDRefinement</code>), by default, <code>None</code>.</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Values for the hyperparameters (by default, <code>+np.inf</code>, namely, no refinement).</dd>
+<dt><strong><code>data_train</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the training data set, <code>data</code>-like object, as returned by <code><a title="MDRefine.loss_and_minimizer.select_traintest" href="#MDRefine.loss_and_minimizer.select_traintest">select_traintest()</a></code> (<code>None</code> by default,
+namely use only test frames for new observables).</dd>
+<dt><strong><code>which_return</code></strong> :&ensp;<code>str</code></dt>
+<dd>String described above (by default <code>'details'</code>).</dd>
+</dl></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="MDRefine.loss_and_minimizer.class_test"><code class="flex name class">
+<span>class <span class="ident">class_test</span></span>
+<span>(</span><span>data_sys, test_frames_sys, test_obs_sys, if_all_frames, data_train_sys)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for test data set, with similar structure as <code>data_class</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class class_test:
+    &#34;&#34;&#34;
+    Class for test data set, with similar structure as `data_class`.
+    &#34;&#34;&#34;
+    def __init__(self, data_sys, test_frames_sys, test_obs_sys, if_all_frames, data_train_sys):
+
+        # A. split weights
+        try:
+            w = data_sys.weights[test_frames_sys]
+        except:
+            w = data_sys.weights[list(test_frames_sys)]
+        self.logZ = np.log(np.sum(w))
+        self.weights = w/np.sum(w)
+        self.n_frames = np.shape(w)[0]
+
+        # B. split force-field terms
+        if hasattr(data_sys, &#39;f&#39;):
+            self.ff_correction = data_sys.ff_correction
+            try:
+                self.f = data_sys.f[test_frames_sys, :]
+            except:
+                self.f = data_sys.f[list(test_frames_sys), :]
+
+        # C. split experimental values gexp, normg_mean and normg_std, observables g
+
+        if hasattr(data_sys, &#39;gexp&#39;):
+            self.gexp_new = {}
+            self.n_experiments_new = {}
+
+            for name_type in data_sys.gexp.keys():
+
+                try:
+                    self.gexp_new[name_type] = data_sys.gexp[name_type][list(test_obs_sys[name_type])]
+                except:
+                    self.gexp_new[name_type] = data_sys.gexp[name_type][test_obs_sys[name_type]]
+
+                self.n_experiments_new[name_type] = len(test_obs_sys[name_type])
+
+        if hasattr(data_sys, &#39;names&#39;):
+
+            self.names_new = {}
+
+            for name_type in data_sys.names.keys():
+                self.names_new[name_type] = data_sys.names[name_type][list(test_obs_sys[name_type])]
+
+        if hasattr(data_sys, &#39;g&#39;):
+
+            self.g_new = {}
+            if if_all_frames:
+                self.g_new_old = {}
+            self.g = {}
+
+            for name_type in data_sys.g.keys():
+
+                # split g into: train, test1 (non-trained obs, all frames or only non-used ones),
+                # test2 (trained obs, non-used frames)
+                # if not test_obs[name_sys][name_type] == []:
+                self.g_new[name_type] = (data_sys.g[name_type][test_frames_sys, :].T)[test_obs_sys[name_type], :].T
+
+                if if_all_frames:  # new observables on trained frames
+                    self.g_new_old[name_type] = np.delete(
+                        data_sys.g[name_type], test_frames_sys, axis=0)[:, list(test_obs_sys[name_type])]
+
+                g3 = np.delete(data_sys.g[name_type], test_obs_sys[name_type], axis=1)
+                self.g[name_type] = g3[test_frames_sys, :]
+
+        if hasattr(data_sys, &#39;forward_qs&#39;):
+
+            self.forward_qs = {}
+
+            for name_type in data_sys.forward_qs.keys():
+                self.forward_qs[name_type] = data_sys.forward_qs[name_type][list(test_frames_sys), :]
+
+            if if_all_frames:
+                self.forward_qs_trained = data_train_sys.forward_qs
+
+        if hasattr(data_sys, &#39;forward_model&#39;):
+            self.forward_model = data_sys.forward_model
+
+        self.ref = data_sys.ref
+        self.selected_obs = data_train_sys.selected_obs  # same observables as in training
+        self.selected_obs_new = test_obs_sys
+
+        self.gexp = data_train_sys.gexp
+        self.n_experiments = data_train_sys.n_experiments
+        self.temperature = data_sys.temperature</code></pre>
+</details>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.class_train"><code class="flex name class">
+<span>class <span class="ident">class_train</span></span>
+<span>(</span><span>data_sys, test_frames_sys, test_obs_sys)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for training data set, with similar structure as <code>data_class</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class class_train:
+    &#34;&#34;&#34;
+    Class for training data set, with similar structure as `data_class`.
+    &#34;&#34;&#34;
+    def __init__(self, data_sys, test_frames_sys, test_obs_sys):
+
+        # training observables
+        train_obs = {}
+        for s in data_sys.n_experiments.keys():
+            train_obs[s] = [i for i in range(data_sys.n_experiments[s]) if i not in test_obs_sys[s]]
+        self.selected_obs = train_obs
+
+        # A. split weights
+        w = np.delete(data_sys.weights, test_frames_sys)
+        self.logZ = np.log(np.sum(w))
+        self.weights = w/np.sum(w)
+        self.n_frames = np.shape(w)[0]
+
+        # B. split force-field terms
+
+        if hasattr(data_sys, &#39;f&#39;):
+            self.ff_correction = data_sys.ff_correction
+            self.f = np.delete(data_sys.f, test_frames_sys, axis=0)
+
+        # C. split experimental values gexp, normg_mean and normg_std, observables g
+
+        if hasattr(data_sys, &#39;gexp&#39;):
+
+            self.gexp = {}
+            self.n_experiments = {}
+
+            for name_type in data_sys.gexp.keys():
+                self.gexp[name_type] = np.delete(data_sys.gexp[name_type], test_obs_sys[name_type], axis=0)
+                self.n_experiments[name_type] = np.shape(self.gexp[name_type])[0]
+
+        if hasattr(data_sys, &#39;names&#39;):
+
+            self.names = {}
+
+            for name_type in data_sys.names.keys():
+                self.names[name_type] = data_sys.names[name_type][train_obs[name_type]]
+
+        if hasattr(data_sys, &#39;g&#39;):
+
+            self.g = {}
+
+            for name_type in data_sys.g.keys():
+                train_g = np.delete(data_sys.g[name_type], test_frames_sys, axis=0)
+                self.g[name_type] = np.delete(train_g, test_obs_sys[name_type], axis=1)
+
+        if hasattr(data_sys, &#39;forward_qs&#39;):
+
+            self.forward_qs = {}
+
+            for name_type in data_sys.forward_qs.keys():
+                self.forward_qs[name_type] = np.delete(data_sys.forward_qs[name_type], test_frames_sys, axis=0)
+
+        if hasattr(data_sys, &#39;forward_model&#39;):
+            self.forward_model = data_sys.forward_model
+
+        self.ref = data_sys.ref
+
+        self.temperature = data_sys.temperature</code></pre>
+</details>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.intermediates_class"><code class="flex name class">
+<span>class <span class="ident">intermediates_class</span></span>
+<span>(</span><span>alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for the intermediate steps of the minimization of the loss function.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class intermediates_class:
+    &#34;&#34;&#34;Class for the intermediate steps of the minimization of the loss function.&#34;&#34;&#34;
+    def __init__(self, alpha):
+        
+        self.loss = []
+        self.pars = []
+
+        if not np.isinf(alpha):
+            self.lambdas = []
+            self.minis = []</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="MDRefine" href="index.html">MDRefine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="MDRefine.loss_and_minimizer.compute_D_KL" href="#MDRefine.loss_and_minimizer.compute_D_KL">compute_D_KL</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_DeltaDeltaG_terms" href="#MDRefine.loss_and_minimizer.compute_DeltaDeltaG_terms">compute_DeltaDeltaG_terms</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_chi2" href="#MDRefine.loss_and_minimizer.compute_chi2">compute_chi2</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_details_ER" href="#MDRefine.loss_and_minimizer.compute_details_ER">compute_details_ER</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_new_weights" href="#MDRefine.loss_and_minimizer.compute_new_weights">compute_new_weights</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.deconvolve_lambdas" href="#MDRefine.loss_and_minimizer.deconvolve_lambdas">deconvolve_lambdas</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.gamma_function" href="#MDRefine.loss_and_minimizer.gamma_function">gamma_function</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.l2_regularization" href="#MDRefine.loss_and_minimizer.l2_regularization">l2_regularization</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.loss_function_and_grad" href="#MDRefine.loss_and_minimizer.loss_function_and_grad">loss_function_and_grad</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.minimizer" href="#MDRefine.loss_and_minimizer.minimizer">minimizer</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.normalize_observables" href="#MDRefine.loss_and_minimizer.normalize_observables">normalize_observables</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.select_traintest" href="#MDRefine.loss_and_minimizer.select_traintest">select_traintest</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.validation" href="#MDRefine.loss_and_minimizer.validation">validation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="MDRefine.loss_and_minimizer.class_test" href="#MDRefine.loss_and_minimizer.class_test">class_test</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.loss_and_minimizer.class_train" href="#MDRefine.loss_and_minimizer.class_train">class_train</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.loss_and_minimizer.intermediates_class" href="#MDRefine.loss_and_minimizer.intermediates_class">intermediates_class</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.1</a>.</p>
+</footer>
+</body>
+</html>
