@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>MDRefine.MDRefinement API documentation</title>
+<meta name="description" content="Main tool: `MDRefinement`.
+It refines MD-generated trajectories with customizable refinement.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>MDRefine.MDRefinement</code></h1>
+</header>
+<section id="section-intro">
+<p>Main tool: <code><a title="MDRefine.MDRefinement.MDRefinement" href="#MDRefine.MDRefinement.MDRefinement">MDRefinement()</a></code>.
+It refines MD-generated trajectories with customizable refinement.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="MDRefine.MDRefinement.MDRefinement"><code class="name flex">
+<span>def <span class="ident">MDRefinement</span></span>(<span>data,<br>*,<br>regularization: dict = None,<br>stride: int = 1,<br>starting_alpha: float = inf,<br>starting_beta: float = inf,<br>starting_gamma: float = inf,<br>random_states=5,<br>which_set: str = 'validation',<br>gtol: float = 0.5,<br>ftol: float = 0.05,<br>results_folder_name: str = 'results',<br>n_parallel_jobs: int = None,<br>id_code: str = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def MDRefinement(
+        data, *, regularization: dict = None, stride: int = 1,
+        starting_alpha: float = np.inf, starting_beta: float = np.inf, starting_gamma: float = np.inf,
+        random_states = 5, which_set: str = &#39;validation&#39;, gtol: float = 0.5, ftol: float = 0.05,
+        results_folder_name: str = &#39;results&#39;, n_parallel_jobs: int = None, id_code: str = None):
+    &#34;&#34;&#34;
+    This is the main tool of the package: it loads data, searches for the optimal hyperparameters and minimizes the loss function on the whole data set
+    by using the opimized hyperparameters. The output variables are then saved in a folder; they include `input` values, `min_lambdas` (optimal lambda coefficients for Ensemble Refinement, when performed),
+    `result`, `hyper_search` (steps in the search for optimal hyperparameters) (`.csv` files) and the `.npy` arrays with the new weights determined in the refinement.
+
+    Parameters
+    ----------
+    
+    data: class instance
+        The data set: an instance of the `data_loading.my_data` class or `split_dataset.my_data_trainvalid` class (in the case with test observables).
+        It can also be `infos`, a dictionary of information used to load data with `load_data` (see in the Examples directory).
+    
+    regularization: dict
+        A dictionary which can include two keys: `force_field_reg` and `forward_model_reg`, to specify the regularizations to the force-field correction and the forward model, respectively;
+        the first key is either a string (among `plain l2`, `constraint 1`, `constraint 2`, `KL divergence`) or a user-defined
+        function which takes as input `pars_ff` and returns the regularization term to be multiplied by the hyperparameter `beta`;
+        the second key is a user-defined function which takes as input `pars_fm` and `forward_coeffs_0` (current and refined forward-model coefficients) and
+        returns the regularization term to be multiplied by the hyperparameter `gamma`.
+    
+    stride: int
+        The stride of the frames used to load data employed in search for optimal hyperparameters
+        (used only when passing `infos` rather than `data`).
+        In order to reduce the computational cost, at the price of a lower representativeness of the ensembles.
+    
+    starting_alpha, starting_beta, starting_gamma: floats
+        Starting values of the hyperparameters (`np.inf` by default, namely no refinement in that direction).
+    
+    random_states: int or list of integers
+        Random states (i.e., seeds) used to split the data set in cross validation (if integer, then `random_states = np.arange(random_states)`.
+    
+    which_set: str
+        String chosen among `&#39;training&#39;`, `&#39;valid_frames&#39;` or `&#39;validation&#39;`, which specifies how to determine optimal hyperparameters:
+        if minimizing the (average) chi2 on the training set for `&#39;training&#39;`, on training observables and validation frames for `&#39;valid_frames&#39;`,
+        on validation observables and validation frames for `&#39;validation&#39;`, on validation observables and all frames for `&#39;valid_obs&#39;`.
+    
+    gtol: float
+        Tolerance `gtol` (on the gradient) of scipy.optimize.minimize (0.5 by default).
+
+    ftol: float
+        Tolerance `ftol` of scipy.optimize.minimize (0.05 by default).
+
+    results_folder_name: str
+        String for the prefix of the folder where to save results; the complete folder name is `results_folder_name + &#39;_&#39; + time` where `time` is the current time
+        when the algorithm has finished, in order to uniquely identify the folder with the results.
+    
+    n_parallel_jobs: int
+        How many jobs are run in parallel (`None` by default).
+
+    id_code : None or str
+        Identificative code (suffix) of the folder name where output data (result) will be saved.
+        If None, then the current date will be used.
+    &#34;&#34;&#34;
+
+    if type(data) is dict: data = load_data(data, stride=stride)
+
+    print_references(starting_alpha, starting_beta, starting_gamma, hasattr(data.properties, &#39;cycle_names&#39;))
+
+    # compute tot. n. of observables: if it is 1, then do just minimizer, otherwise do cross validation
+    # No: you can do cross validation also for 1 observable, in this case force which_set to &#39;validation&#39;,
+    # namely, do cross validation on frames
+
+    tot = data.properties.tot_n_experiments(data)
+    
+    if tot == 1:
+        print(&#39;only one observable, so perform cross validation on frames&#39;)
+        which_set = &#39;validation&#39;
+
+    print(&#39;\nsearch for optimal hyperparameters ...&#39;)
+
+    mini = hyper_minimizer(
+        data, starting_alpha, starting_beta, starting_gamma, regularization,
+        random_states, which_set, gtol, ftol, n_parallel_jobs=n_parallel_jobs, if_print_biblio=False)
+
+    optimal_log10_hyperpars = mini.x
+
+    optimal_hyperpars = {}
+    i = 0
+    s = &#39;&#39;
+    if not np.isinf(starting_alpha):
+        alpha = 10**optimal_log10_hyperpars[i]
+        optimal_hyperpars[&#39;alpha&#39;] = alpha
+        s = s + &#39;alpha: &#39; + str(alpha) + &#39; &#39;
+        i += 1
+    else:
+        alpha = starting_alpha
+    if not np.isinf(starting_beta):
+        beta = 10**optimal_log10_hyperpars[i]
+        optimal_hyperpars[&#39;beta&#39;] = beta
+        s = s + &#39;beta: &#39; + str(beta) + &#39; &#39;
+        i += 1
+    else:
+        beta = starting_beta
+    if not np.isinf(starting_gamma):
+        gamma = 10**optimal_log10_hyperpars[i]
+        optimal_hyperpars[&#39;gamma&#39;] = gamma
+        s = s + &#39;gamma: &#39; + str(gamma)
+        # i += 1
+    else:
+        gamma = starting_gamma
+
+    print(&#39;\noptimal hyperparameters: &#39; + s)
+    print(&#39;\nrefinement with optimal hyperparameters...&#39;)  # on the full data set&#39;)
+
+    # else:
+    #     print(&#39;Just one experimental observable, so cross-validation is not possible. Proceed with plain Ensemble Refinement at alpha = 1&#39;)
+    #     # in principle, you should distinguish if alchemical calculations or not
+    #     alpha = 1
+    #     beta = +np.inf
+    #     gamma = +np.inf
+
+    # # for the minimization with optimal hyper-parameters use full data set
+    # data = load_data(infos)
+
+    Result = minimizer(data, regularization=regularization, alpha=alpha, beta=beta, gamma=gamma, if_print_biblio=False)
+
+    Result.optimal_hyperpars = optimal_hyperpars
+    Result.hyper_minimization = mini
+
+    print(&#39;\ndone&#39;)
+
+    &#34;&#34;&#34; save results in txt files &#34;&#34;&#34;
+    if not np.isinf(beta):
+        coeff_names = data.properties.names_ff_pars
+    else:
+        coeff_names = []
+    if not np.isinf(gamma):
+        coeff_names = coeff_names + list(data.properties.forward_coeffs_0.keys())
+
+    input_values = {}
+
+    if type(data) == dict: input_values[&#39;stride&#39;] = stride
+
+    input_values.update({
+        &#39;starting_alpha&#39;: starting_alpha, &#39;starting_beta&#39;: starting_beta, &#39;starting_gamma&#39;: starting_gamma,
+        &#39;random_states&#39;: random_states, &#39;which_set&#39;: which_set, &#39;gtol&#39;: gtol, &#39;ftol&#39;: ftol})
+
+    save_txt(input_values, Result, coeff_names, folder_name=results_folder_name, id_code=id_code)
+
+    return Result</code></pre>
+</details>
+<div class="desc"><p>This is the main tool of the package: it loads data, searches for the optimal hyperparameters and minimizes the loss function on the whole data set
+by using the opimized hyperparameters. The output variables are then saved in a folder; they include <code>input</code> values, <code>min_lambdas</code> (optimal lambda coefficients for Ensemble Refinement, when performed),
+<code>result</code>, <code>hyper_search</code> (steps in the search for optimal hyperparameters) (<code>.csv</code> files) and the <code>.npy</code> arrays with the new weights determined in the refinement.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>The data set: an instance of the <code>data_loading.my_data</code> class or <code>split_dataset.my_data_trainvalid</code> class (in the case with test observables).
+It can also be <code>infos</code>, a dictionary of information used to load data with <code>load_data</code> (see in the Examples directory).</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary which can include two keys: <code>force_field_reg</code> and <code>forward_model_reg</code>, to specify the regularizations to the force-field correction and the forward model, respectively;
+the first key is either a string (among <code>plain l2</code>, <code>constraint 1</code>, <code>constraint 2</code>, <code>KL divergence</code>) or a user-defined
+function which takes as input <code>pars_ff</code> and returns the regularization term to be multiplied by the hyperparameter <code>beta</code>;
+the second key is a user-defined function which takes as input <code>pars_fm</code> and <code>forward_coeffs_0</code> (current and refined forward-model coefficients) and
+returns the regularization term to be multiplied by the hyperparameter <code>gamma</code>.</dd>
+<dt><strong><code>stride</code></strong> :&ensp;<code>int</code></dt>
+<dd>The stride of the frames used to load data employed in search for optimal hyperparameters
+(used only when passing <code>infos</code> rather than <code>data</code>).
+In order to reduce the computational cost, at the price of a lower representativeness of the ensembles.</dd>
+<dt><strong><code>starting_alpha</code></strong>, <strong><code>starting_beta</code></strong>, <strong><code>starting_gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Starting values of the hyperparameters (<code>np.inf</code> by default, namely no refinement in that direction).</dd>
+<dt><strong><code>random_states</code></strong> :&ensp;<code>int</code> or <code>list</code> of <code>integers</code></dt>
+<dd>Random states (i.e., seeds) used to split the data set in cross validation (if integer, then <code>random_states = np.arange(random_states)</code>.</dd>
+<dt><strong><code>which_set</code></strong> :&ensp;<code>str</code></dt>
+<dd>String chosen among <code>'training'</code>, <code>'valid_frames'</code> or <code>'validation'</code>, which specifies how to determine optimal hyperparameters:
+if minimizing the (average) chi2 on the training set for <code>'training'</code>, on training observables and validation frames for <code>'valid_frames'</code>,
+on validation observables and validation frames for <code>'validation'</code>, on validation observables and all frames for <code>'valid_obs'</code>.</dd>
+<dt><strong><code>gtol</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>gtol</code> (on the gradient) of scipy.optimize.minimize (0.5 by default).</dd>
+<dt><strong><code>ftol</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>ftol</code> of scipy.optimize.minimize (0.05 by default).</dd>
+<dt><strong><code>results_folder_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>String for the prefix of the folder where to save results; the complete folder name is <code>results_folder_name + '_' + time</code> where <code>time</code> is the current time
+when the algorithm has finished, in order to uniquely identify the folder with the results.</dd>
+<dt><strong><code>n_parallel_jobs</code></strong> :&ensp;<code>int</code></dt>
+<dd>How many jobs are run in parallel (<code>None</code> by default).</dd>
+<dt><strong><code>id_code</code></strong> :&ensp;<code>None</code> or <code>str</code></dt>
+<dd>Identificative code (suffix) of the folder name where output data (result) will be saved.
+If None, then the current date will be used.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.MDRefinement.compute_chi2_test"><code class="name flex">
+<span>def <span class="ident">compute_chi2_test</span></span>(<span>data_test,<br>regularization,<br>pars_ff: jax.Array = None,<br>pars_fm: jax.Array = None,<br>lambdas: dict = None,<br>which_set: str = 'validation')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_chi2_test(data_test, regularization, pars_ff : np.ndarray = None, pars_fm : np.ndarray = None, lambdas : dict = None, which_set : str = &#39;validation&#39;):
+    &#34;&#34;&#34;
+    Compute the chi2 on the test set, after the optimal solution has been found.
+    
+    -----------
+    Parameters:
+        data_test : object
+            Object for the test dataset, as returned by `split_dataset`.
+        pars_ff : np.ndarray
+            Numpy 1d array for the force-field correction parameters.
+        pars_fm : np.ndarray
+            Numpy 1d array for the forward model parameters.
+        lambdas : dict
+            Dictionary for the lambda coefficients (of ensemble refinement).
+        which_set : str
+            String variable, if `&#39;validation&#39;` compute the chi2 on validation observables and validation frames.
+    
+    ----------
+    Return:
+        red_chi2 : float
+            Reduced chi2 (chi2 / n. of observables) 
+    &#34;&#34;&#34;
+    assert which_set == &#39;validation&#39; or which_set == &#39;valid_obs&#39;, &#39;you are not computing the chi2 on test observables&#39;
+
+    if lambdas is None: log10_alpha = np.inf
+    else: log10_alpha = 0
+
+    if pars_ff is None:
+        log10_beta = np.inf
+        pars = np.array([])
+    else:
+        log10_beta = 0
+        pars = pars_ff
+
+    if pars_fm is None: log10_gamma = np.inf
+    else:
+        log10_gamma = 0
+        pars = np.concatenate((pars, pars_fm))
+
+    # # fake regularization, since we are interested in the chi2 only
+    # forward_model_regularization = lambda x, x0 : (x - x0)**2
+    # regularization = {&#39;force_field_reg&#39;: &#39;KL divergence&#39;, &#39;forward_model_reg&#39;: forward_model_regularization}
+
+    chi2 = compute_hypergradient(pars, lambdas, log10_alpha, log10_beta, log10_gamma, data_test, regularization,
+        which_set, data_test, None)
+
+    if which_set == &#39;validation&#39; or which_set == &#39;valid_obs&#39;:
+        
+        n_obs_test = 0
+        for s in data_test.mol.keys():
+            n_obs_test += np.sum(np.array(list(data_test.mol[s].n_experiments_new.values())))
+        
+        chi2 = chi2/n_obs_test
+
+    return chi2</code></pre>
+</details>
+<div class="desc"><p>Compute the chi2 on the test set, after the optimal solution has been found.</p>
+<hr>
+<h2 id="parameters">Parameters</h2>
+<p>data_test : object
+Object for the test dataset, as returned by <code>split_dataset</code>.
+pars_ff : np.ndarray
+Numpy 1d array for the force-field correction parameters.
+pars_fm : np.ndarray
+Numpy 1d array for the forward model parameters.
+lambdas : dict
+Dictionary for the lambda coefficients (of ensemble refinement).
+which_set : str
+String variable, if <code>'validation'</code> compute the chi2 on validation observables and validation frames.</p>
+<hr>
+<h2 id="return">Return</h2>
+<p>red_chi2 : float
+Reduced chi2 (chi2 / n. of observables)</p></div>
+</dd>
+<dt id="MDRefine.MDRefinement.save_txt"><code class="name flex">
+<span>def <span class="ident">save_txt</span></span>(<span>input_values, Result, coeff_names, folder_name='Result', id_code: str = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_txt(input_values, Result, coeff_names, folder_name = &#39;Result&#39;, id_code: str = None):
+    &#34;&#34;&#34;
+    This is an internal tool of `MDRefinement` used to save `input_values` and output `Result` as `csv` and `npy` files in a folder whose name is
+    `folder_name + &#39;_&#39; + date` where date is the current time when the computation ended (it uses `date_time`
+    to generate unique file name, on the assumption of a single folder name at given time).
+
+    Parameters
+    ----------
+    input_values : dict
+        Dictionary with input values of the refinement, such as stride, starting values of the hyperparameters, random_states, which_set, tolerances (see `MDRefinement`).
+
+    Result : class instance
+        Class instance with the results of `minimizer` and the search for the optimal hyperparameters.
+
+    coeff_names : list
+        List with the names of the coefficients (force-field and forward-model corrections).
+
+    folder_name : str
+        String for the prefix of the folder name (by default, `&#39;Result&#39;`).
+
+    id_code : None or str
+        Identificative code (suffix) of the folder name where output data (result) will be saved.
+        If None, then the current date will be used.
+    &#34;&#34;&#34;
+    if id_code is None:
+        s = datetime.datetime.now()
+        date = s.strftime(&#39;%Y_%m_%d_%H_%M_%S_%f&#39;)
+    else: date = id_code
+
+    folder_name = folder_name + &#39;_&#39; + date
+
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+
+    &#34;&#34;&#34;0. save input values &#34;&#34;&#34;
+    temp = pandas.DataFrame(list(input_values.values()), index=list(input_values.keys()), columns=[date]).T
+    temp.to_csv(folder_name + &#39;/input&#39;)
+
+    &#34;&#34;&#34; 1. save general results &#34;&#34;&#34;
+
+    # select information to be saved in txt files
+
+    title = list(vars(Result).keys())
+
+    remove_list = [
+        &#39;intermediates&#39;, &#39;abs_difference&#39;, &#39;av_g&#39;, &#39;logZ_new&#39;, &#39;weights_new&#39;, &#39;abs_difference_valid&#39;,
+        &#39;av_g_valid&#39;, &#39;logZ_new_valid&#39;, &#39;weights_new_valid&#39;, &#39;avg_new_obs&#39;, &#39;weights_P&#39;, &#39;logZ_P&#39;, &#39;weights_P_validation&#39;,
+        &#39;logZ_P_valid&#39;]
+
+    if hasattr(Result, &#39;weights_new&#39;):
+        for name_sys in Result.weights_new.keys():
+            np.save(folder_name + &#39;/weights_new_%s&#39; % name_sys, Result.weights_new[name_sys])
+    if hasattr(Result, &#39;weights_P&#39;):
+        for name_sys in Result.weights_P.keys():
+            np.save(folder_name + &#39;/weights_ff_%s&#39; % name_sys, Result.weights_P[name_sys])
+
+    my_dict = {}
+    for s in title:
+        if s not in remove_list:
+            if s == &#39;pars&#39;:
+                for i, k in enumerate(coeff_names):
+                    my_dict[k] = Result.pars[i]
+            elif s == &#39;mini&#39;:
+                my_dict[&#39;success&#39;] = Result.mini.success
+                my_dict[&#39;norm gradient&#39;] = np.linalg.norm(Result.mini.jac)
+
+            elif s == &#39;min_lambdas&#39;:
+                flat_lambdas = unwrap_2dict(Result.min_lambdas)
+                df = pandas.DataFrame(flat_lambdas[0], index=flat_lambdas[1], columns=[date]).T
+                df.to_csv(folder_name + &#39;/min_lambdas&#39;)
+
+            elif s == &#39;minis&#39;:
+                for name_sys in Result.minis.keys():
+                    my_dict[&#39;ER success %s&#39; % name_sys] = Result.minis[name_sys].success
+            elif s == &#39;D_KL_alpha&#39; or s == &#39;D_KL_alpha_valid&#39;:
+                for name_sys in vars(Result)[s].keys():
+                    my_dict[s + &#39;_&#39; + name_sys] = vars(Result)[s][name_sys]
+            elif s == &#39;chi2&#39; or s == &#39;chi2_valid&#39; or s == &#39;chi2_new_obs&#39;:
+                for name_sys in vars(Result)[s].keys():
+                    my_dict[s + &#39;_&#39; + name_sys] = np.sum(np.array(list(vars(Result)[s][name_sys].values())))
+            elif s == &#39;reg_ff&#39; or s == &#39;reg_ff_valid&#39;:
+                if type(vars(Result)[s]) is dict:
+                    for k in vars(Result)[s].keys():
+                        my_dict[s + &#39;_&#39; + k] = vars(Result)[s][k]
+                else:
+                    my_dict[s] = vars(Result)[s]
+
+            # optimization of hyper parameters
+            elif s == &#39;optimal_hyperpars&#39;:
+                for k in Result.optimal_hyperpars.keys():
+                    my_dict[&#39;optimal &#39; + k] = Result.optimal_hyperpars[k]
+            elif s == &#39;hyper_minimization&#39;:
+                my_dict[&#39;hyper_mini success&#39;] = Result.hyper_minimization.success
+
+                inter = vars(Result.hyper_minimization[&#39;intermediate&#39;])
+
+                for i, name in enumerate(Result.optimal_hyperpars.keys()):
+                    inter[&#39;av_gradient log&#39; + name] = inter[&#39;av_gradient&#39;][:, i]
+                    inter[&#39;log10_hyperpars &#39; + name] = inter[&#39;log10_hyperpars&#39;][:, i]
+                del inter[&#39;av_gradient&#39;], inter[&#39;log10_hyperpars&#39;]
+
+                df = pandas.DataFrame(inter)
+                df.to_csv(folder_name + &#39;/hyper_search&#39;)
+
+            else:
+                my_dict[s] = vars(Result)[s]
+
+    title = list(my_dict.keys())
+    values = list(my_dict.values())
+
+    df = pandas.DataFrame(values, index=title, columns=[date]).T
+    df.to_csv(folder_name + &#39;/result&#39;)
+
+    return</code></pre>
+</details>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.MDRefinement.MDRefinement" href="#MDRefine.MDRefinement.MDRefinement">MDRefinement()</a></code> used to save <code>input_values</code> and output <code>Result</code> as <code>csv</code> and <code>npy</code> files in a folder whose name is
+<code>folder_name + '_' + date</code> where date is the current time when the computation ended (it uses <code>date_time</code>
+to generate unique file name, on the assumption of a single folder name at given time).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>input_values</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary with input values of the refinement, such as stride, starting values of the hyperparameters, random_states, which_set, tolerances (see <code><a title="MDRefine.MDRefinement.MDRefinement" href="#MDRefine.MDRefinement.MDRefinement">MDRefinement()</a></code>).</dd>
+<dt><strong><code>Result</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Class instance with the results of <code>minimizer</code> and the search for the optimal hyperparameters.</dd>
+<dt><strong><code>coeff_names</code></strong> :&ensp;<code>list</code></dt>
+<dd>List with the names of the coefficients (force-field and forward-model corrections).</dd>
+<dt><strong><code>folder_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>String for the prefix of the folder name (by default, <code>'Result'</code>).</dd>
+<dt><strong><code>id_code</code></strong> :&ensp;<code>None</code> or <code>str</code></dt>
+<dd>Identificative code (suffix) of the folder name where output data (result) will be saved.
+If None, then the current date will be used.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.MDRefinement.unwrap_2dict"><code class="name flex">
+<span>def <span class="ident">unwrap_2dict</span></span>(<span>my_2dict)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def unwrap_2dict(my_2dict):
+    &#34;&#34;&#34;
+    Tool to unwrap a 2-layer dictionary `my_2dict` into list of values and list of keys.
+    &#34;&#34;&#34;
+
+    res = []
+    keys = []
+
+    for key1, value1 in my_2dict.items():
+        for key2, value2 in value1.items():
+
+            key = key1 + &#39; &#39; + key2
+
+            length = np.array(value2).shape[0]
+            res.extend(list(value2))
+
+            if length &gt; 1:
+                names = [key + &#39; &#39; + str(i) for i in range(length)]
+            else:
+                names = [key]
+
+            keys.extend(names)
+
+    return res, keys</code></pre>
+</details>
+<div class="desc"><p>Tool to unwrap a 2-layer dictionary <code>my_2dict</code> into list of values and list of keys.</p></div>
+</dd>
+<dt id="MDRefine.MDRefinement.unwrap_dict"><code class="name flex">
+<span>def <span class="ident">unwrap_dict</span></span>(<span>d)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def unwrap_dict(d):
+
+    res = []
+    
+    if isinstance(d, dict):
+        for val in d.values():
+            res.extend(unwrap_dict(val))
+    else:
+        if isinstance(d, list): res = d
+        else: res = [d]
+
+    return np.hstack(res)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="MDRefine" href="index.html">MDRefine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="MDRefine.MDRefinement.MDRefinement" href="#MDRefine.MDRefinement.MDRefinement">MDRefinement</a></code></li>
+<li><code><a title="MDRefine.MDRefinement.compute_chi2_test" href="#MDRefine.MDRefinement.compute_chi2_test">compute_chi2_test</a></code></li>
+<li><code><a title="MDRefine.MDRefinement.save_txt" href="#MDRefine.MDRefinement.save_txt">save_txt</a></code></li>
+<li><code><a title="MDRefine.MDRefinement.unwrap_2dict" href="#MDRefine.MDRefinement.unwrap_2dict">unwrap_2dict</a></code></li>
+<li><code><a title="MDRefine.MDRefinement.unwrap_dict" href="#MDRefine.MDRefinement.unwrap_dict">unwrap_dict</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,2344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>MDRefine.loss_and_minimizer API documentation</title>
+<meta name="description" content="Tools n. 2: `loss_and_minimizer`.
+It defines the loss functions and minimizes it.
+It includes also `split_dataset` and `validation`.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>MDRefine.loss_and_minimizer</code></h1>
+</header>
+<section id="section-intro">
+<p>Tools n. 2: <code>loss_and_minimizer</code>.
+It defines the loss functions and minimizes it.
+It includes also <code><a title="MDRefine.loss_and_minimizer.split_dataset" href="#MDRefine.loss_and_minimizer.split_dataset">split_dataset()</a></code> and <code><a title="MDRefine.loss_and_minimizer.validation" href="#MDRefine.loss_and_minimizer.validation">validation()</a></code>.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="MDRefine.loss_and_minimizer.compute_D_KL"><code class="name flex">
+<span>def <span class="ident">compute_D_KL</span></span>(<span>weights_P: numpy.ndarray,<br>correction_ff: numpy.ndarray,<br>temperature: float,<br>logZ_P: float)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_D_KL(weights_P: numpy.ndarray, correction_ff: numpy.ndarray, temperature: float, logZ_P: float):
+    &#34;&#34;&#34;
+    This tool computes the Kullback-Leibler divergence of P(x) = 1/Z P_0 (x) e^(-V(x)/T)
+    with respect to P_0 as `av(V)/T + log Z` where av(V) is the average value of the potential V(x) over P(x).
+    
+    Parameters
+    ----------
+    weights_P : 1-D array-like
+        Numpy 1-dimensional array for the normalized weights P(x).
+
+    correction_ff : 1-D array-like
+        Numpy 1-dimensional array for the reweighting potential V(x).
+    
+    temperature: float
+        The value of temperature T, in measure units consistently with V(x), namely, such that V(x)/T is adimensional.
+    
+    logZ_P: float
+        The value of log Z.
+    &#34;&#34;&#34;
+    weighted_ff = weights_P*np.array(correction_ff)
+    av_ff = np.nansum(weighted_ff, axis=0)
+    D_KL = -(av_ff/temperature + logZ_P)
+
+    return D_KL</code></pre>
+</details>
+<div class="desc"><p>This tool computes the Kullback-Leibler divergence of P(x) = 1/Z P_0 (x) e^(-V(x)/T)
+with respect to P_0 as <code>av(V)/T + log Z</code> where av(V) is the average value of the potential V(x) over P(x).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>weights_P</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy 1-dimensional array for the normalized weights P(x).</dd>
+<dt><strong><code>correction_ff</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy 1-dimensional array for the reweighting potential V(x).</dd>
+<dt><strong><code>temperature</code></strong> :&ensp;<code>float</code></dt>
+<dd>The value of temperature T, in measure units consistently with V(x), namely, such that V(x)/T is adimensional.</dd>
+<dt><strong><code>logZ_P</code></strong> :&ensp;<code>float</code></dt>
+<dd>The value of log Z.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_DeltaDeltaG_terms"><code class="name flex">
+<span>def <span class="ident">compute_DeltaDeltaG_terms</span></span>(<span>data, logZ_P)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_DeltaDeltaG_terms(data, logZ_P):
+    &#34;&#34;&#34;
+    This tool computes the chi2 for Delta Delta G (free-energy differences from thermodynamic cycles),
+    contributing to the loss function with alchemical calculations.
+
+    Parameters
+    ----------
+    data : class instance
+        Object `data`; here, `data.properties` has the attribute `cycle_names` (list of names of the thermodynamic cycles);
+        `for s in data.properties.cycle_names`: `data.cycle[s]` has attributes `temperature` (of the cycle) and `gexp_DDG`;
+        `for s in my_list` (where `my_list` is the list of system names associated to a thermodynamic cycle
+        `my_list = [x2 for x in list(data.properties.cycle_names.values()) for x2 in x]`):
+        `data.mol[s]` has attributes `temperature` (of the system) and `logZ`.
+        
+    logZ_P : dict
+        Dictionary for logarithm of the partition function `Z_P`, namely, average value of `exp(-V_phi(x)/temperature)`
+        over the original ensemble; its keys are the selected `system_names`.
+    --------
+
+    Returns
+    --------
+    new_av_DG : dict
+        Dictionary of reweighted averages of Delta G.
+
+    chi2 : dict
+        Dictionary of chi2 (one for each thermodynamic cycle).
+    
+    loss : float
+        Total contribution to the loss function from free-energy differences Delta Delta G,
+        given by 1/2 of the total chi2.
+    &#34;&#34;&#34;
+    cycle_names = data.properties.cycle_names
+
+    new_av_DG = {}
+    chi2 = {}
+    loss = 0
+
+    for cycle_name in cycle_names:
+        my_list = data.properties.cycle_names[cycle_name]
+        for s in my_list:
+            if (s in logZ_P.keys()) and (not logZ_P[s] == 0):
+                # correction only on MD
+                new_av_DG[s] = -data.mol[s].temperature*(logZ_P[s] + data.mol[s].logZ)
+            if s not in logZ_P:
+                logZ_P[s] = 0
+
+        DeltaDeltaG = -(
+            logZ_P[my_list[3]] + data.mol[my_list[3]].logZ  # MD
+            - logZ_P[my_list[1]] - data.mol[my_list[1]].logZ)  # AD
+
+        DeltaDeltaG += logZ_P[my_list[2]] + data.mol[my_list[2]].logZ  # MS
+        - logZ_P[my_list[0]] - data.mol[my_list[0]].logZ  # AS
+
+        DeltaDeltaG = DeltaDeltaG*data.cycle[cycle_name].temperature
+
+        chi2[cycle_name] = ((DeltaDeltaG - data.cycle[cycle_name].gexp_DDG[0])/data.cycle[cycle_name].gexp_DDG[1])**2
+        loss += 1/2*chi2[cycle_name]
+
+    return new_av_DG, chi2, loss</code></pre>
+</details>
+<div class="desc"><p>This tool computes the chi2 for Delta Delta G (free-energy differences from thermodynamic cycles),
+contributing to the loss function with alchemical calculations.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Object <code>data</code>; here, <code>data.properties</code> has the attribute <code>cycle_names</code> (list of names of the thermodynamic cycles);
+<code>for s in data.properties.cycle_names</code>: <code>data.cycle[s]</code> has attributes <code>temperature</code> (of the cycle) and <code>gexp_DDG</code>;
+<code>for s in my_list</code> (where <code>my_list</code> is the list of system names associated to a thermodynamic cycle
+<code>my_list = [x2 for x in list(data.properties.cycle_names.values()) for x2 in x]</code>):
+<code>data.mol[s]</code> has attributes <code>temperature</code> (of the system) and <code>logZ</code>.</dd>
+<dt><strong><code>logZ_P</code></strong> :&ensp;<code>dict</code></dt>
+<dd>
+<p>Dictionary for logarithm of the partition function <code>Z_P</code>, namely, average value of <code>exp(-V_phi(x)/temperature)</code></p>
+<h2 id="over-the-original-ensemble-its-keys-are-the-selected-system_names">over the original ensemble; its keys are the selected <code>system_names</code>.</h2>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>new_av_DG</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of reweighted averages of Delta G.</dd>
+<dt><strong><code>chi2</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of chi2 (one for each thermodynamic cycle).</dd>
+<dt><strong><code>loss</code></strong> :&ensp;<code>float</code></dt>
+<dd>Total contribution to the loss function from free-energy differences Delta Delta G,
+given by 1/2 of the total chi2.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_chi2"><code class="name flex">
+<span>def <span class="ident">compute_chi2</span></span>(<span>ref, weights, g, gexp, if_separate=False)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_chi2(ref, weights, g, gexp, if_separate=False):
+    &#34;&#34;&#34;
+    This tool computes the chi2 (for a given molecular system:
+    the input dictionaries are structured as the attributes of `data.mol[mol_name]`).
+    
+    Parameters
+    ----------
+    ref : dict
+        Dictionary for references (`=`, `&gt;`, `&lt;`, `&gt;&lt;`) used to compute the appropriate chi2.
+    
+    weights : 1-D array-like
+        Numpy 1-dimensional array of weights.
+    
+    g : dict
+        Dictionary of observables specific for the given molecular system.
+
+    gexp : dict
+        Dictionary of experimental values specific for the given molecular system (coherently with `g`).
+
+    if_separate: bool
+        Boolean variable, True if you are distinguishing between LOWER and UPPER bounds (`name_type + &#39; LOWER&#39;`
+        or `name_type + &#39; UPPER&#39;`), needed for minimizations with double bounds.
+    --------
+
+    Returns
+    --------
+    This tool returns 4 variables: 3 dictionaries (with keys running over different kinds of observables) and 1 float:
+
+    av_g : dict
+        Dictionary of average values of the observables `g`.
+
+    chi2 : dict
+        Dictionary of chi2.
+    
+    rel_diffs: dict
+        Dicionary of relative differences.
+    
+    tot_chi2: float
+        Total chi2 for the given molecular system.
+    &#34;&#34;&#34;
+    av_g = {}
+    rel_diffs = {}
+    chi2 = {}
+    tot_chi2 = 0
+
+    for name_type in gexp.keys():
+
+        if ref[name_type] == &#39;&gt;&lt;&#39;:
+            # av_g UPPER is equal to av_g LOWER but (if if_separate) you have to distinguish them
+            if if_separate:
+                av_g[name_type+&#39; LOWER&#39;] = np.einsum(&#39;i,ij&#39;, weights, g[name_type+&#39; LOWER&#39;])
+                av_g[name_type+&#39; UPPER&#39;] = av_g[name_type+&#39; LOWER&#39;]
+
+                rel_diffs[name_type+&#39; UPPER&#39;] = np.maximum(
+                    av_g[name_type+&#39; UPPER&#39;]-gexp[name_type+&#39; UPPER&#39;][:, 0],
+                    np.zeros(len(av_g[name_type+&#39; UPPER&#39;])))/gexp[name_type+&#39; UPPER&#39;][:, 1]
+                rel_diffs[name_type+&#39; LOWER&#39;] = np.minimum(
+                    av_g[name_type+&#39; LOWER&#39;]-gexp[name_type+&#39; LOWER&#39;][:, 0],
+                    np.zeros(len(av_g[name_type+&#39; LOWER&#39;])))/gexp[name_type+&#39; LOWER&#39;][:, 1]
+
+            else:
+                av_g[name_type] = np.einsum(&#39;i,ij&#39;, weights, g[name_type])
+
+                rel_diffs[name_type+&#39; UPPER&#39;] = np.maximum(
+                    av_g[name_type]-gexp[name_type+&#39; UPPER&#39;][:, 0],
+                    np.zeros(len(av_g[name_type])))/gexp[name_type+&#39; UPPER&#39;][:, 1]
+                rel_diffs[name_type+&#39; LOWER&#39;] = np.minimum(
+                    av_g[name_type]-gexp[name_type+&#39; LOWER&#39;][:, 0],
+                    np.zeros(len(av_g[name_type])))/gexp[name_type+&#39; LOWER&#39;][:, 1]
+
+                # either one of the two is zero and the other non-zero
+                rel_diffs[name_type] = rel_diffs[name_type+&#39; LOWER&#39;]+rel_diffs[name_type+&#39; UPPER&#39;]
+                del rel_diffs[name_type+&#39; LOWER&#39;], rel_diffs[name_type+&#39; UPPER&#39;]
+
+        elif ref[name_type] == &#39;=&#39;:
+            av_g[name_type] = np.einsum(&#39;i,ij&#39;, weights, g[name_type])
+            rel_diffs[name_type] = (av_g[name_type]-gexp[name_type][:, 0])/gexp[name_type][:, 1]
+
+        elif ref[name_type] == &#39;&lt;&#39;:
+            av_g[name_type] = np.einsum(&#39;i,ij&#39;, weights, g[name_type])
+            rel_diffs[name_type] = np.maximum(
+                av_g[name_type]-gexp[name_type][:, 0], np.zeros(len(av_g[name_type])))/gexp[name_type][:, 1]
+
+        elif ref[name_type] == &#39;&gt;&#39;:
+            av_g[name_type] = np.einsum(&#39;i,ij&#39;, weights, g[name_type])
+            rel_diffs[name_type] = np.minimum(
+                av_g[name_type]-gexp[name_type][:, 0], np.zeros(len(av_g[name_type])))/gexp[name_type][:, 1]
+
+        else:
+            print(&#39;error&#39;)
+
+    for k in rel_diffs.keys():
+        chi2[k] = np.sum(rel_diffs[k]**2)
+        tot_chi2 += chi2[k]
+
+    return av_g, chi2, rel_diffs, tot_chi2</code></pre>
+</details>
+<div class="desc"><p>This tool computes the chi2 (for a given molecular system:
+the input dictionaries are structured as the attributes of <code>data.mol[mol_name]</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ref</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for references (<code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;&lt;</code>) used to compute the appropriate chi2.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy 1-dimensional array of weights.</dd>
+<dt><strong><code>g</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of observables specific for the given molecular system.</dd>
+<dt><strong><code>gexp</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of experimental values specific for the given molecular system (coherently with <code>g</code>).</dd>
+<dt><strong><code>if_separate</code></strong> :&ensp;<code>bool</code></dt>
+<dd>
+<p>Boolean variable, True if you are distinguishing between LOWER and UPPER bounds (<code>name_type + ' LOWER'</code></p>
+<h2 id="or-name_type-upper-needed-for-minimizations-with-double-bounds">or <code>name_type + ' UPPER'</code>), needed for minimizations with double bounds.</h2>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>This tool returns 4 variables: 3 dictionaries (with keys running over different kinds</code> of <code>observables) and 1 float:</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>av_g</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of average values of the observables <code>g</code>.</dd>
+<dt><strong><code>chi2</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of chi2.</dd>
+<dt><strong><code>rel_diffs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dicionary of relative differences.</dd>
+<dt><strong><code>tot_chi2</code></strong> :&ensp;<code>float</code></dt>
+<dd>Total chi2 for the given molecular system.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_details_ER"><code class="name flex">
+<span>def <span class="ident">compute_details_ER</span></span>(<span>weights_P, g, data, lambdas, alpha)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_details_ER(weights_P, g, data, lambdas, alpha):
+    &#34;&#34;&#34;
+    This is an internal tool of `loss_function` which computes explicitely the contribution to the loss function due to Ensemble Refinement
+    (namely, 1/2 chi2 + alpha D_KL) and compare this value with -alpha*Gamma (they are equal in the minimum: check).
+    It cycles over different systems. It acts after the minimization of the loss function inside `loss_function` (not for the minimization
+    itself, since we exploit the Gamma function).
+
+    Be careful to use either: normalized values for `lambdas` and `g` (if `hasattr(data.mol[name_mol],&#39;normg_mean&#39;)`) or non-normalized ones
+    (if `not hasattr(data.mol[name_mol],&#39;normg_mean&#39;)`).
+    
+    Parameters
+    ----------
+    weights_P : dict
+        Dictionary of Numpy arrays, namely, the weights on which Ensemble Refinement acts (those with force-field correction
+        in the fully combined refinement).
+        
+    g : dict
+        Dictionary of dictionaries, like for `data.mol[name_mol].g`, corresponding to the observables (computed with updated forward-model coefficients).
+    
+    data : dict
+        The original data object.
+    
+    lambdas : dict
+        Dictionary of Numpy arrays, corresponding to the coefficients for Ensemble Refinement.
+    
+    alpha : float
+        The alpha hyperparameter, for Ensemble Refinement.
+    &#34;&#34;&#34;
+
+    class Details_class:
+        def __init__(self):
+            self.loss_explicit = 0
+            # loss_explicit is loss function computed explicitly as 1/2*chi2 + alpha*D_KL (rather than with Gamma function)
+            self.weights_new = {}
+            self.logZ_new = {}
+            self.av_g = {}
+            self.chi2 = {}
+            self.D_KL_alpha = {}
+            self.abs_difference = {}
+
+    Details = Details_class()
+
+    system_names = data.properties.system_names
+
+    for name_mol in system_names:
+
+        if hasattr(data.mol[name_mol], &#39;normg_mean&#39;):
+            print(&#39;WARNING: you are using normalized observables!&#39;)
+
+        flatten_g = np.hstack([g[name_mol][k] for k in data.mol[name_mol].n_experiments.keys()])
+        flatten_gexp = np.vstack([data.mol[name_mol].gexp[k] for k in data.mol[name_mol].n_experiments.keys()])
+        correction = np.einsum(&#39;ij,j&#39;, flatten_g, lambdas[name_mol])
+
+        out = compute_new_weights(weights_P[name_mol], correction)
+        Details.weights_new[name_mol] = out[0]
+        Details.logZ_new[name_mol] = out[1]
+
+        out = compute_chi2(data.mol[name_mol].ref, Details.weights_new[name_mol], g[name_mol], data.mol[name_mol].gexp)
+        Details.av_g[name_mol] = out[0]
+        Details.chi2[name_mol] = out[1]
+        loss1 = 1/2*out[3]
+
+        Details.D_KL_alpha[name_mol] = compute_D_KL(Details.weights_new[name_mol], correction, 1, Details.logZ_new[name_mol])
+        loss1 += alpha*Details.D_KL_alpha[name_mol]
+        Details.loss_explicit += loss1
+
+        &#34;&#34;&#34; You could also use lambdas to evaluate immediately chi2 and D_KL
+        (if lambdas are determined from the given frames) &#34;&#34;&#34;
+        loss2 = -alpha*gamma_function(lambdas[name_mol], flatten_g, flatten_gexp, weights_P[name_mol], alpha)
+
+        Details.abs_difference[name_mol] = np.abs(loss2-loss1)
+
+    return Details</code></pre>
+</details>
+<div class="desc"><p>This is an internal tool of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> which computes explicitely the contribution to the loss function due to Ensemble Refinement
+(namely, 1/2 chi2 + alpha D_KL) and compare this value with -alpha*Gamma (they are equal in the minimum: check).
+It cycles over different systems. It acts after the minimization of the loss function inside <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> (not for the minimization
+itself, since we exploit the Gamma function).</p>
+<p>Be careful to use either: normalized values for <code>lambdas</code> and <code>g</code> (if <code>hasattr(data.mol[name_mol],'normg_mean')</code>) or non-normalized ones
+(if <code>not hasattr(data.mol[name_mol],'normg_mean')</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>weights_P</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of Numpy arrays, namely, the weights on which Ensemble Refinement acts (those with force-field correction
+in the fully combined refinement).</dd>
+<dt><strong><code>g</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of dictionaries, like for <code>data.mol[name_mol].g</code>, corresponding to the observables (computed with updated forward-model coefficients).</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The original data object.</dd>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of Numpy arrays, corresponding to the coefficients for Ensemble Refinement.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>float</code></dt>
+<dd>The alpha hyperparameter, for Ensemble Refinement.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_js"><code class="name flex">
+<span>def <span class="ident">compute_js</span></span>(<span>n_experiments)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_js(n_experiments):
+    &#34;&#34;&#34;
+    This tool computes the indices `js` (defined by cumulative sums) for lambdas corresponding to different molecular systems and
+    types of observables. Be careful to follow always the same order: let&#39;s choose it as that of `data.n_experiments`,
+    which is a dictionary `n_experiments[name_mol][name]`.
+    &#34;&#34;&#34;
+
+    js = []
+
+    for i_mol, name_mol in enumerate(n_experiments.keys()):
+        js.append([])
+        for name in n_experiments[name_mol].keys():
+            js[i_mol].append(n_experiments[name_mol][name])
+        js[i_mol] = [0] + np.cumsum(np.array(js[i_mol])).tolist()
+
+    js[0] = np.array(js[0])
+
+    if len(n_experiments.keys()) &gt; 1:
+        for i_mol in range(1, len(n_experiments.keys())):
+            js[i_mol] = np.array(js[i_mol]) + js[i_mol-1][-1]
+
+    return js</code></pre>
+</details>
+<div class="desc"><p>This tool computes the indices <code>js</code> (defined by cumulative sums) for lambdas corresponding to different molecular systems and
+types of observables. Be careful to follow always the same order: let's choose it as that of <code>data.n_experiments</code>,
+which is a dictionary <code>n_experiments[name_mol][name]</code>.</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.compute_new_weights"><code class="name flex">
+<span>def <span class="ident">compute_new_weights</span></span>(<span>weights: numpy.ndarray, correction: numpy.ndarray)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_new_weights(weights: numpy.ndarray, correction: numpy.ndarray):
+    &#34;&#34;&#34;
+    This tool computes the new weights as weights*exp(-correction).
+    It modifies Parameters `weights` are normalized and `correction` is shifted by `correction -= shift`, where `shift = np.min(correction)`.
+    It returns two variables: a Numpy array `new_weights` and a float `logZ`.
+    &#34;&#34;&#34;
+
+    weights = weights/np.sum(weights)
+
+    &#34;&#34;&#34; shift is such that the physical Z is = Z/np.exp(shift) &#34;&#34;&#34;
+    shift = np.min(correction)
+    correction -= shift
+
+    new_weights = np.exp(-correction)*weights
+
+    assert not np.isnan(new_weights).any(), &#39;Error: new_weights contains None&#39;
+
+    logZ = np.log(np.sum(new_weights))-shift
+    new_weights = new_weights/np.sum(new_weights)
+
+    return new_weights, logZ</code></pre>
+</details>
+<div class="desc"><p>This tool computes the new weights as weights*exp(-correction).
+It modifies Parameters <code>weights</code> are normalized and <code>correction</code> is shifted by <code>correction -= shift</code>, where <code>shift = np.min(correction)</code>.
+It returns two variables: a Numpy array <code>new_weights</code> and a float <code>logZ</code>.</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.deconvolve_lambdas"><code class="name flex">
+<span>def <span class="ident">deconvolve_lambdas</span></span>(<span>data, lambdas: numpy.ndarray, if_denormalize: bool = True)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def deconvolve_lambdas(data, lambdas: numpy.ndarray, if_denormalize: bool = True):
+    &#34;&#34;&#34;
+    This tool deconvolves `lambdas` from Numpy array to dictionary of dictionaries (corresponding to `data.mol[name_mol].g`);
+    if `if_denormalize`, then `lambdas` has been computed with normalized data, so use `data.mol[name_mol].normg_std` and `data.mol[name_mol].normg_mean`
+    in order to go back to corresponding lambdas for non-normalized data. The order of `lambdas` is the one described in `compute_js`.
+    &#34;&#34;&#34;
+    dict_lambdas = {}
+
+    ns = 0
+
+    system_names = data.properties.system_names
+
+    for name_mol in system_names:
+
+        dict_lambdas[name_mol] = {}
+
+        for name in data.mol[name_mol].n_experiments.keys():
+            dict_lambdas[name_mol][name] = lambdas[ns:(ns+data.mol[name_mol].n_experiments[name])]
+            ns += data.mol[name_mol].n_experiments[name]
+
+        if if_denormalize:
+            assert hasattr(data.mol[name_mol], &#39;normg_std&#39;), &#39;Error: missing normalized std values!&#39;
+            for name in data.mol[name_mol].ref.keys():
+                if data.mol[name_mol].ref[name] == &#39;&gt;&lt;&#39;:
+                    # you can sum since one of the two is zero
+                    dict_lambdas[name_mol][name] = (
+                        dict_lambdas[name_mol][name+&#39; LOWER&#39;]/data.mol[name_mol].normg_std[name+&#39; LOWER&#39;])
+
+                    dict_lambdas[name_mol][name] += (
+                        dict_lambdas[name_mol][name+&#39; UPPER&#39;]/data.mol[name_mol].normg_std[name+&#39; UPPER&#39;])
+
+                    del dict_lambdas[name_mol][name+&#39; LOWER&#39;], dict_lambdas[name_mol][name+&#39; UPPER&#39;]
+                else:
+                    dict_lambdas[name_mol][name] = dict_lambdas[name_mol][name]/data.mol[name_mol].normg_std[name]
+        else:
+            for name in data.mol[name_mol].ref.keys():
+                if data.mol[name_mol].ref[name] == &#39;&gt;&lt;&#39;:
+                    dict_lambdas[name_mol][name] = dict_lambdas[name_mol][name+&#39; LOWER&#39;]
+                    + dict_lambdas[name_mol][name+&#39; UPPER&#39;]
+                    del dict_lambdas[name_mol][name+&#39; LOWER&#39;], dict_lambdas[name_mol][name+&#39; UPPER&#39;]
+
+    return dict_lambdas</code></pre>
+</details>
+<div class="desc"><p>This tool deconvolves <code>lambdas</code> from Numpy array to dictionary of dictionaries (corresponding to <code>data.mol[name_mol].g</code>);
+if <code>if_denormalize</code>, then <code>lambdas</code> has been computed with normalized data, so use <code>data.mol[name_mol].normg_std</code> and <code>data.mol[name_mol].normg_mean</code>
+in order to go back to corresponding lambdas for non-normalized data. The order of <code>lambdas</code> is the one described in <code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js()</a></code>.</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.gamma_function"><code class="name flex">
+<span>def <span class="ident">gamma_function</span></span>(<span>lambdas: numpy.ndarray,<br>g: numpy.ndarray,<br>gexp: numpy.ndarray,<br>weights: numpy.ndarray,<br>alpha: float,<br>if_gradient: bool = False)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def gamma_function(lambdas: numpy.ndarray, g: numpy.ndarray, gexp: numpy.ndarray, weights: numpy.ndarray, alpha: float, if_gradient: bool = False):
+    &#34;&#34;&#34;
+    This tool computes gamma function and (if `if_gradient`) its derivatives and the average values of the observables `av_g`.
+    Make sure that `lambdas` follow the same order as `g`, `gexp` (let&#39;s use that of `data.n_experiments`).
+
+    Parameters
+    ----------
+    
+    lambdas : 1-D array-like
+        Numpy 1-dimensional array of length N, where `lambdas[j]` is the lambda value for the j-th observable.
+    
+    g : 2-D array-like
+        Numpy 2-dimensional array (M x N); `g[i,j]` is the j-th observable computed in the i-th frame.
+    
+    gexp : 2-D array-like
+        Numpy 2-dimensional array (N x 2); `gexp[j,0]` is the experimental value of the j-th observable, `gexp[j,1]` is the associated experimental uncertainty.
+    
+    weights : 1-D array-like
+        Numpy 1-dimensional array of length M; `w[i]` is the weight of the i-th frame (possibly non-normalized).
+    
+    alpha : float
+        The value of the alpha hyperparameter.
+    
+    if_gradient : bool
+        If true, return also the gradient of the gamma function.
+    &#34;&#34;&#34;
+    correction_lambdas = np.matmul(g, lambdas)
+    newweights, logZlambda = compute_new_weights(weights, correction_lambdas)
+
+    gammaf = np.matmul(lambdas, gexp[:, 0]) + 1/2*alpha*np.matmul(lambdas**2, gexp[:, 1]**2) + logZlambda
+
+    if if_gradient:
+        av_g = np.einsum(&#39;i,ij&#39;, newweights, g)
+        grad = -(av_g-gexp[:, 0]-alpha*lambdas*gexp[:, 1]**2)
+        grad = numpy.array(grad)
+        return gammaf, grad, av_g
+    else:
+        return gammaf</code></pre>
+</details>
+<div class="desc"><p>This tool computes gamma function and (if <code>if_gradient</code>) its derivatives and the average values of the observables <code>av_g</code>.
+Make sure that <code>lambdas</code> follow the same order as <code>g</code>, <code>gexp</code> (let's use that of <code>data.n_experiments</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy 1-dimensional array of length N, where <code>lambdas[j]</code> is the lambda value for the j-th observable.</dd>
+<dt><strong><code>g</code></strong> :&ensp;<code>2-D array-like</code></dt>
+<dd>Numpy 2-dimensional array (M x N); <code>g[i,j]</code> is the j-th observable computed in the i-th frame.</dd>
+<dt><strong><code>gexp</code></strong> :&ensp;<code>2-D array-like</code></dt>
+<dd>Numpy 2-dimensional array (N x 2); <code>gexp[j,0]</code> is the experimental value of the j-th observable, <code>gexp[j,1]</code> is the associated experimental uncertainty.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy 1-dimensional array of length M; <code>w[i]</code> is the weight of the i-th frame (possibly non-normalized).</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>float</code></dt>
+<dd>The value of the alpha hyperparameter.</dd>
+<dt><strong><code>if_gradient</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If true, return also the gradient of the gamma function.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.l2_regularization"><code class="name flex">
+<span>def <span class="ident">l2_regularization</span></span>(<span>pars: numpy.ndarray, choice: str = 'plain l2')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def l2_regularization(pars: numpy.ndarray, choice: str = &#39;plain l2&#39;):
+    &#34;&#34;&#34;
+    This tool computes the L2 regularization for the force-field correction coefficients `pars` as specified by `choice`. It includes:
+    
+    - `&#39;plain l2&#39;` (plain L2 regularization of `pars`);
+    
+    - L2 regularization for alchemical calculations with charges (as described by Valerio Piomponi et al., see main paper):
+    `pars[:-1]` are the charges and `pars[-1]` is V_eta; there is the constraint on the total charge, and there are 3 `pars[4]` charges in the molecule;
+     so, `&#39;constraint 1&#39;` is the L2 regularization on charges, while `&#39;constraint 2&#39;` is the L2 regularization on charges and on V_eta.
+    
+
+    Output values: lossf_reg and gradient (floats).
+    &#34;&#34;&#34;
+    lossf_reg = None
+    gradient = None
+
+    if choice == &#39;plain l2&#39;:
+        lossf_reg = np.sum(pars**2)
+        gradient = 2*pars
+
+    elif choice == &#39;constraint 1&#39;:
+        lossf_reg = np.sum(pars[:-1]**2)+(np.sum(pars[:-1])+2*pars[4])**2
+        n = np.array([1, 1, 1, 1, 3])
+        gradient = 2*(pars[:-1]+(np.sum(pars[:-1])+2*pars[4])*n)
+
+    elif choice == &#39;constraint 2&#39;:
+        lossf_reg = np.sum(pars**2)+(np.sum(pars[:-1])+2*pars[4])**2
+        n = np.array([1, 1, 1, 1, 3, 0])
+        gradient = 2*(pars+(np.sum(pars[:-1])+2*pars[4])*n)
+
+    return lossf_reg, gradient</code></pre>
+</details>
+<div class="desc"><p>This tool computes the L2 regularization for the force-field correction coefficients <code>pars</code> as specified by <code>choice</code>. It includes:</p>
+<ul>
+<li>
+<p><code>'plain l2'</code> (plain L2 regularization of <code>pars</code>);</p>
+</li>
+<li>
+<p>L2 regularization for alchemical calculations with charges (as described by Valerio Piomponi et al., see main paper):
+<code>pars[:-1]</code> are the charges and <code>pars[-1]</code> is V_eta; there is the constraint on the total charge, and there are 3 <code>pars[4]</code> charges in the molecule;
+so, <code>'constraint 1'</code> is the L2 regularization on charges, while <code>'constraint 2'</code> is the L2 regularization on charges and on V_eta.</p>
+</li>
+</ul>
+<p>Output values: lossf_reg and gradient (floats).</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.loss_function"><code class="name flex">
+<span>def <span class="ident">loss_function</span></span>(<span>pars_ff_fm: numpy.ndarray,<br>data: dict,<br>regularization: dict,<br>alpha: float = inf,<br>beta: float = inf,<br>gamma: float = inf,<br>fixed_lambdas: numpy.ndarray = None,<br>gtol_inn: float = 0.001,<br>if_save: bool = False,<br>bounds: dict = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loss_function(
+    pars_ff_fm: numpy.ndarray, data: dict, regularization: dict,
+        alpha: float = +np.inf, beta: float = +np.inf, gamma: float = +np.inf,
+        fixed_lambdas: numpy.ndarray = None, gtol_inn: float = 1e-3, if_save: bool = False, bounds: dict = None):
+    &#34;&#34;&#34;
+    This tool computes the fully-combined loss function (to minimize), taking advantage of the inner minimization with Gamma function.
+    
+    If `not np.isinf(alpha)`:
+
+    - if `fixed_lambdas == None`, then do the inner minimization of Gamma (in this case, you have the global variable `lambdas`,
+        corresponding to the starting point of the minimization; it is a Numpy array sorted as in `compute_js`).
+
+    - else: `lambdas` is fixed (`fixed_lambdas` is not `None`) and the Gamma function is evaluated at this value of lambda, which must
+        correspond to its point of minimum, otherwise there is a mismatch between the Gamma function and the Ensemble Refinement loss.
+
+    The order followed for `lambdas` is the one of `compute_js`, which is not modified in any step.
+
+    If `if_save`: `loss_function` returns `Details` class instance with the detailed results; otherwise, it returns just the loss value.
+
+    The input data are not modified by `loss_function` (neither explicitely by `loss_function` nor by its inner functions):
+    for forward-model updating, `loss_function` defines a new variable `g` (through `copy.deepcopy`).
+
+    Parameters
+    ----------
+    pars_ff_fm: 1-D array-like
+        Numpy 1-dimensional array with parameters for force-field corrections and/or forward models.
+        These parameters are sorted as: first force-field correction (ff), then forward model (fm);
+        order for ff: `names_ff_pars = []`; `for k in system_names: [names_ff_pars.append(x) for x in data[k].f.keys() if x not in names_ff_pars]`;
+        order for fm: the same as `data.forward_coeffs_0`.
+
+    data: dict
+        Dictionary of class instances as organised in `load_data`, which constitutes the `data` object.
+    
+    regularization: dict
+        Dictionary for the force-field and forward-model correction regularizations (see `MDRefinement`).
+
+    alpha, beta, gamma: floats
+        The hyperparameters of the three refinements (respectively, to: the ensemble, the force-field, the forward-model);
+        (`+np.inf` by default, namely no refinement in that direction).
+    
+    fixed_lambdas: 1-D array-like, optional
+        Numpy 1-dimensional array of fixed values of `lambdas` (coefficients for Ensemble Refinement, organized as in `compute_js`).  (`None` by default).
+    
+    gtol_inn: float
+        Tolerance `gtol` for the inner minimization of Gamma function (`1e-3` by default).
+    
+    if_save: bool
+        Boolean variable (`False` by default).
+    
+    bounds: dict
+        Dictionary of boundaries for the inner minimization (`None` by default).
+    &#34;&#34;&#34;
+    assert alpha &gt; 0, &#39;alpha must be strictly positive&#39;
+    assert beta &gt;= 0, &#39;beta must be positive or zero&#39;
+    assert gamma &gt;= 0, &#39;gamma must be positive or zero&#39;
+
+    system_names = data.properties.system_names
+
+    if_fixed_lambdas = None  # to avoid error in Pylint
+    if not np.isinf(alpha):
+        if (fixed_lambdas is None):
+            if_fixed_lambdas = False
+            global lambdas
+            if &#39;lambdas&#39; not in globals():
+                lambdas = np.zeros(data.properties.tot_n_experiments(data))
+        else:
+            if_fixed_lambdas = True
+            lambdas = fixed_lambdas
+
+    if not np.isinf(beta):
+        names_ff_pars = data.properties.names_ff_pars
+        pars_ff = pars_ff_fm[:len(names_ff_pars)]
+
+    pars_fm = None  # to avoid error in Pylint
+    if not np.isinf(gamma):
+        if np.isinf(beta):
+            pars_fm = pars_ff_fm
+        else:
+            pars_fm = pars_ff_fm[len(names_ff_pars):]
+
+    loss = 0
+
+    weights_P = {}
+
+    if not np.isinf(beta):
+        correction_ff = {}
+    logZ_P = {}
+
+    g = {}
+
+    for name_mol in system_names:
+
+        &#34;&#34;&#34; 1a. compute force-field corrections and corresponding re-weights &#34;&#34;&#34;
+
+        if not np.isinf(beta):
+            if hasattr(data.mol[name_mol], &#39;ff_correction&#39;):
+                correction_ff[name_mol] = data.mol[name_mol].ff_correction(pars_ff, data.mol[name_mol].f)
+                weights_P[name_mol], logZ_P[name_mol] = compute_new_weights(
+                    data.mol[name_mol].weights, correction_ff[name_mol]/data.mol[name_mol].temperature)
+
+            else:  # if beta is not infinite, but there are systems without force-field corrections:
+                weights_P[name_mol] = data.mol[name_mol].weights
+                logZ_P[name_mol] = 0
+        else:
+            weights_P[name_mol] = data.mol[name_mol].weights
+            logZ_P[name_mol] = 0
+
+        &#34;&#34;&#34; 1b. if np.isinf(gamma): g is re-computed observables data.g through updated forward model
+            (notice you also have some observables directly as data.g without updating of forward model);
+            else: g is data.g (initial data.g[name_mol] if gamma == np.inf). &#34;&#34;&#34;
+
+        if np.isinf(gamma):
+            if hasattr(data.mol[name_mol], &#39;g&#39;):
+                g[name_mol] = copy.deepcopy(data.mol[name_mol].g)
+        else:
+            if hasattr(data.mol[name_mol], &#39;g&#39;):
+                g[name_mol] = copy.deepcopy(data.mol[name_mol].g)
+            else:
+                g[name_mol] = {}
+
+            if hasattr(data.mol[name_mol], &#39;selected_obs&#39;):
+                selected_obs = data.mol[name_mol].selected_obs
+            else:
+                selected_obs = None
+
+            fm_observables = data.mol[name_mol].forward_model(pars_fm, data.mol[name_mol].forward_qs, selected_obs)
+
+            for name in fm_observables.keys():
+
+                g[name_mol][name] = fm_observables[name]
+                if hasattr(data.mol[name_mol], &#39;normg_mean&#39;):
+                    g[name_mol][name] = (g[name_mol][name]-data.mol[name_mol].normg_mean[name])/data.mol[name_mol].normg_std[name]
+
+            del fm_observables
+
+        if (np.isinf(gamma) and hasattr(data.mol[name_mol], &#39;g&#39;)) or not np.isinf(gamma):
+            for name in data.mol[name_mol].ref.keys():
+                if data.mol[name_mol].ref[name] == &#39;&gt;&lt;&#39;:
+                    g[name_mol][name+&#39; LOWER&#39;] = g[name_mol][name]
+                    g[name_mol][name+&#39; UPPER&#39;] = g[name_mol][name]
+                    del g[name_mol][name]
+
+    &#34;&#34;&#34; 2. compute chi2 (if np.isinf(alpha)) or Gamma function (otherwise) &#34;&#34;&#34;
+
+    if np.isinf(alpha):
+
+        av_g = {}
+        chi2 = {}
+
+        if hasattr(data.properties, &#39;cycle_names&#39;):
+            out = compute_DeltaDeltaG_terms(data, logZ_P)
+            av_g = out[0]
+            chi2 = out[1]
+            loss += out[2]
+
+        for name_mol in system_names:
+            if hasattr(data.mol[name_mol], &#39;g&#39;):
+                out = compute_chi2(data.mol[name_mol].ref, weights_P[name_mol], g[name_mol], data.mol[name_mol].gexp, True)
+                av_g[name_mol] = out[0]
+                chi2[name_mol] = out[1]
+                loss += 1/2*out[3]
+
+    else:
+
+        my_dict = {}
+        for k in system_names:
+            my_dict[k] = data.mol[k].n_experiments
+        js = compute_js(my_dict)
+
+        x0 = {}
+        flatten_g = {}
+        flatten_gexp = {}
+
+        for i_mol, name_mol in enumerate(system_names):
+
+            x0[name_mol] = np.array(lambdas[js[i_mol][0]:js[i_mol][-1]])
+            flatten_g[name_mol] = np.hstack([g[name_mol][k] for k in data.mol[name_mol].n_experiments.keys()])
+            flatten_gexp[name_mol] = np.vstack([data.mol[name_mol].gexp[k] for k in data.mol[name_mol].n_experiments.keys()])
+
+        gamma_value = 0
+
+        if if_fixed_lambdas:
+            for name_mol in system_names:
+                args = (x0[name_mol], flatten_g[name_mol], flatten_gexp[name_mol], weights_P[name_mol], alpha)
+                gamma_value += gamma_function(*args)
+        else:
+
+            global minis
+            minis = {}
+            mini_x = []
+
+            for name_mol in system_names:
+
+                if bounds is not None:
+                    boundaries = bounds[name_mol]
+                    method = &#39;L-BFGS-B&#39;
+                else:
+                    boundaries = None
+                    method = &#39;BFGS&#39;
+
+                options = {&#39;gtol&#39;: gtol_inn}
+                if method == &#39;L-BFGS-B&#39;:
+                    options[&#39;ftol&#39;] = 0
+
+                args = (flatten_g[name_mol], flatten_gexp[name_mol], weights_P[name_mol], alpha, True)
+                mini = minimize(
+                    gamma_function, x0[name_mol], args=args, method=method, bounds=boundaries, jac=True, options=options)
+
+                minis[name_mol] = mini
+                mini_x.append(mini.x)
+                gamma_value += mini.fun
+
+            lambdas = np.concatenate(mini_x)
+
+        loss -= alpha*gamma_value
+
+    &#34;&#34;&#34; 3. add regularization of force-field correction &#34;&#34;&#34;
+
+    if not np.isinf(beta):
+        if not isinstance(regularization[&#39;force_field_reg&#39;], str):
+            reg_ff = regularization[&#39;force_field_reg&#39;](pars_ff)
+            loss += beta*reg_ff
+        elif not regularization[&#39;force_field_reg&#39;] == &#39;KL divergence&#39;:
+            reg_ff = l2_regularization(pars_ff, regularization[&#39;force_field_reg&#39;])[0]
+            loss += beta*reg_ff
+        else:
+            reg_ff = {}
+            for name_mol in correction_ff.keys():
+                reg_ff[name_mol] = compute_D_KL(
+                    weights_P[name_mol], correction_ff[name_mol], data.mol[name_mol].temperature, logZ_P[name_mol])
+                loss += beta*reg_ff[name_mol]
+
+    &#34;&#34;&#34; 4. add regularization of forward-model coefficients &#34;&#34;&#34;
+    if not np.isinf(gamma):
+        reg_fm = regularization[&#39;forward_model_reg&#39;](pars_fm, data.properties.forward_coeffs_0)
+        loss += gamma*reg_fm
+
+    &#34;&#34;&#34; 5. if if_save, save values (in detail) &#34;&#34;&#34;
+    if if_save:
+
+        class Details_class:
+            pass
+        Details = Details_class()
+
+        Details.loss = loss
+
+        if not np.isinf(alpha) and not if_fixed_lambdas:
+            Details.minis = minis
+
+        if not np.isinf(beta):
+            Details.weights_P = weights_P
+            Details.logZ_P = logZ_P
+            Details.reg_ff = reg_ff
+
+        # just with correction to the force field and to the forward model (not to the ensemble)
+        if np.isinf(alpha):
+            Details.av_g = av_g
+            Details.chi2 = chi2
+
+        if not np.isinf(gamma):
+            Details.reg_fm = reg_fm
+
+        if not hasattr(Details, &#39;loss_explicit&#39;):
+            Details.loss_explicit = None  # for pylint
+
+        if not np.isinf(alpha):
+
+            &#34;&#34;&#34; Details_ER has attributes with names different from those of Details, as defined up to now &#34;&#34;&#34;
+            dict_lambdas = {}
+            for i_mol, name_mol in enumerate(system_names):
+                dict_lambdas[name_mol] = np.array(lambdas[js[i_mol][0]:js[i_mol][-1]])
+
+            Details_ER = compute_details_ER(weights_P, g, data, dict_lambdas, alpha)
+
+            my_keys = [x for x in dir(Details_ER) if not x.startswith(&#39;__&#39;)]
+            for k in my_keys:
+                setattr(Details, k, getattr(Details_ER, k))
+            del Details_ER
+
+            if hasattr(Details, &#39;loss_explicit&#39;):
+                if not np.isinf(beta):
+                    for name_mol in system_names:
+                        Details.loss_explicit += beta*reg_ff[name_mol]
+                if not np.isinf(gamma):
+                    Details.loss_explicit += gamma*reg_fm
+            else:
+                print(&#39;error in loss_explicit&#39;)
+
+        &#34;&#34;&#34;  just to improve the readability of the output: &#34;&#34;&#34;
+        if np.isinf(alpha):
+            if np.isinf(beta) and np.isinf(gamma):
+                print(&#39;all the hyperparameters are infinite&#39;)  # , namely, return original ensembles&#39;)
+            elif not np.isinf(beta):
+                Details.weights_new = Details.weights_P
+                Details.logZ_new = Details.logZ_P
+                del Details.weights_P, Details.logZ_P
+
+        if np.isinf(alpha) and np.isinf(beta) and not np.isinf(gamma):
+            Details.weights_new = {}
+            for name_mol in system_names:
+                Details.weights_new[name_mol] = data.mol[name_mol].weights
+            print(&#39;new weights are equal to original weights&#39;)
+
+        if Details.loss_explicit is None:
+            del Details.loss_explicit  # for pylint
+
+        return Details
+
+    return loss</code></pre>
+</details>
+<div class="desc"><p>This tool computes the fully-combined loss function (to minimize), taking advantage of the inner minimization with Gamma function.</p>
+<p>If <code>not np.isinf(alpha)</code>:</p>
+<ul>
+<li>
+<p>if <code>fixed_lambdas == None</code>, then do the inner minimization of Gamma (in this case, you have the global variable <code>lambdas</code>,
+corresponding to the starting point of the minimization; it is a Numpy array sorted as in <code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js()</a></code>).</p>
+</li>
+<li>
+<p>else: <code>lambdas</code> is fixed (<code>fixed_lambdas</code> is not <code>None</code>) and the Gamma function is evaluated at this value of lambda, which must
+correspond to its point of minimum, otherwise there is a mismatch between the Gamma function and the Ensemble Refinement loss.</p>
+</li>
+</ul>
+<p>The order followed for <code>lambdas</code> is the one of <code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js()</a></code>, which is not modified in any step.</p>
+<p>If <code>if_save</code>: <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> returns <code>Details</code> class instance with the detailed results; otherwise, it returns just the loss value.</p>
+<p>The input data are not modified by <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> (neither explicitely by <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> nor by its inner functions):
+for forward-model updating, <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> defines a new variable <code>g</code> (through <code>copy.deepcopy</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars_ff_fm</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy 1-dimensional array with parameters for force-field corrections and/or forward models.
+These parameters are sorted as: first force-field correction (ff), then forward model (fm);
+order for ff: <code>names_ff_pars = []</code>; <code>for k in system_names: [names_ff_pars.append(x) for x in data[k].f.keys() if x not in names_ff_pars]</code>;
+order for fm: the same as <code>data.forward_coeffs_0</code>.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of class instances as organised in <code>load_data</code>, which constitutes the <code>data</code> object.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the force-field and forward-model correction regularizations (see <code>MDRefinement</code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>The hyperparameters of the three refinements (respectively, to: the ensemble, the force-field, the forward-model);
+(<code>+np.inf</code> by default, namely no refinement in that direction).</dd>
+<dt><strong><code>fixed_lambdas</code></strong> :&ensp;<code>1-D array-like</code>, optional</dt>
+<dd>Numpy 1-dimensional array of fixed values of <code>lambdas</code> (coefficients for Ensemble Refinement, organized as in <code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js()</a></code>).
+(<code>None</code> by default).</dd>
+<dt><strong><code>gtol_inn</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>gtol</code> for the inner minimization of Gamma function (<code>1e-3</code> by default).</dd>
+<dt><strong><code>if_save</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Boolean variable (<code>False</code> by default).</dd>
+<dt><strong><code>bounds</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of boundaries for the inner minimization (<code>None</code> by default).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.loss_function_and_grad"><code class="name flex">
+<span>def <span class="ident">loss_function_and_grad</span></span>(<span>pars: numpy.ndarray,<br>data: dict,<br>regularization: dict,<br>alpha: float,<br>beta: float,<br>gamma: float,<br>gtol_inn: float,<br>boundaries: dict,<br>gradient_fun,<br>if_print: bool = False)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loss_function_and_grad(
+        pars: numpy.ndarray, data: dict, regularization: dict, alpha: float, beta: float, gamma: float,
+        gtol_inn: float, boundaries: dict, gradient_fun, if_print: bool = False):
+    &#34;&#34;&#34;
+    This tool returns `loss_function` and its gradient; the gradient function, which is going to be evaluated, is computed by Jax and passed as input variable `gradient_fun`.
+    If `not np.isinf(alpha)`, it appends also loss and lambdas to `intermediates.loss` and `intermediates.lambdas`, respectively.
+    
+    Global variable: `intermediates` (intermediate values during the minimization steps of `loss_function`).
+    
+    Parameters
+    ----------
+    
+    pars : 1-D array-like
+        Numpy array of parameters for force-field correction and forward model, respectively.
+    
+    data, regularization: dicts
+        Dictionaries for `data` object and regularizations (see in `MDRefinement`).
+    
+    alpha, beta, gamma: floats
+        Values of the hyperparameters.
+    
+    gtol_inn: float
+        Tolerance `gtol` for the inner minimization in `loss_function`.
+    
+    boundaries: dict
+        Dictionary of boundaries for the inner minimization in `loss_function`.
+    
+    gradient_fun: function
+        Gradient function of `loss_function`, computed by Jax.
+    &#34;&#34;&#34;
+
+    loss = loss_function(pars, data, regularization, alpha, beta, gamma, None, gtol_inn, False, boundaries)
+
+    global intermediates
+    intermediates.loss.append(loss)
+    intermediates.pars.append(pars)
+
+    if not np.isinf(alpha):
+        try:
+            intermediates.lambdas.append(lambdas)
+            intermediates.minis.append(minis)
+        except:
+            None
+
+    &#34;&#34;&#34; now evaluate the gradient w.r.t. pars at lambdas fixed (you are in the minimum: the contribution to
+    the derivative coming from lambdas is zero) &#34;&#34;&#34;
+    gradient = gradient_fun(pars, data, regularization, alpha=alpha, beta=beta, gamma=gamma, fixed_lambdas=lambdas)
+
+    if if_print:
+        print(&#39;New evaluation:&#39;)
+        # print(&#39;alpha, beta, gamma: &#39;, alpha, beta, gamma)
+        # print(&#39;pars: &#39;, pars)
+        print(&#39;loss: &#39;, loss)
+        print(&#39;gradient: &#39;, gradient, &#39;\n&#39;)
+
+    return loss, gradient</code></pre>
+</details>
+<div class="desc"><p>This tool returns <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> and its gradient; the gradient function, which is going to be evaluated, is computed by Jax and passed as input variable <code>gradient_fun</code>.
+If <code>not np.isinf(alpha)</code>, it appends also loss and lambdas to <code>intermediates.loss</code> and <code>intermediates.lambdas</code>, respectively.</p>
+<p>Global variable: <code>intermediates</code> (intermediate values during the minimization steps of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy array of parameters for force-field correction and forward model, respectively.</dd>
+<dt><strong><code>data</code></strong>, <strong><code>regularization</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for <code>data</code> object and regularizations (see in <code>MDRefinement</code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Values of the hyperparameters.</dd>
+<dt><strong><code>gtol_inn</code></strong> :&ensp;<code>float</code></dt>
+<dd>Tolerance <code>gtol</code> for the inner minimization in <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>.</dd>
+<dt><strong><code>boundaries</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary of boundaries for the inner minimization in <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>.</dd>
+<dt><strong><code>gradient_fun</code></strong> :&ensp;<code>function</code></dt>
+<dd>Gradient function of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>, computed by Jax.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.minimizer"><code class="name flex">
+<span>def <span class="ident">minimizer</span></span>(<span>original_data,<br>*,<br>regularization: dict = None,<br>alpha: float = inf,<br>beta: float = inf,<br>gamma: float = inf,<br>gtol: float = 0.001,<br>gtol_inn: float = 0.001,<br>data_valid: dict = None,<br>starting_pars: numpy.ndarray = None,<br>if_print_biblio: bool = True)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def minimizer(
+        original_data, *, regularization: dict = None, alpha: float = +numpy.inf, beta: float = +numpy.inf, gamma: float = +numpy.inf,
+        gtol: float = 1e-3, gtol_inn: float = 1e-3, data_valid: dict = None, starting_pars: numpy.ndarray = None, if_print_biblio: bool = True):
+    &#34;&#34;&#34;
+    This tool minimizes loss_function on `original_data` and do `validation` on `data_valid` (if `not None`), at given hyperparameters.
+
+    Parameters
+    ----------
+    original_data: dict
+        Dictionary for `data`-like object employed for the minimization of `loss_function`.
+    
+    regularization: dict
+        Dictionary for the regularizations (see in `MDRefinement`).
+    
+    alpha, beta, gamma: floats
+        Values of the hyperparameters for combined refinement (`+np.inf` by default: no refinement in that direction).
+    
+    gtol, gtol_inn: floats
+        Tolerances `gtol` for the minimizations of `loss_function` and inner `gamma_function`, respectively.
+    
+    data_valid: dict
+        Dictionary for `data`-like object employed as validation set (`None` by default, namely no validation, just minimization).
+    
+    starting_pars: 1-D array-like
+        Numpy 1-dimensional array for pre-defined starting point of `loss_function` minimization (`None` by default).
+    &#34;&#34;&#34;
+    assert alpha &gt; 0, &#39;alpha must be &gt; 0&#39;
+    assert beta &gt;= 0, &#39;beta must be &gt;= 0&#39;
+    assert gamma &gt;= 0, &#39;gamma must be &gt;= 0&#39;
+
+    if if_print_biblio: print_references(alpha, beta, gamma, hasattr(original_data.properties, &#39;cycle_names&#39;))
+
+    time1 = time.time()
+
+    system_names = original_data.properties.system_names
+
+    &#34;&#34;&#34; copy original_data and act only on the copy, preserving original_data &#34;&#34;&#34;
+
+    data = copy.deepcopy(original_data)
+
+    # data = {}
+    # for k1 in original_data.keys():
+    #     class my_new_class:
+    #         pass
+    #     my_keys = [x for x in dir(original_data[k1]) if not x.startswith(&#39;__&#39;)]
+    #     for k2 in my_keys:
+    #         setattr(my_new_class, k2, copy.deepcopy(getattr(original_data[k1], k2)))
+    #     data[k1] = my_new_class
+
+    &#34;&#34;&#34; normalize observables &#34;&#34;&#34;
+    for name_mol in system_names:
+        if hasattr(data.mol[name_mol], &#39;g&#39;):
+            out = normalize_observables(data.mol[name_mol].gexp, data.mol[name_mol].g, data.mol[name_mol].weights)
+            data.mol[name_mol].g = out[0]
+            data.mol[name_mol].gexp = out[1]
+            data.mol[name_mol].normg_mean = out[2]
+            data.mol[name_mol].normg_std = out[3]
+
+    &#34;&#34;&#34; starting point for lambdas &#34;&#34;&#34;
+    if not np.isinf(alpha):
+
+        global lambdas
+
+        tot_n_exp = 0
+
+        for name in system_names:
+            for item in data.mol[name].n_experiments.values():
+                tot_n_exp += item
+
+        lambdas = np.zeros(tot_n_exp)
+
+        &#34;&#34;&#34; here you could duplicate lambdas for observables with both lower/upper limits &#34;&#34;&#34;
+
+    else:
+        lambdas = None
+
+    &#34;&#34;&#34; if needed, define boundaries for minimization over lambdas &#34;&#34;&#34;
+
+    if not np.isinf(alpha):
+
+        my_list = []
+        for k in data.properties.system_names:
+            my_list = my_list + list(data.mol[k].ref.values())
+
+        if (&#39;&gt;&#39; in my_list) or (&#39;&lt;&#39; in my_list) or (&#39;&gt;&lt;&#39; in my_list):
+
+            bounds = {}
+
+            for name_mol in data.properties.system_names:
+                bounds[name_mol] = []
+                for name_type in data.mol[name_mol].n_experiments.keys():
+                    if name_type in data.mol[name_mol].ref.keys():
+                        if data.mol[name_mol].ref[name_type] == &#39;=&#39;:
+                            bounds[name_mol] = bounds[name_mol] + [(-np.inf, +np.inf)]*data.mol[name_mol].g[name_type].shape[1]
+                        elif data.mol[name_mol].ref[name_type] == &#39;&lt;&#39;:
+                            bounds[name_mol] = bounds[name_mol] + [(0, +np.inf)]*data.mol[name_mol].g[name_type].shape[1]
+                        elif data.mol[name_mol].ref[name_type] == &#39;&gt;&#39;:
+                            bounds[name_mol] = bounds[name_mol] + [(-np.inf, 0)]*data.mol[name_mol].g[name_type].shape[1]
+                    elif data.mol[name_mol].ref[name_type[:-6]] == &#39;&gt;&lt;&#39;:
+                        bounds[name_mol] = bounds[name_mol] + [(-np.inf, 0)]*data.mol[name_mol].g[name_type].shape[1]
+                        # bounds = bounds + [[0,+np.inf]]*data.g[name_mol][name_type+&#39; LOWER&#39;].shape[1]
+        else:
+            bounds = None
+    else:
+        bounds = None
+
+    &#34;&#34;&#34; minimization &#34;&#34;&#34;
+
+    global intermediates
+    intermediates = intermediates_class(alpha)
+    global minis
+
+    if (np.isinf(beta) and np.isinf(gamma)):
+
+        class Result_class:
+            pass
+        Result = Result_class()
+
+        pars_ff_fm = None
+
+        Result.loss = loss_function(pars_ff_fm, data, regularization, alpha, beta, gamma, None, gtol_inn, False, bounds)
+
+        if not np.isinf(alpha):
+            # since lambdas is global, it is updated inside loss_function with optimal value
+            min_lambdas = lambdas
+            Result.min_lambdas = deconvolve_lambdas(data, min_lambdas)
+            Result.minis = minis
+
+    else:
+
+        &#34;&#34;&#34; starting point for the inner minimization &#34;&#34;&#34;
+
+        if starting_pars is None:
+            pars_ff_fm_0 = []
+            if not np.isinf(beta):
+                names_ff_pars = data.properties.names_ff_pars
+                pars_ff_fm_0 = pars_ff_fm_0 + list(np.zeros(len(names_ff_pars)))
+
+            if not np.isinf(gamma):
+                pars_ff_fm_0 = pars_ff_fm_0 + list(data.properties.forward_coeffs_0)
+            pars_ff_fm_0 = np.array(pars_ff_fm_0)
+        else:
+            pars_ff_fm_0 = starting_pars
+
+        &#34;&#34;&#34; minimize &#34;&#34;&#34;
+        gradient_fun = jax.grad(loss_function, argnums=0)
+
+        args = (data, regularization, alpha, beta, gamma, gtol_inn, bounds, gradient_fun)
+        mini = minimize(loss_function_and_grad, pars_ff_fm_0, args=args, method=&#39;BFGS&#39;, jac=True, options={&#39;gtol&#39;: gtol})
+
+        pars_ff_fm = mini.x
+
+        class Result_class():
+            def __init__(self, mini):
+                self.loss = mini.fun
+                self.pars = pars_ff_fm
+                # self.pars = dict(zip(names, pars_ff_fm))
+                self.mini = mini
+
+        Result = Result_class(mini)
+
+        intermediates.loss = np.array(intermediates.loss)
+        intermediates.pars = np.array(intermediates.pars)
+
+        if not np.isinf(alpha):
+            &#34;&#34;&#34; get optimal lambdas &#34;&#34;&#34;
+
+            i_min = np.argmin(intermediates.loss)
+            min_lambdas = intermediates.lambdas[i_min]
+            minis = intermediates.minis[i_min]
+
+            &#34;&#34;&#34; denormalize and deconvolve lambdas &#34;&#34;&#34;
+            Result.min_lambdas = deconvolve_lambdas(data, min_lambdas)
+            Result.minis = minis
+
+            intermediates.lambdas = np.array(intermediates.lambdas)
+
+        Result.intermediates = intermediates
+
+    &#34;&#34;&#34; return output values &#34;&#34;&#34;
+
+    time2 = time.time()
+
+    Result.time = time2-time1
+
+    &#34;&#34;&#34; use non-normalized data and non-normalized lambdas &#34;&#34;&#34;
+    if not np.isinf(alpha):
+        flatten_lambda = []
+        for name_mol in system_names:
+            flatten_lambda = flatten_lambda + list(
+                np.hstack([Result.min_lambdas[name_mol][k] for k in data.mol[name_mol].n_experiments.keys()]))
+
+        flatten_lambda = np.array(flatten_lambda)
+    else:
+        flatten_lambda = None
+
+    Details = loss_function(
+        pars_ff_fm, original_data, regularization, alpha, beta, gamma, flatten_lambda, gtol_inn, True, bounds)
+    if not np.isinf(alpha):
+        del Details.loss_explicit
+
+    for k in vars(Details).keys():
+        setattr(Result, k, getattr(Details, k))
+    del Details
+
+    if data_valid is not None:
+        Details_validation = validation(
+            pars_ff_fm, flatten_lambda, data_valid, regularization=regularization, alpha=alpha, beta=beta, gamma=gamma,
+            which_return=&#39;details&#39;)
+
+        if not np.isinf(alpha):
+            Details_validation.loss = Details_validation.loss_explicit
+            del Details_validation.loss_explicit
+            # del Details_validation.minis
+
+        for k in vars(Details_validation).keys():
+            if not (k[-7:] == &#39;new_obs&#39;):
+                k1 = k + &#39;_valid&#39;
+            else:
+                k1 = k
+            setattr(Result, k1, getattr(Details_validation, k))
+        del Details_validation
+
+    return Result</code></pre>
+</details>
+<div class="desc"><p>This tool minimizes loss_function on <code>original_data</code> and do <code><a title="MDRefine.loss_and_minimizer.validation" href="#MDRefine.loss_and_minimizer.validation">validation()</a></code> on <code>data_valid</code> (if <code>not None</code>), at given hyperparameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>original_data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for <code>data</code>-like object employed for the minimization of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code>.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the regularizations (see in <code>MDRefinement</code>).</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Values of the hyperparameters for combined refinement (<code>+np.inf</code> by default: no refinement in that direction).</dd>
+<dt><strong><code>gtol</code></strong>, <strong><code>gtol_inn</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Tolerances <code>gtol</code> for the minimizations of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> and inner <code><a title="MDRefine.loss_and_minimizer.gamma_function" href="#MDRefine.loss_and_minimizer.gamma_function">gamma_function()</a></code>, respectively.</dd>
+<dt><strong><code>data_valid</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for <code>data</code>-like object employed as validation set (<code>None</code> by default, namely no validation, just minimization).</dd>
+<dt><strong><code>starting_pars</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy 1-dimensional array for pre-defined starting point of <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> minimization (<code>None</code> by default).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.normalize_observables"><code class="name flex">
+<span>def <span class="ident">normalize_observables</span></span>(<span>gexp, g, weights=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def normalize_observables(gexp, g, weights=None):
+    &#34;&#34;&#34;
+    This tool normalizes `g` and `gexp`. Since experimental observables have different units, it is better to normalize them, in order that
+    varying any lambda coefficient by the same value epsilon would result in comparable effects to the ensemble.
+    This results to be useful in the minimization of `gamma_function`.
+
+    Parameters
+    ----------
+    gexp, g : dicts
+        Dictionaries corresponding to `data.mol[name_mol].gexp` and `data.mol[name_mol].g`.
+    
+    weights : 1-D array-like
+        Numpy 1-dimensional array, by default `None` (namely, equal weight for each frame).
+    --------
+
+    Returns
+    --------
+    norm_g, norm_gexp : dict
+        Dictionaries for normalized g and gexp.
+    
+    norm_gmean, norm_gstd : dict
+        Dictionaries for the reference values for normalization (average and standard deviation).
+    &#34;&#34;&#34;
+    norm_g = {}
+    norm_gexp = {}
+    norm_gmean = {}
+    norm_gstd = {}
+
+    for name in g.keys():
+        if weights is None:
+            norm_gmean[name] = np.mean(g[name], axis=0)
+            norm_gstd[name] = np.std(g[name], axis=0)
+        else:
+            norm_gmean[name] = np.average(g[name], axis=0, weights=weights)
+            norm_gstd[name] = np.sqrt(np.average(g[name]**2, axis=0, weights=weights)-norm_gmean[name]**2)
+
+        norm_gexp[name] = np.vstack([(gexp[name][:, 0]-norm_gmean[name])/norm_gstd[name], gexp[name][:, 1]/norm_gstd[name]]).T
+        norm_g[name] = (g[name]-norm_gmean[name])/norm_gstd[name]
+
+    return norm_g, norm_gexp, norm_gmean, norm_gstd</code></pre>
+</details>
+<div class="desc"><p>This tool normalizes <code>g</code> and <code>gexp</code>. Since experimental observables have different units, it is better to normalize them, in order that
+varying any lambda coefficient by the same value epsilon would result in comparable effects to the ensemble.
+This results to be useful in the minimization of <code><a title="MDRefine.loss_and_minimizer.gamma_function" href="#MDRefine.loss_and_minimizer.gamma_function">gamma_function()</a></code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>gexp</code></strong>, <strong><code>g</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries corresponding to <code>data.mol[name_mol].gexp</code> and <code>data.mol[name_mol].g</code>.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>
+<p>&nbsp;</p>
+<h2 id="numpy-1-dimensional-array-by-default-none-namely-equal-weight-for-each-frame">Numpy 1-dimensional array, by default <code>None</code> (namely, equal weight for each frame).</h2>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>norm_g</code></strong>, <strong><code>norm_gexp</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionaries for normalized g and gexp.</dd>
+<dt><strong><code>norm_gmean</code></strong>, <strong><code>norm_gstd</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionaries for the reference values for normalization (average and standard deviation).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.print_references"><code class="name flex">
+<span>def <span class="ident">print_references</span></span>(<span>alpha, beta, gamma, if_ddg)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_references(alpha, beta, gamma, if_ddg):
+
+    refs = [&#39;Ensemble Refinement&#39;, &#39;Force-Field Fitting&#39;, &#39;Ensemble Refinement + Force-Field Fitting&#39;,
+        &#39;Ensemble + Forward-Model Refinement&#39;, &#39;Refinement with alchemical calculations&#39;, &#39;MDRefine package&#39;]
+
+    # path = os.path.dirname(os.path.realpath(__file__)) + &#39;/references&#39;
+    
+    path = os.path.dirname(os.path.abspath(__file__))[:-9] + &#39;/references.txt&#39;
+
+    if not os.path.isfile(path):  # True for test tutorials on github
+        path = os.getcwd() + &#39;/references.txt&#39;
+    
+    my_strings = [refs[5]]
+
+    if np.isfinite(alpha): my_strings.append(refs[0])
+    if np.isfinite(beta): my_strings.append(refs[1])
+    if np.isfinite(alpha) and np.isfinite(beta): my_strings.append(refs[2])
+    if np.isfinite(alpha) and np.isfinite(gamma): my_strings.append(refs[3])
+    if np.isfinite(beta) and if_ddg: my_strings.append(refs[4])
+
+    for s in my_strings:
+        s1 = &#39;References for &#39; + s + &#39;:&#39;
+        print(s1)
+
+        with open(path) as infile:
+            copy = False
+            for line in infile:
+                if line.startswith(s1):
+                    copy = True
+                    continue
+                elif line.startswith(&#34;References&#34;):
+                    copy = False
+                    continue
+                elif copy:
+                    print(line)
+
+    print(&#39;--------------------------------------------------------------------------&#39;)
+
+    return None</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.split_dataset"><code class="name flex">
+<span>def <span class="ident">split_dataset</span></span>(<span>data,<br>*,<br>frames_fraction: float = 0.2,<br>obs_fraction: float = 0.2,<br>random_state: int = None,<br>valid_frames: dict = None,<br>valid_obs: dict = None,<br>if_all_frames: bool = False,<br>replica_infos: dict = None,<br>if_verbose: bool = True)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def split_dataset(
+        data, *, frames_fraction: float = 0.2, obs_fraction: float = 0.2, random_state: int = None,
+        valid_frames: dict = None, valid_obs: dict = None, if_all_frames: bool = False, replica_infos: dict = None, if_verbose: bool = True):
+    &#34;&#34;&#34;
+    This tool splits the data set into training and validation (or test) set.
+    You can either randomly select the frames and/or the observables (accordingly to `frames_fraction`, `obs_fraction`, `random_state`)
+    or pass the dictionaries `valid_obs` and/or `valid_frames`. They refer to validation / test set.
+
+    Parameters
+    ----------
+    data : class instance
+        Class instance for the `data` object.
+    
+    frames_fraction, obs_fraction : float
+        Values for the fractions of frames and observables for the validation / test set, respectively.
+        Each of them is a number in (0,1) (same fraction for every system), by default `0.2`.
+    
+    random_state : int
+        The random state (or seed), used to make the same choice for different hyperparameters; if `None`,
+        it is randomly taken.
+    
+    valid_frames, valid_obs : dicts
+        Dictionaries for the validation frames and observables.
+    
+    if_all_frames : bool
+        Boolean variable, `False` by default; if `True`, then use all the frames for the validation observables in the validation set,
+        otherwise just the validation frames.
+    
+    replica_infos : dict
+        Dictionary of information used to select frames based on continuous trajectories (&#34;demuxing&#34;), by default `None` (just randomly select frames).
+        It includes: `n_temp_replica`, `path_directory`, `stride`. If not `None`, `split_dataset` will read `replica_temp.npy` files
+        with shape `(n_frames, n_replicas)` containing numbers from 0 to `n_replicas - 1` which indicate corresponding temperatures (for each replica
+        index in `axis=1`).
+    --------
+
+    Returns
+    --------
+    data_train, data_valid : class instances
+        Class instances for training and validation data; `data_valid` includes:
+        trained observables and non-trained (validation) frames (where it is not specified `new`);
+        non-trained (validation) observables and non-trained/all (accordingly to `if_all_frames`) frames (where specified `new`).
+    
+    valid_obs, valid_frames : dicts
+        Dictionaries for the observables and frames selected for the validation set.
+    &#34;&#34;&#34;
+    # PART 1: IF NONE, SELECT VALIDATION OBSERVABLES AND VALIDATION FRAMES
+
+    system_names = data.properties.system_names
+    rng = None
+
+    if valid_obs is None:
+        assert (obs_fraction &gt; 0 and obs_fraction &lt; 1), &#39;error on obs_fraction&#39;
+    if valid_frames is None:
+        assert (frames_fraction &gt;= 0 and frames_fraction &lt; 1), &#39;error on frames_fraction&#39;
+        if frames_fraction == 0: print(&#39;split observables only (not frames)&#39;)
+    
+    if (valid_obs is None) or ((valid_frames is None) and frames_fraction != 0):
+        # namely, if you have to randomly select something
+        if random_state is None:
+            random_state = random.randint(1000)
+            print(&#39;random state: &#39;, random_state)
+        rng = random.default_rng(seed=random_state)
+    
+    if if_verbose:
+        if (valid_obs is None) and (valid_frames is None) and (frames_fraction != 0):
+            print(&#39;Input random_state employed both for observables and frames&#39;)
+        elif (valid_obs is None) and (valid_frames is not None or frames_fraction == 0):
+            print(&#39;Input random_state employed for observables only&#39;)  #  since valid_frames are given&#39;)
+        elif (valid_obs is not None) and (valid_frames is None) and (frames_fraction != 0):
+            print(&#39;Input random_state employed for frames only&#39;)  # since observables are given&#39;)
+        elif (valid_obs is not None) and (valid_frames is not None or frames_fraction == 0):
+            print(&#39;Input random_state will not be used&#39;)  # , since both valid_frames and valid_obs are given&#39;)
+
+    # 1B. SELECT VALIDATING FRAMES
+
+    if (valid_frames is None) and (frames_fraction != 0):
+
+        valid_frames = {}
+        valid_replicas = {}
+
+        for name_mol in system_names:
+
+            if (replica_infos is not None) and (hasattr(replica_infos, name_mol)) and (&#39;n_temp_replica&#39; in replica_infos[name_mol].keys()):
+                # if you have demuxed trajectories, select replicas and the corresponding frames
+                # pos_replicas has the indices corresponding to the different replicas
+
+                path = replica_infos[&#39;global&#39;][&#39;path_directory&#39;]
+                stride = replica_infos[&#39;global&#39;][&#39;stride&#39;]
+                n_temp = replica_infos[name_mol][&#39;n_temp_replica&#39;]
+
+                replica_temp = np.load(&#39;%s/%s/replica_temp.npy&#39; % (path, name_mol))[::stride]
+
+                n_replicas = len(replica_temp.T)
+                replica_index = replica_temp.argsort(axis=1)
+
+                pos_replicas = []
+                for i in range(n_replicas):
+                    pos_replicas.append(np.argwhere(replica_index[:, n_temp] == i)[:, 0])
+
+                n_replicas_valid = np.int16(np.round(frames_fraction*n_replicas))
+                valid_replicas[name_mol] = np.sort(rng.choice(n_replicas, n_replicas_valid, replace=False))
+
+                fin = np.array([])
+                for i in range(n_replicas_valid):
+                    fin = np.concatenate((fin, pos_replicas[valid_replicas[name_mol][i]]))
+                valid_frames[name_mol] = np.array(fin).astype(int)
+                del fin
+
+            else:
+                n_frames_valid = np.int16(np.round(frames_fraction*data.mol[name_mol].n_frames))
+                valid_frames[name_mol] = np.sort(rng.choice(data.mol[name_mol].n_frames, n_frames_valid, replace=False))
+                # except:
+                # valid_frames[name_mol] = random.choice(key, data.mol[name_mol].n_frames,(n_frames_valid[name_mol],),
+                # replace = False)
+
+        if valid_replicas == {}:
+            del valid_replicas
+
+    elif (valid_frames is None) and (frames_fraction == 0):
+        valid_frames = {}
+        for name_mol in system_names:
+            valid_frames[name_mol] = np.int64(np.array([]))
+
+    # 1C. SELECT VALIDATING/TEST OBSERVABLES
+
+    if (valid_obs is None) or (valid_obs == []):
+
+        n_obs_valid = {}
+        valid_obs = {}
+
+        &#34;&#34;&#34; here you select with the same fraction for each type of observable&#34;&#34;&#34;
+        # for name_mol in data.weights.keys():
+        #     n_obs_valid[name_mol] = {}
+        #     valid_obs[name_mol] = {}
+
+        #     for name_type in data.g[name_mol].keys():
+        #         n_obs_valid[name_mol][name_type] = np.int16(np.round(obs_fraction*data.n_experiments[name_mol][name_type]))
+        #         valid_obs[name_mol][name_type] = np.sort(rng.choice(data.n_experiments[name_mol][name_type],
+        #           n_obs_valid[name_mol][name_type],replace = False))
+
+        &#34;&#34;&#34; here instead you select the same fraction for each system and then take the corresponding observables
+        (in this way, no issue for types of observables with only 1 observable &#34;&#34;&#34;
+        for name_mol in system_names:
+
+            n_obs_valid[name_mol] = {}
+            valid_obs[name_mol] = {}
+
+            n = np.sum(np.array(list(data.mol[name_mol].n_experiments.values())))
+            vec = np.sort(rng.choice(n, np.int16(np.round(n*obs_fraction)), replace=False))
+            # except: vec = np.sort(jax.random.choice(key, n, (np.int16(np.round(n*obs_fraction)),), replace = False))
+
+            sum = 0
+            for name_type in data.mol[name_mol].n_experiments.keys():
+
+                valid_obs[name_mol][name_type] = vec[(vec &gt;= sum) &amp; (vec &lt; sum + data.mol[name_mol].n_experiments[name_type])] - sum
+                n_obs_valid[name_mol][name_type] = len(valid_obs[name_mol][name_type])
+
+                sum += data.mol[name_mol].n_experiments[name_type]
+
+        del sum, n, vec
+
+        # check that some observables have been selected
+
+        flat = []
+
+        for s in valid_obs.keys():
+            for s2 in valid_obs[s].keys():
+                flat.extend(valid_obs[s][s2])
+
+        n_tot_exp = data.properties.tot_n_experiments(data)
+
+        if flat == []:
+            # if no observables have been selected, then choose just one as validation observable
+            # provided that you do not have only one observable 
+            if not n_tot_exp == 1:
+                s = rng.choice(data.mol.keys(), size=1)
+                s1 = rng.choice(data.mol[s].keys(), size=1)
+                i = rng.choice(data.mol[s].n_experiments[s1], size=1)
+                valid_obs[s][s1] = np.array([i])
+        
+        elif len(flat) == n_tot_exp:
+            # if all the observables have been selected as validation, then remove one for the training
+                s = rng.choice(data.mol.keys(), size=1)
+                s1 = rng.choice(data.mol[s1].keys(), size=1)
+                i = rng.choice(data.mol[s].n_experiments[s1], size=1)
+                valid_obs[s][s1] = np.delete(valid_obs[s][s1], np.where(valid_obs[s][s1] == i))
+
+    # PART 2: GIVEN valid_frames and valid_obs, RETURN data_valid AND data_train
+    # train, validation (&#39;non-trained&#39; obs, all or &#39;non-used&#39; frames), valid_frames (&#39;trained&#39; obs, &#39;non-used&#39; frames)
+
+    # global properties:
+
+    data_ = copy.deepcopy(data)
+    
+    class my_data_trainvalid:
+        def __init__(self, data_):
+            self.properties = data_.properties
+            self.mol = {}
+
+    data_train = my_data_trainvalid(data_)
+    data_valid = my_data_trainvalid(data_)
+
+    # for over different systems:
+
+    for name_mol in system_names:
+
+        data_train.mol[name_mol] = class_train(data_.mol[name_mol], valid_frames[name_mol], valid_obs[name_mol])
+
+        if valid_frames[name_mol].shape == (0, ):
+            data_valid.mol[name_mol] = class_test(data_.mol[name_mol], valid_obs[name_mol])
+        
+        else:
+            data_valid.mol[name_mol] = class_validation(
+                data_.mol[name_mol], valid_frames[name_mol], valid_obs[name_mol], if_all_frames, data_train.mol[name_mol])
+
+    # &#34;&#34;&#34; if some type of observables are not included in validation observables, delete them to avoid empty items &#34;&#34;&#34;
+    # for name_mol in system_names:
+    #     for name_type in valid_obs[name_mol].keys():
+    #         if len(valid_obs[name_mol][name_type]) == 0:
+    #             del data_valid.mol[name_mol].gexp_new[name_type]
+    #             if name_type in data_valid.mol[name_mol].g_new.keys():
+    #                 del data_valid.mol[name_mol].g_new[name_type]
+    #                 if if_all_frames: del data_valid.mol[name_mol].g_new_old[name_type]
+
+    for s1 in valid_obs.keys():
+        my_list1 = []
+        my_list2 = []
+
+        for s2 in valid_obs[s1].keys():
+            if len(valid_obs[s1][s2]) == 0:
+                my_list1.append(s2)
+            elif len(valid_obs[s1][s2]) == data.mol[s1].n_experiments[s2]:
+                my_list2.append(s2)
+
+        for s2 in my_list1:
+            &#34;&#34;&#34; no validation / test observables of this kind &#34;&#34;&#34;
+            try:
+                del data_valid.mol[s1].gexp_new[s2], data_valid.mol[s1].g_new[s2], data_valid.mol[s1].n_experiments_new[s2]
+                del data_valid.mol[s1].selected_obs_new[s2]  # , data_valid[s1].names_new[s2]
+            except: None
+            
+
+        for s2 in my_list2:
+            &#34;&#34;&#34; no training / test observables of this kind&#34;&#34;&#34;
+            del data_valid.mol[s1].gexp[s2], data_valid.mol[s1].g[s2], data_valid.mol[s1].n_experiments[s2]
+            del data_valid.mol[s1].ref[s2]  # , data_valid.mol[s1].names[s2]
+            
+            # del data_valid.mol[s1].selected_obs[s2]  # , data_valid[s1].names[s2]
+
+            # del data_train.mol[s1].g[s2], data_train.mol[s1].ref[s2], data_train.mol[s1].names[s2]
+            # del data_train.mol[s1].gexp[s2], data_train.mol[s1].n_experiments[s2]
+
+        for s2 in my_list1:
+            valid_obs[s1][s2] = np.int64(np.array([]))
+
+    # if pos_replicas is None:
+    if valid_frames is not None:
+        return data_train, data_valid, valid_obs, valid_frames
+    else:
+        return data_train, data_valid, valid_obs, valid_frames
+    # else:
+    #     return data_train, data_valid, valid_obs, valid_frames, valid_rep</code></pre>
+</details>
+<div class="desc"><p>This tool splits the data set into training and validation (or test) set.
+You can either randomly select the frames and/or the observables (accordingly to <code>frames_fraction</code>, <code>obs_fraction</code>, <code>random_state</code>)
+or pass the dictionaries <code>valid_obs</code> and/or <code>valid_frames</code>. They refer to validation / test set.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>class instance</code></dt>
+<dd>Class instance for the <code>data</code> object.</dd>
+<dt><strong><code>frames_fraction</code></strong>, <strong><code>obs_fraction</code></strong> :&ensp;<code>float</code></dt>
+<dd>Values for the fractions of frames and observables for the validation / test set, respectively.
+Each of them is a number in (0,1) (same fraction for every system), by default <code>0.2</code>.</dd>
+<dt><strong><code>random_state</code></strong> :&ensp;<code>int</code></dt>
+<dd>The random state (or seed), used to make the same choice for different hyperparameters; if <code>None</code>,
+it is randomly taken.</dd>
+<dt><strong><code>valid_frames</code></strong>, <strong><code>valid_obs</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for the validation frames and observables.</dd>
+<dt><strong><code>if_all_frames</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Boolean variable, <code>False</code> by default; if <code>True</code>, then use all the frames for the validation observables in the validation set,
+otherwise just the validation frames.</dd>
+<dt><strong><code>replica_infos</code></strong> :&ensp;<code>dict</code></dt>
+<dd>
+<p>Dictionary of information used to select frames based on continuous trajectories ("demuxing"), by default <code>None</code> (just randomly select frames).
+It includes: <code>n_temp_replica</code>, <code>path_directory</code>, <code>stride</code>. If not <code>None</code>, <code><a title="MDRefine.loss_and_minimizer.split_dataset" href="#MDRefine.loss_and_minimizer.split_dataset">split_dataset()</a></code> will read <code>replica_temp.npy</code> files
+with shape <code>(n_frames, n_replicas)</code> containing numbers from 0 to <code>n_replicas - 1</code> which indicate corresponding temperatures (for each replica</p>
+<h2 id="index-in-axis1">index in <code>axis=1</code>).</h2>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>data_train</code></strong>, <strong><code>data_valid</code></strong> :&ensp;<code>class instances</code></dt>
+<dd>Class instances for training and validation data; <code>data_valid</code> includes:
+trained observables and non-trained (validation) frames (where it is not specified <code>new</code>);
+non-trained (validation) observables and non-trained/all (accordingly to <code>if_all_frames</code>) frames (where specified <code>new</code>).</dd>
+<dt><strong><code>valid_obs</code></strong>, <strong><code>valid_frames</code></strong> :&ensp;<code>dicts</code></dt>
+<dd>Dictionaries for the observables and frames selected for the validation set.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.validation"><code class="name flex">
+<span>def <span class="ident">validation</span></span>(<span>pars_ff_fm,<br>lambdas,<br>data_valid,<br>*,<br>regularization=None,<br>alpha=inf,<br>beta=inf,<br>gamma=inf,<br>data_train=None,<br>which_return='details')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validation(
+        pars_ff_fm, lambdas, data_valid, *, regularization=None, alpha=np.inf, beta=np.inf, gamma=np.inf,
+        data_train=None, which_return=&#39;details&#39;):
+    &#34;&#34;&#34;
+    This tool evaluates `loss_function` in detail over the validation set; then,
+
+    - if `which_return == &#39;chi2 valid. frames&#39;`, it returns the total chi2 on the `&#39;valid. frames&#39;` data set (training observables, validation frames);
+    this is required to compute the derivatives of the chi2 in `&#39;validation&#39;` with Jax;
+    
+    - elif `which_return == &#39;chi2 validation&#39;`, it returns the total chi2 on the `&#39;validation&#39;` data set (validation observables, validation frames
+        or all frames if `data_train is not None`); this is required to compute the derivatives of the chi2 in `&#39;validation&#39;` with Jax;
+    
+    - else, it returns `Validation_values` class instance, with all the computed values (both chi2 and regularizations).
+
+    Parameters
+    ----------
+    
+    pars_ff_fm: 1-D array-like
+        Numpy 1-dimensional array for the force-field and forward-model coefficients.
+    
+    lambdas: 1-D array-like
+        Numpy 1-dimensional array of lambdas coefficients (those for ensemble refinement).
+    
+    data_valid: dict
+        Dictionary for the validation data set, `data`-like object, as returned by `split_dataset`.
+    
+    regularization: dict
+        Dictionary for the regularizations (see in `MDRefinement`), by default, `None`.
+    
+    alpha, beta, gamma: floats
+        Values for the hyperparameters (by default, `+np.inf`, namely, no refinement).
+    
+    data_train: dict
+        Dictionary for the training data set, `data`-like object, as returned by `split_dataset` (`None` by default,
+        namely use only validation frames for new observables).
+    
+    which_return: str
+        String described above (by default `&#39;details&#39;`).
+    &#34;&#34;&#34;
+    assert alpha &gt; 0, &#39;alpha must be &gt; 0&#39;
+    assert beta &gt;= 0, &#39;beta must be &gt;= 0&#39;
+    assert gamma &gt;= 0, &#39;gamma must be &gt;= 0&#39;
+
+    system_names = data_valid.properties.system_names
+    names_ff_pars = []
+
+    if not np.isinf(beta):
+        names_ff_pars = data_valid.properties.names_ff_pars
+
+    pars_fm = None  # to avoid error in pylint
+    if not np.isinf(gamma):
+        pars_fm = pars_ff_fm[len(names_ff_pars):]
+    if names_ff_pars == []:
+        del names_ff_pars
+
+    &#34;&#34;&#34; Compute loss_function in detail for validating set (same observables as in training, new frames). &#34;&#34;&#34;
+    Validation_values = loss_function(pars_ff_fm, data_valid, regularization, alpha, beta, gamma, lambdas, if_save=True)
+
+    if which_return == &#39;chi2 validation&#39;:
+        tot_chi2 = 0
+        for s1 in Validation_values.chi2.keys():
+            for item in Validation_values.chi2[s1].values():
+                tot_chi2 += item
+    
+        if data_train is None: return tot_chi2  # else, compute chi2 for validating observables also on trained frames
+
+    # let&#39;s compute firstly the average of non-trained (validating) observables on new frames
+
+    Validation_values.avg_new_obs = {}
+    Validation_values.chi2_new_obs = {}
+
+    # if hasattr(data_valid,&#39;selected_obs&#39;):
+    #     for name in data_valid.forward_qs.keys():
+    #         for type_name in data_valid.forward_qs[name].keys():
+    #             data_valid.forward_qs[name][type_name] = data_valid.forward_qs[name][type_name]
+    #               #[:,data_valid.selected_obs[name][type_name]]
+
+    g = {}
+
+    for name_mol in system_names:
+
+        if np.isinf(gamma):
+            if hasattr(data_valid.mol[name_mol], &#39;g_new&#39;):
+                g[name_mol] = copy.deepcopy(data_valid.mol[name_mol].g_new)
+        else:
+            if hasattr(data_valid.mol[name_mol], &#39;g_new&#39;):
+                g[name_mol] = copy.deepcopy(data_valid.mol[name_mol].g_new)
+            else:
+                g[name_mol] = {}
+
+            if hasattr(data_valid.mol[name_mol], &#39;selected_obs_new&#39;):
+                selected_obs = data_valid.mol[name_mol].selected_obs_new
+            else:
+                selected_obs = None
+
+            fm_observables = data_valid.mol[name_mol].forward_model(pars_fm, data_valid.mol[name_mol].forward_qs, selected_obs)
+
+            for name in fm_observables.keys():
+
+                g[name_mol][name] = fm_observables[name]
+                if hasattr(data_valid.mol[name_mol], &#39;normg_mean&#39;):
+                    g[name_mol][name] = (
+                        g[name_mol][name]-data_valid.mol[name_mol].normg_mean[name])/data_valid.mol[name_mol].normg_std[name]
+
+            del fm_observables
+
+    for name_mol in system_names:
+
+        args = (data_valid.mol[name_mol].ref_all, Validation_values.weights_new[name_mol], g[name_mol], data_valid.mol[name_mol].gexp_new)
+        out = compute_chi2(*args)
+
+        Validation_values.avg_new_obs[name_mol] = out[0]
+        Validation_values.chi2_new_obs[name_mol] = out[1]
+
+    # then, if you want to include also trained frames for validating observables:
+
+    if (data_train is not None):  # forward qs on trained frames
+
+        Details_train = loss_function(pars_ff_fm, data_train, regularization, alpha, beta, gamma, lambdas, if_save=True)
+
+        g = {}
+
+        for name_mol in system_names:
+            if np.isinf(gamma):
+                if hasattr(data_valid.mol[name_mol], &#39;g_new_old&#39;):
+                    g[name_mol] = copy.deepcopy(data_valid.mol[name_mol].g_new_old)
+            else:
+                if hasattr(data_valid.mol[name_mol], &#39;g_new_old&#39;):
+                    g[name_mol] = copy.deepcopy(data_valid.mol[name_mol].g_new_old)
+                else:
+                    g[name_mol] = {}
+
+                if hasattr(data_valid.mol[name_mol], &#39;selected_obs_new&#39;):
+                    selected_obs = data_valid.mol[name_mol].selected_obs_new
+                else:
+                    selected_obs = None
+
+                fm_observables = data_valid.mol[name_mol].forward_model(pars_fm, data_valid.mol[name_mol].forward_qs_trained, selected_obs)
+
+                for name in fm_observables.keys():
+
+                    g[name_mol][name] = fm_observables[name]
+                    if hasattr(data_valid.mol[name_mol], &#39;normg_mean&#39;):
+                        g[name_mol][name] = (
+                            g[name_mol][name]-data_valid.mol[name_mol].normg_mean[name])/data_valid.mol[name_mol].normg_std[name]
+
+                del fm_observables
+
+            # put together average on training frames and average on test frames
+            # by summing the two with factors 1/(1 + Z_test / Z_train) and 1/(1 + Z_train / Z_test) respectively
+            Validation_values.chi2_new_obs_1[name_mol] = {}
+
+            args = (data_valid.mol[name_mol].ref, Details_train.weights_new[name_mol], g[name_mol], data_valid.mol[name_mol].gexp_new)
+            out = compute_chi2(*args)[0]  # this is the average value of the validating observables on training frames
+
+            log_fact_Z = data_valid.mol[name_mol].logZ + Validation_values.logZ_new[name_mol]
+            - Details_train.logZ_new[name_mol] - data_train.mol[name_mol].logZ
+
+            if hasattr(Validation_values, &#39;logZ_P&#39;):
+                log_fact_Z += Validation_values.logZ_P_valid[name_mol] - Details_train.logZ_P[name_mol]
+
+            for name_type in out.keys():
+                Validation_values.avg_new_obs[name_mol][name_type] = 1/(1+np.exp(log_fact_Z))*out[name_type]
+                + 1/(1+np.exp(-log_fact_Z))*Validation_values.avg_new_obs[name_mol][name_type]
+
+                Validation_values.chi2_new_obs[name_mol][name_type] = np.sum(((
+                    Validation_values.avg_new_obs[name_mol][name_type]
+                    - data_valid.mol[name_mol].gexp_new[name_type][:, 0])/data_valid.mol[name_mol].gexp_new[name_type][:, 1])**2)
+
+    if which_return == &#39;chi2 validation&#39;:
+        tot_chi2 = 0
+        for s1 in Validation_values.chi2_new_obs.keys():
+            for item in Validation_values.chi2_new_obs[s1].values():
+                tot_chi2 += item
+        return tot_chi2
+    return Validation_values</code></pre>
+</details>
+<div class="desc"><p>This tool evaluates <code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function()</a></code> in detail over the validation set; then,</p>
+<ul>
+<li>
+<p>if <code>which_return == 'chi2 valid. frames'</code>, it returns the total chi2 on the <code>'valid. frames'</code> data set (training observables, validation frames);
+this is required to compute the derivatives of the chi2 in <code>'validation'</code> with Jax;</p>
+</li>
+<li>
+<p>elif <code>which_return == 'chi2 validation'</code>, it returns the total chi2 on the <code>'validation'</code> data set (validation observables, validation frames
+or all frames if <code>data_train is not None</code>); this is required to compute the derivatives of the chi2 in <code>'validation'</code> with Jax;</p>
+</li>
+<li>
+<p>else, it returns <code>Validation_values</code> class instance, with all the computed values (both chi2 and regularizations).</p>
+</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pars_ff_fm</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy 1-dimensional array for the force-field and forward-model coefficients.</dd>
+<dt><strong><code>lambdas</code></strong> :&ensp;<code>1-D array-like</code></dt>
+<dd>Numpy 1-dimensional array of lambdas coefficients (those for ensemble refinement).</dd>
+<dt><strong><code>data_valid</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the validation data set, <code>data</code>-like object, as returned by <code><a title="MDRefine.loss_and_minimizer.split_dataset" href="#MDRefine.loss_and_minimizer.split_dataset">split_dataset()</a></code>.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the regularizations (see in <code>MDRefinement</code>), by default, <code>None</code>.</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong>, <strong><code>gamma</code></strong> :&ensp;<code>floats</code></dt>
+<dd>Values for the hyperparameters (by default, <code>+np.inf</code>, namely, no refinement).</dd>
+<dt><strong><code>data_train</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the training data set, <code>data</code>-like object, as returned by <code><a title="MDRefine.loss_and_minimizer.split_dataset" href="#MDRefine.loss_and_minimizer.split_dataset">split_dataset()</a></code> (<code>None</code> by default,
+namely use only validation frames for new observables).</dd>
+<dt><strong><code>which_return</code></strong> :&ensp;<code>str</code></dt>
+<dd>String described above (by default <code>'details'</code>).</dd>
+</dl></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="MDRefine.loss_and_minimizer.class_test"><code class="flex name class">
+<span>class <span class="ident">class_test</span></span>
+<span>(</span><span>data_mol, test_obs_mol)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class class_test:
+    &#34;&#34;&#34;
+    Class for test data set, with similar structure as `data_class`.
+    &#34;&#34;&#34;
+    def __init__(self, data_mol, test_obs_mol):
+
+        # A. weights
+        w = data_mol.weights
+        
+        self.logZ = np.log(np.sum(w))
+        self.weights = w/np.sum(w)
+        self.n_frames = np.shape(w)[0]
+
+        # B. split force-field terms
+        if hasattr(data_mol, &#39;f&#39;):
+            self.ff_correction = data_mol.ff_correction
+            self.f = data_mol.f
+
+        # C. split experimental values gexp, normg_mean and normg_std, observables g
+
+        if hasattr(data_mol, &#39;gexp&#39;):
+            self.gexp = {}
+            self.n_experiments = {}
+
+            for name_type in data_mol.gexp.keys():
+                try:
+                    self.gexp[name_type] = data_mol.gexp[name_type][list(test_obs_mol[name_type])]
+                except:
+                    self.gexp[name_type] = data_mol.gexp[name_type][test_obs_mol[name_type]]
+
+                self.n_experiments[name_type] = len(test_obs_mol[name_type])
+
+        if hasattr(data_mol, &#39;names&#39;):
+            self.names = {}
+
+            for name_type in data_mol.names.keys():
+                self.names[name_type] = data_mol.names[name_type][list(test_obs_mol[name_type])]
+
+        if hasattr(data_mol, &#39;g&#39;):
+            self.g = {}
+
+            for name_type in data_mol.g.keys():
+                self.g[name_type] = data_mol.g[name_type][:, test_obs_mol[name_type]]
+
+        if hasattr(data_mol, &#39;forward_qs&#39;):
+            self.forward_qs = {}
+
+            for name_type in data_mol.forward_qs.keys():
+                self.forward_qs[name_type] = data_mol.forward_qs[name_type]
+
+        if hasattr(data_mol, &#39;forward_model&#39;):
+            self.forward_model = data_mol.forward_model
+
+        self.ref = copy.deepcopy(data_mol.ref)
+        self.ref_all = copy.deepcopy(data_mol.ref)
+        self.selected_obs_new = test_obs_mol
+        self.temperature = data_mol.temperature</code></pre>
+</details>
+<div class="desc"><p>Class for test data set, with similar structure as <code>data_class</code>.</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.class_train"><code class="flex name class">
+<span>class <span class="ident">class_train</span></span>
+<span>(</span><span>data_mol, valid_frames_mol, valid_obs_mol)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class class_train:
+    &#34;&#34;&#34;
+    Class for training data set, with similar structure as `data_class`.
+    &#34;&#34;&#34;
+    def __init__(self, data_mol, valid_frames_mol, valid_obs_mol):
+
+        # training observables
+        train_obs = {}
+        for s in data_mol.n_experiments.keys():
+            train_obs[s] = [i for i in range(data_mol.n_experiments[s]) if i not in valid_obs_mol[s]]
+        self.selected_obs = train_obs
+
+        # A. split weights
+        w = np.delete(data_mol.weights, valid_frames_mol)
+        self.logZ = np.log(np.sum(w))
+        self.weights = w/np.sum(w)
+        self.n_frames = np.shape(w)[0]
+
+        # B. split force-field terms
+
+        if hasattr(data_mol, &#39;f&#39;):
+            self.ff_correction = data_mol.ff_correction
+            self.f = np.delete(data_mol.f, valid_frames_mol, axis=0)
+
+        # C. split experimental values gexp, normg_mean and normg_std, observables g
+
+        if hasattr(data_mol, &#39;gexp&#39;):
+
+            self.gexp = {}
+            self.n_experiments = {}
+
+            for name_type in data_mol.gexp.keys():
+                self.gexp[name_type] = np.delete(data_mol.gexp[name_type], valid_obs_mol[name_type], axis=0)
+                self.n_experiments[name_type] = np.shape(self.gexp[name_type])[0]
+
+        if hasattr(data_mol, &#39;names&#39;):
+
+            self.names = {}
+
+            for name_type in data_mol.names.keys():
+                self.names[name_type] = data_mol.names[name_type][train_obs[name_type]]
+
+        if hasattr(data_mol, &#39;g&#39;):
+
+            self.g = {}
+
+            for name_type in data_mol.g.keys():
+                train_g = np.delete(data_mol.g[name_type], valid_frames_mol, axis=0)
+                self.g[name_type] = np.delete(train_g, valid_obs_mol[name_type], axis=1)
+
+        if hasattr(data_mol, &#39;forward_qs&#39;):
+
+            self.forward_qs = {}
+
+            for name_type in data_mol.forward_qs.keys():
+                self.forward_qs[name_type] = np.delete(data_mol.forward_qs[name_type], valid_frames_mol, axis=0)
+
+        if hasattr(data_mol, &#39;forward_model&#39;):
+            self.forward_model = data_mol.forward_model
+
+        self.ref = data_mol.ref
+
+        self.temperature = data_mol.temperature</code></pre>
+</details>
+<div class="desc"><p>Class for training data set, with similar structure as <code>data_class</code>.</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.class_validation"><code class="flex name class">
+<span>class <span class="ident">class_validation</span></span>
+<span>(</span><span>data_mol, valid_frames_mol, valid_obs_mol, if_all_frames, data_train_mol)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class class_validation:
+    &#34;&#34;&#34;
+    Class for validation data set, with similar structure as `data_class`.
+    &#34;&#34;&#34;
+    def __init__(self, data_mol, valid_frames_mol, valid_obs_mol, if_all_frames, data_train_mol):
+        
+        # A. split weights
+        try:
+            w = data_mol.weights[tuple(valid_frames_mol)]
+        except:
+            try:
+                w = data_mol.weights[valid_frames_mol]
+            except:
+                w = data_mol.weights[list(valid_frames_mol)]
+        
+        self.logZ = np.log(np.sum(w))
+        self.weights = w/np.sum(w)
+        self.n_frames = np.shape(w)[0]
+
+        # B. split force-field terms
+        if hasattr(data_mol, &#39;f&#39;):
+            self.ff_correction = data_mol.ff_correction
+            try:
+                self.f = data_mol.f[valid_frames_mol, :]
+            except:
+                self.f = data_mol.f[list(valid_frames_mol), :]
+
+        # C. split experimental values gexp, normg_mean and normg_std, observables g
+
+        if hasattr(data_mol, &#39;gexp&#39;):
+            self.gexp_new = {}
+            self.n_experiments_new = {}
+
+            for name_type in data_mol.gexp.keys():
+
+                try:
+                    self.gexp_new[name_type] = data_mol.gexp[name_type][list(valid_obs_mol[name_type])]
+                except:
+                    self.gexp_new[name_type] = data_mol.gexp[name_type][valid_obs_mol[name_type]]
+
+                self.n_experiments_new[name_type] = len(valid_obs_mol[name_type])
+
+        if hasattr(data_mol, &#39;names&#39;):
+
+            self.names_new = {}
+
+            for name_type in data_mol.names.keys():
+                self.names_new[name_type] = data_mol.names[name_type][list(valid_obs_mol[name_type])]
+
+        if hasattr(data_mol, &#39;g&#39;):
+
+            self.g_new = {}
+            if if_all_frames:
+                self.g_new_old = {}
+            self.g = {}
+
+            for name_type in data_mol.g.keys():
+
+                # split g into: training, validation (validation observables, all frames or only non-trained ones),
+                # valid_frames (trained obs, non-used frames)
+                # if not valid_obs[name_mol][name_type] == []:
+                self.g_new[name_type] = (data_mol.g[name_type][valid_frames_mol, :].T)[valid_obs_mol[name_type], :].T
+
+                if if_all_frames:  # new observables on trained frames
+                    self.g_new_old[name_type] = np.delete(
+                        data_mol.g[name_type], valid_frames_mol, axis=0)[:, list(valid_obs_mol[name_type])]
+
+                g3 = np.delete(data_mol.g[name_type], valid_obs_mol[name_type], axis=1)
+                self.g[name_type] = g3[valid_frames_mol, :]
+
+        if hasattr(data_mol, &#39;forward_qs&#39;):
+
+            self.forward_qs = {}
+
+            for name_type in data_mol.forward_qs.keys():
+                self.forward_qs[name_type] = data_mol.forward_qs[name_type][list(valid_frames_mol), :]
+
+            if if_all_frames:
+                self.forward_qs_trained = copy.deepcopy(data_train_mol.forward_qs)
+
+        if hasattr(data_mol, &#39;forward_model&#39;):
+            self.forward_model = data_mol.forward_model
+
+        self.ref = copy.deepcopy(data_mol.ref)
+        self.ref_all = copy.deepcopy(data_mol.ref)
+        self.selected_obs = copy.deepcopy(data_train_mol.selected_obs)  # same observables as in training
+        self.selected_obs_new = valid_obs_mol
+
+        self.gexp = copy.deepcopy(data_train_mol).gexp
+        self.n_experiments = copy.deepcopy(data_train_mol).n_experiments
+        self.temperature = data_mol.temperature</code></pre>
+</details>
+<div class="desc"><p>Class for validation data set, with similar structure as <code>data_class</code>.</p></div>
+</dd>
+<dt id="MDRefine.loss_and_minimizer.intermediates_class"><code class="flex name class">
+<span>class <span class="ident">intermediates_class</span></span>
+<span>(</span><span>alpha)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class intermediates_class:
+    &#34;&#34;&#34;Class for the intermediate steps of the minimization of the loss function.&#34;&#34;&#34;
+    def __init__(self, alpha):
+        
+        self.loss = []
+        self.pars = []
+
+        if not np.isinf(alpha):
+            self.lambdas = []
+            self.minis = []</code></pre>
+</details>
+<div class="desc"><p>Class for the intermediate steps of the minimization of the loss function.</p></div>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="MDRefine" href="index.html">MDRefine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="MDRefine.loss_and_minimizer.compute_D_KL" href="#MDRefine.loss_and_minimizer.compute_D_KL">compute_D_KL</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_DeltaDeltaG_terms" href="#MDRefine.loss_and_minimizer.compute_DeltaDeltaG_terms">compute_DeltaDeltaG_terms</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_chi2" href="#MDRefine.loss_and_minimizer.compute_chi2">compute_chi2</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_details_ER" href="#MDRefine.loss_and_minimizer.compute_details_ER">compute_details_ER</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_js" href="#MDRefine.loss_and_minimizer.compute_js">compute_js</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.compute_new_weights" href="#MDRefine.loss_and_minimizer.compute_new_weights">compute_new_weights</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.deconvolve_lambdas" href="#MDRefine.loss_and_minimizer.deconvolve_lambdas">deconvolve_lambdas</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.gamma_function" href="#MDRefine.loss_and_minimizer.gamma_function">gamma_function</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.l2_regularization" href="#MDRefine.loss_and_minimizer.l2_regularization">l2_regularization</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.loss_function" href="#MDRefine.loss_and_minimizer.loss_function">loss_function</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.loss_function_and_grad" href="#MDRefine.loss_and_minimizer.loss_function_and_grad">loss_function_and_grad</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.minimizer" href="#MDRefine.loss_and_minimizer.minimizer">minimizer</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.normalize_observables" href="#MDRefine.loss_and_minimizer.normalize_observables">normalize_observables</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.print_references" href="#MDRefine.loss_and_minimizer.print_references">print_references</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.split_dataset" href="#MDRefine.loss_and_minimizer.split_dataset">split_dataset</a></code></li>
+<li><code><a title="MDRefine.loss_and_minimizer.validation" href="#MDRefine.loss_and_minimizer.validation">validation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="MDRefine.loss_and_minimizer.class_test" href="#MDRefine.loss_and_minimizer.class_test">class_test</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.loss_and_minimizer.class_train" href="#MDRefine.loss_and_minimizer.class_train">class_train</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.loss_and_minimizer.class_validation" href="#MDRefine.loss_and_minimizer.class_validation">class_validation</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.loss_and_minimizer.intermediates_class" href="#MDRefine.loss_and_minimizer.intermediates_class">intermediates_class</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

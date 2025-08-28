@@ -1,0 +1,1460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>MDRefine.bayesian API documentation</title>
+<meta name="description" content="Tools for the sampling of the posterior distribution, defined over a set of ensembles, by using a suitable
+uninformative prior (namely, a prescription …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>MDRefine.bayesian</code></h1>
+</header>
+<section id="section-intro">
+<p>Tools for the sampling of the posterior distribution, defined over a set of ensembles, by using a suitable
+uninformative prior (namely, a prescription on the counting of the ensembles).</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="MDRefine.bayesian.block_analysis"><code class="name flex">
+<span>def <span class="ident">block_analysis</span></span>(<span>x, size_blocks=None, n_conv=50)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def block_analysis(x, size_blocks = None, n_conv = 50):
+    &#34;&#34;&#34;
+    This function performs the block analysis of a (correlated) time series `x`, cycling over different block sizes.
+    It includes also a numerical search of the optimal estimated error `epsilon`, by smoothing `epsilon` and searching
+    for the first time it decreases, which should correspond to a plateau region.
+
+    It returns an instance of the `Block_analysis_Result` class.
+
+    Parameters
+    -----------
+
+    x : numpy.ndarray
+        Numpy array with the time series of which you do block analysis.
+
+    size_blocks : list, int or None
+        The list with the block sizes used in the analysis; you can either pass an integer value,
+        in this case the list of sizes is given by `np.arange(1, np.int64(size/2) + size_blocks, size_blocks)`;
+        further, if `size_blocks` is `None`, the list of sizes is `np.arange(1, np.int64(size/2) + 1, 1)`.
+
+    n_conv : int
+        Length (as number of elements in the block-size list) of the kernel used to smooth the epsilon function
+        (estimated error vs. block size) in order to search for the optimal epsilon, corresponding to the plateau.
+    &#34;&#34;&#34;
+
+    size = len(x)
+    mean = np.mean(x)
+    std = np.std(x)/np.sqrt(size)
+
+    if size_blocks is None: size_blocks = np.arange(1, np.int64(size/2) + 1, 1)
+    elif type(size_blocks) is int: size_blocks = np.arange(1, np.int64(size/2) + size_blocks, size_blocks)
+    else: assert type(size_blocks) is list, &#39;incorrect size_blocks&#39;
+
+    n_blocks = []
+    epsilon = []
+
+    for size_block in size_blocks:
+
+        n_block = np.int64(size/size_block)
+        
+        # a = 0 
+        # for i in range(n_block):
+        #     a += (np.mean(x[(size_block*i):(size_block*(i+1))]))**2
+        # 
+        # epsilon.append(np.sqrt((a/n_blocks[-1] - mean**2)/n_blocks[-1]))
+
+        block_averages = []
+        for i in range(n_block): block_averages.append(np.mean(x[(size_block*i):(size_block*(i+1))]))
+        block_averages = np.array(block_averages)
+
+        n_blocks.append(n_block)
+        epsilon.append(np.sqrt((np.mean(block_averages**2) - np.mean(block_averages)**2)/n_block))
+
+    # find the optimal epsilon: smooth the epsilon function and find the first time it decreases
+    kernel = np.ones(n_conv)/n_conv
+    smooth = np.convolve(epsilon, kernel, mode=&#39;same&#39;)
+    diff = np.ediff1d(smooth)
+    wh = np.where(diff &lt; 0)
+    opt_epsilon = smooth[wh[0][0]]
+    
+    return Block_analysis_Result(mean, std, opt_epsilon, epsilon, smooth, n_blocks, size_blocks)</code></pre>
+</details>
+<div class="desc"><p>This function performs the block analysis of a (correlated) time series <code>x</code>, cycling over different block sizes.
+It includes also a numerical search of the optimal estimated error <code>epsilon</code>, by smoothing <code>epsilon</code> and searching
+for the first time it decreases, which should correspond to a plateau region.</p>
+<p>It returns an instance of the <code><a title="MDRefine.bayesian.Block_analysis_Result" href="#MDRefine.bayesian.Block_analysis_Result">Block_analysis_Result</a></code> class.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>Numpy array with the time series of which you do block analysis.</dd>
+<dt><strong><code>size_blocks</code></strong> :&ensp;<code>list, int</code> or <code>None</code></dt>
+<dd>The list with the block sizes used in the analysis; you can either pass an integer value,
+in this case the list of sizes is given by <code>np.arange(1, np.int64(size/2) + size_blocks, size_blocks)</code>;
+further, if <code>size_blocks</code> is <code>None</code>, the list of sizes is <code>np.arange(1, np.int64(size/2) + 1, 1)</code>.</dd>
+<dt><strong><code>n_conv</code></strong> :&ensp;<code>int</code></dt>
+<dd>Length (as number of elements in the block-size list) of the kernel used to smooth the epsilon function
+(estimated error vs. block size) in order to search for the optimal epsilon, corresponding to the plateau.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.bayesian.energy_fun"><code class="name flex">
+<span>def <span class="ident">energy_fun</span></span>(<span>x, data, regularization, alpha=inf, beta=inf, which_measure='uniform')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def energy_fun(x, data, regularization, alpha = np.inf, beta = np.inf, which_measure = &#39;uniform&#39;):
+    &#34;&#34;&#34;
+    This is the energy function defined for running the usual sampling algorithms, corresponding to -log of the
+    posterior distribution (a part from a normalization factor and with the optional inclusion of the entropic
+    contribution, as prescribed by `which_measure`). Depending on which hyperparameter is infinite (`alpha` or
+    `beta`), it corresponds either to ensemble refinement or force-field fitting.
+
+    Parameters
+    -----------
+
+    x : numpy.ndarray
+        Numpy array with the lambda coefficients (for ensemble refinement) or the force-field correction coefficients
+        (for force-field refinement), in the same order required by `loss_and_minimizer.loss_function`.
+
+    data : data_loading.my_data
+        An instance of the class `data_loading.my_data` class, with all the data for the molecules of interest.
+
+    regularization : dict
+        Dictionary for the regularization (`None` for ensemble refinement), as described for `MDRefinement`.
+
+    alpha, beta : float
+        Values of the hyperparameters `alpha` (ensemble refinement) or `beta` (force-field fitting):
+        either one of them must be infinite (the sampling has been implemented either for ensemble
+        or force-field refinement).
+
+    which_measure : dict
+        Dictionary indicating the measure used for sampling the posterior
+        (choose among: `&#39;uniform&#39;`, `&#39;jeffreys&#39;`, `&#39;average&#39;`, `&#39;dirichlet&#39;`).
+
+    -----------
+
+    Returns
+    -----------
+
+    energy : float
+        Float value for the energy used in the sampling, as defined by the input variables.
+
+    qs : MyQuantities
+        An instance of the `&#39;MyQuantities` class containing loss, average observables and regularization values.
+    &#34;&#34;&#34;
+
+    # vars(out).keys() = [&#39;loss&#39;, &#39;loss_explicit&#39;, &#39;D_KL_alpha&#39;, &#39;abs_difference&#39;, &#39;av_g&#39;, &#39;chi2&#39;,
+    #    &#39;logZ_new&#39;, &#39;weights_new&#39;] &#34;&#34;&#34;
+
+    a_fin, b_fin = _assert_one_finite_one_infinite(alpha, beta)
+
+    if a_fin:
+        # `if_save = True` and the correct value is `out.loss_explicit`, otherwise you are wrong because
+        # it would compute the value given by the Gamma function rather than the loss itself
+        # (these two values are equal only in the optimal solution!!)
+        out = loss_function(None, data, regularization=None, alpha=alpha, fixed_lambdas=x, if_save=True)
+        
+        energy = out.loss_explicit
+
+        qs = MyQuantities(energy, list(out.D_KL_alpha.values()), unwrap_2dict(out.av_g)[0])
+        # qs = [energy] + list(out.D_KL_alpha.values()) + unwrap_2dict(out.av_g)[0]
+    
+    else:
+        # here alpha is infinite so you could keep `if_save=False` and evaluate `energy = out.loss`
+        # (no issue with the Gamma function); put anyway `if_save=True` to get also the average observables values
+        out = loss_function(x, data, regularization=regularization, beta=beta, if_save=True)
+        
+        energy = out.loss
+
+        qs = MyQuantities(energy, list(out.reg_ff.values()), unwrap_2dict(out.av_g)[0])
+        # qs = [energy] + list(out.reg_ff.values()) + unwrap_2dict(out.av_g)[0]
+
+    if which_measure != &#39;uniform&#39;:
+        name_mol = list(out.weights_new.keys())[0]
+        measure, cov = local_density(data.mol[name_mol].g, out.weights_new[name_mol], which_measure)
+        energy -= np.log(measure)
+    
+    return energy, qs</code></pre>
+</details>
+<div class="desc"><p>This is the energy function defined for running the usual sampling algorithms, corresponding to -log of the
+posterior distribution (a part from a normalization factor and with the optional inclusion of the entropic
+contribution, as prescribed by <code>which_measure</code>). Depending on which hyperparameter is infinite (<code>alpha</code> or
+<code>beta</code>), it corresponds either to ensemble refinement or force-field fitting.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>Numpy array with the lambda coefficients (for ensemble refinement) or the force-field correction coefficients
+(for force-field refinement), in the same order required by <code>loss_and_minimizer.loss_function</code>.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>data_loading.my_data</code></dt>
+<dd>An instance of the class <code>data_loading.my_data</code> class, with all the data for the molecules of interest.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the regularization (<code>None</code> for ensemble refinement), as described for <code>MDRefinement</code>.</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong> :&ensp;<code>float</code></dt>
+<dd>Values of the hyperparameters <code>alpha</code> (ensemble refinement) or <code>beta</code> (force-field fitting):
+either one of them must be infinite (the sampling has been implemented either for ensemble
+or force-field refinement).</dd>
+<dt><strong><code>which_measure</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary indicating the measure used for sampling the posterior
+(choose among: <code>'uniform'</code>, <code>'jeffreys'</code>, <code>'average'</code>, <code>'dirichlet'</code>).</dd>
+</dl>
+<hr>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>energy</code></strong> :&ensp;<code>float</code></dt>
+<dd>Float value for the energy used in the sampling, as defined by the input variables.</dd>
+<dt><strong><code>qs</code></strong> :&ensp;<code><a title="MDRefine.bayesian.MyQuantities" href="#MDRefine.bayesian.MyQuantities">MyQuantities</a></code></dt>
+<dd>An instance of the <code>'MyQuantities</code> class containing loss, average observables and regularization values.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.bayesian.langevin_sampling"><code class="name flex">
+<span>def <span class="ident">langevin_sampling</span></span>(<span>energy_fun,<br>starting_x,<br>n_iter: int = 10000,<br>gamma: float = 0.1,<br>dt: float = 0.005,<br>kT: float = 1.0,<br>seed: int = 1,<br>if_tqdm: bool = True)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def langevin_sampling(energy_fun, starting_x, n_iter : int = 10000, gamma : float = 1e-1,
+    dt : float = 5e-3, kT : float = 1., seed : int = 1, if_tqdm: bool = True):
+    &#34;&#34;&#34;
+    A function to perform a Langevin sampling of `energy_fun` at temperature `kT` (with the Euler-Maruyama scheme).
+    
+    Parameters
+    ----------
+
+    energy_fun : function
+        The energy function, written with `jax.numpy` in order to do automatic differentiation
+        through `jax.grad` (this requires `energy_fun` to return a scalar value and not an array,
+        otherwise you should use `jax.jacfwd` for example; to this aim, you can do 
+        `jnp.sum(energy_fun(x))`).
+    
+    starting_x : numpy.ndarray
+        The starting configuration of the Langevin sampling.
+    
+    n_iter : int
+        Number of iterations.
+    
+    gamma : float
+        Friction coefficient.
+    
+    dt : float
+        Time step.
+    
+    kT : float
+        The temperature.
+    
+    seed : int
+        Integer value for the seed.
+
+    if_tqdm : Bool
+        Boolean variable, if `True` use `tqdm` (default choice).
+
+    -----------
+
+    Returns
+    ----------
+
+    traj : np.ndarray
+        Numpy array with the trajectory.
+
+    ene : np.ndarray
+        Numpy array with the energies.
+
+    force_list : list
+        List with the forces.
+
+    check : dict
+        Dictionary with `&#39;dif&#39;` for `np.ediff1d(traj)`, together with its mean and standard deviation.
+    &#34;&#34;&#34;
+
+    jax_energy_fun = lambda x : jnp.sum(energy_fun(x))  # to use jax.grad rather than jax.jacfwd
+
+    rng = np.random.default_rng(seed)
+    grad = jax.grad(jax_energy_fun)
+
+    sigma = np.sqrt(2*kT*gamma)
+    step_width = sigma*np.sqrt(dt)
+
+    traj = []
+    ene_list = []
+    force_list = []
+
+    # x = jnp.array(starting_x)
+    x = +starting_x
+    force = -grad(x)
+
+    traj.append(x)
+    ene_list.append(jax_energy_fun(x))
+    force_list.append(force)
+
+    counter = range(n_iter)
+    if if_tqdm: counter = tqdm(counter)
+    
+    for i in counter:
+        r = rng.normal(size=len(x))
+        x += gamma*force*dt + step_width*r
+        force = -grad(x)
+
+        traj.append(x)
+        ene_list.append(jax_energy_fun(x))
+        force_list.append(force)
+
+    # check: steps not too big!!
+    dif = np.ediff1d(traj)
+    mean = np.mean(dif)
+    std = np.std(dif)
+    check = {&#39;dif&#39;: dif, &#39;mean&#39;: mean, &#39;std&#39;: std}
+
+    traj = np.array(traj)
+    if len(x) == 1: traj = traj[:, 0]
+
+    ene = np.array(ene_list)
+
+    return traj, ene, force_list, check</code></pre>
+</details>
+<div class="desc"><p>A function to perform a Langevin sampling of <code><a title="MDRefine.bayesian.energy_fun" href="#MDRefine.bayesian.energy_fun">energy_fun()</a></code> at temperature <code>kT</code> (with the Euler-Maruyama scheme).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>energy_fun</code></strong> :&ensp;<code>function</code></dt>
+<dd>The energy function, written with <code>jax.numpy</code> in order to do automatic differentiation
+through <code>jax.grad</code> (this requires <code><a title="MDRefine.bayesian.energy_fun" href="#MDRefine.bayesian.energy_fun">energy_fun()</a></code> to return a scalar value and not an array,
+otherwise you should use <code>jax.jacfwd</code> for example; to this aim, you can do
+<code>jnp.sum(<a title="MDRefine.bayesian.energy_fun" href="#MDRefine.bayesian.energy_fun">energy_fun()</a>(x))</code>).</dd>
+<dt><strong><code>starting_x</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>The starting configuration of the Langevin sampling.</dd>
+<dt><strong><code>n_iter</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of iterations.</dd>
+<dt><strong><code>gamma</code></strong> :&ensp;<code>float</code></dt>
+<dd>Friction coefficient.</dd>
+<dt><strong><code>dt</code></strong> :&ensp;<code>float</code></dt>
+<dd>Time step.</dd>
+<dt><strong><code>kT</code></strong> :&ensp;<code>float</code></dt>
+<dd>The temperature.</dd>
+<dt><strong><code>seed</code></strong> :&ensp;<code>int</code></dt>
+<dd>Integer value for the seed.</dd>
+<dt><strong><code>if_tqdm</code></strong> :&ensp;<code>Bool</code></dt>
+<dd>Boolean variable, if <code>True</code> use <code>tqdm</code> (default choice).</dd>
+</dl>
+<hr>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>traj</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Numpy array with the trajectory.</dd>
+<dt><strong><code>ene</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Numpy array with the energies.</dd>
+<dt><strong><code>force_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>List with the forces.</dd>
+<dt><strong><code>check</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary with <code>'dif'</code> for <code>np.ediff1d(traj)</code>, together with its mean and standard deviation.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.bayesian.local_density"><code class="name flex">
+<span>def <span class="ident">local_density</span></span>(<span>variab, weights, which_measure='jeffreys')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def local_density(variab, weights, which_measure = &#39;jeffreys&#39;):
+    &#34;&#34;&#34;
+    This function computes the local density of ensembles in the cases of ensemble refinement or force-field fitting.
+    
+    This density can be defined through the Jeffreys &#34;uninformative&#34; prior (`which_measure = &#39;jeffreys&#39;`):
+    in these two cases, the Jeffreys prior is given by the square root of the determinant of the covariance matrix
+    (of the observables in Ensemble Refinement or the generalized forces in Force-Field Fitting,
+    where the generalized forces are the derivatives of the force-field correction with respect to the fitting coefficients).
+    
+    It includes also the possibility for the computation of the local density of ensembles with plain Dirichlet
+    if `which_measure = &#39;dirichlet&#39;`, or with the variation of the average observables if 
+    `which_measure = &#39;average&#39;`.
+
+    Since we are anyway dealing with a real-value, symmetric and semi-positive definite matrix,
+    its determinant is computed through the Cholesky decomposition (which is faster for big matrices):
+    `triang` is such that `metric = triang * triang.T`, so `sqrt(det metric) = det(triang)`.
+
+    Parameters
+    -----------
+    
+    variab : numpy.ndarray, dict or tuple
+        For Ensemble Refinement, `variab` is either the dictionary `data.mol[name_mol].g` to be unwrapped
+        or directly the numpy array with the observables defined in each frame.
+        
+        For Force-Field Fitting and `which_measure == &#39;jeffreys&#39; or &#39;dirichlet&#39;`, `variab` is the tuple `(fun_forces, pars, f)` where:
+            - `fun_forces` is the function for the gradient of the force-field correction with respect to `pars`
+            (defined through Jax as `fun_forces = jax.jacfwd(ff_correction, argnums=0)` where `ff_correction = data.mol[name_mol].ff_correction`;
+            you can compute it just once at the beginning of the MC sampling);
+            - `pars` is the numpy.ndarray of parameters for the force-field correction;
+            - `f` is the numpy.ndarray `data.mol[name_mol].f` with the terms required to compute the force-field correction.
+        If `which_measure = &#39;average&#39;`, then the observables are required, too, and `variab` is the tuple `(fun_forces, pars, f, g)`.
+
+        See documentation of `MDRefine` at https://www.bussilab.org/doc-MDRefine/MDRefine/index.html for further details
+        about the `data` object.
+
+    weights : numpy.ndarray
+        Numpy array with the normalized weights of each frame; this is the probability distribution
+        at which you want to compute the Jeffreys prior, corresponding to the local density of ensembles.
+
+    which_measure: str
+        String variable, chosen among: `jeffreys`, `dirichlet` or `average`, indicating the prescription
+        for the local density of ensembles (Jeffreys prior, plain Dirichlet, average observables).
+
+    -----------
+
+    Returns
+    -----------
+
+    measure : float
+        The local density of ensembles at the given distribution `weights`, computed as specified by `which_measure`
+        (Jeffreys prior by default).
+    
+    cov : numpy.ndarray
+        The metric tensor for the chosen metrics defined by `which_measure` if `which_measure = &#39;jeffreys&#39;` or `&#39;dirichlet&#39;`;
+        the covariance matrix if `which_measure = &#39;average&#39;`.
+    &#34;&#34;&#34;
+
+    if which_measure == &#39;jeffreys&#39; or (which_measure == &#39;average&#39; and type(variab) is not tuple):
+        # in this case, the density is given by computing the variance-covariance matrix of values
+        # (either forces or observables)
+
+        if type(variab) is tuple: values = variab[0](variab[1], variab[2])
+        else:
+            if type(variab) is dict: values = np.hstack([variab[s] for s in variab.keys()])
+            elif type(variab) is np.ndarray and len(variab.shape) == 1: values = np.array([variab]).T
+            else: values = variab
+
+        av_values = np.einsum(&#39;ti,t-&gt;i&#39;, values, weights)
+        cov = np.einsum(&#39;ti,tj,t-&gt;ij&#39;, values, values, weights) - np.outer(av_values, av_values)
+
+        # exploit the Cholesky decomposition:
+        # metric = triang*triang.T, so sqrt(det metric) = det(triang)
+        try:  # it may happen: `Matrix is not positive definite` (zero due to round-off errors)
+            triang = np.linalg.cholesky(cov)
+            density = np.prod(np.diag(triang))
+        except:
+            # density = np.sqrt(np.linalg.det(cov))
+
+            cov = _make_sym_pos_def(cov)
+            triang = np.linalg.cholesky(cov)
+            density = np.prod(np.diag(triang))
+
+        if which_measure == &#39;average&#39;: density = density**2
+
+        return density, cov
+
+    elif which_measure == &#39;average&#39; and type(variab) is tuple:
+        # in this case, we are sampling Force-Field Fitting with &#39;average&#39; measure of ensembles
+        # so we have to compute the covariance matrix of observables and forces;
+        # then, since it is not a square matrix in general, you cannot compute its det,
+        # but you have to compute the sqrt of det (C.T C)
+        
+        assert len(variab) == 4
+
+        forces = variab[0](variab[1], variab[2])
+        
+        if type(variab[3]) is dict: g = np.hstack([variab[s] for s in variab.keys()])
+        else: g = variab[3]
+
+        av_forces = np.einsum(&#39;ti,t-&gt;i&#39;, forces, weights)
+        av_g = np.einsum(&#39;ti,t-&gt;i&#39;, g, weights)
+        cov = np.einsum(&#39;ti,tj,t-&gt;ij&#39;, forces, g, weights) - np.outer(av_forces, av_g)
+        
+        metric = np.einsum(&#39;ji,ki-&gt;jk&#39;, cov, cov)
+        triang = np.linalg.cholesky(metric)
+        density = np.prod(np.diag(triang))
+
+        return density, cov
+
+    else:
+        assert which_measure == &#39;dirichlet&#39;, &#39;error on `which_measure`&#39;
+
+        if type(variab) is tuple: values = variab[0](variab[1], variab[2])
+        else:
+            if type(variab) is dict: values = np.hstack([variab[s] for s in variab.keys()])
+            else: values = variab
+
+        av_values = np.einsum(&#39;ti,t-&gt;i&#39;, values, weights)
+        metric = np.einsum(&#39;ti,tj,t-&gt;ij&#39;, values, values, weights**2) + np.sum(weights**2)*np.outer(av_values, av_values)
+        met = np.einsum(&#39;i,tj,t-&gt;ij&#39;, av_values, values, weights**2)
+        metric -= met + met.T
+
+        # metric = _make_sym_pos_def(metric)
+
+        # assert np.linalg.cholesky(metric), metric
+        # if not (np.isnan(metric).any() or np.isnan(metric).any()) and (np.all(np.linalg.eigvalsh(metric) &gt; 0)):
+        try:
+            triang = np.linalg.cholesky(metric)
+            density = np.prod(np.diag(triang))
+        except:  # np.linalg.LinAlgError as e:  # it may happen: `Matrix is not positive definite` (zero due to round-off errors)
+            metric = _make_sym_pos_def(metric, epsilon=1e-8)
+            triang = np.linalg.cholesky(metric)
+            density = np.prod(np.diag(triang))
+
+            # my_det = np.linalg.det(metric)
+            # assert type(my_det) is np.float64, &#39;error on my_det: %f, type %s&#39; % (my_det, str(type(my_det)))
+            # if my_det == 0 : my_det = 1e-8
+            # density = np.sqrt(my_det)
+
+        return density, metric</code></pre>
+</details>
+<div class="desc"><p>This function computes the local density of ensembles in the cases of ensemble refinement or force-field fitting.</p>
+<p>This density can be defined through the Jeffreys "uninformative" prior (<code>which_measure = 'jeffreys'</code>):
+in these two cases, the Jeffreys prior is given by the square root of the determinant of the covariance matrix
+(of the observables in Ensemble Refinement or the generalized forces in Force-Field Fitting,
+where the generalized forces are the derivatives of the force-field correction with respect to the fitting coefficients).</p>
+<p>It includes also the possibility for the computation of the local density of ensembles with plain Dirichlet
+if <code>which_measure = 'dirichlet'</code>, or with the variation of the average observables if
+<code>which_measure = 'average'</code>.</p>
+<p>Since we are anyway dealing with a real-value, symmetric and semi-positive definite matrix,
+its determinant is computed through the Cholesky decomposition (which is faster for big matrices):
+<code>triang</code> is such that <code>metric = triang * triang.T</code>, so <code>sqrt(det metric) = det(triang)</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>variab</code></strong> :&ensp;<code>numpy.ndarray, dict</code> or <code>tuple</code></dt>
+<dd>
+<p>For Ensemble Refinement, <code>variab</code> is either the dictionary <code>data.mol[name_mol].g</code> to be unwrapped
+or directly the numpy array with the observables defined in each frame.</p>
+<p>For Force-Field Fitting and <code>which_measure == 'jeffreys' or 'dirichlet'</code>, <code>variab</code> is the tuple <code>(fun_forces, pars, f)</code> where:
+- <code>fun_forces</code> is the function for the gradient of the force-field correction with respect to <code>pars</code>
+(defined through Jax as <code>fun_forces = jax.jacfwd(ff_correction, argnums=0)</code> where <code>ff_correction = data.mol[name_mol].ff_correction</code>;
+you can compute it just once at the beginning of the MC sampling);
+- <code>pars</code> is the numpy.ndarray of parameters for the force-field correction;
+- <code>f</code> is the numpy.ndarray <code>data.mol[name_mol].f</code> with the terms required to compute the force-field correction.
+If <code>which_measure = 'average'</code>, then the observables are required, too, and <code>variab</code> is the tuple <code>(fun_forces, pars, f, g)</code>.</p>
+<p>See documentation of <code><a title="MDRefine" href="index.html">MDRefine</a></code> at <a href="https://www.bussilab.org/doc-MDRefine/MDRefine/index.html">https://www.bussilab.org/doc-MDRefine/MDRefine/index.html</a> for further details
+about the <code>data</code> object.</p>
+</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>Numpy array with the normalized weights of each frame; this is the probability distribution
+at which you want to compute the Jeffreys prior, corresponding to the local density of ensembles.</dd>
+<dt><strong><code>which_measure</code></strong> :&ensp;<code>str</code></dt>
+<dd>String variable, chosen among: <code>jeffreys</code>, <code>dirichlet</code> or <code>average</code>, indicating the prescription
+for the local density of ensembles (Jeffreys prior, plain Dirichlet, average observables).</dd>
+</dl>
+<hr>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>measure</code></strong> :&ensp;<code>float</code></dt>
+<dd>The local density of ensembles at the given distribution <code>weights</code>, computed as specified by <code>which_measure</code>
+(Jeffreys prior by default).</dd>
+<dt><strong><code>cov</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>The metric tensor for the chosen metrics defined by <code>which_measure</code> if <code>which_measure = 'jeffreys'</code> or <code>'dirichlet'</code>;
+the covariance matrix if <code>which_measure = 'average'</code>.</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.bayesian.posterior_sampling"><code class="name flex">
+<span>def <span class="ident">posterior_sampling</span></span>(<span>starting_point,<br>data,<br>regularization=None,<br>alpha: float = inf,<br>beta: float = inf,<br>which_measure=MDRefine.bayesian.Which_measure,<br>proposal_move='default',<br>n_steps_MC: int = 10000,<br>seed: int = 1)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def posterior_sampling(starting_point, data, regularization = None, alpha : float = np.inf, beta : float = np.inf,
+                       which_measure = Which_measure, proposal_move = &#39;default&#39;, n_steps_MC : int = int(1e4),
+                       seed : int = 1):
+    &#34;&#34;&#34;
+    Main function of the `bayesian` module, it is the algorithm that samples from the posterior distribution
+    exp(-L(P)) with the specified uninformative prior, either in the case of ensemble refinement or force-field refinement.
+
+    Parameters
+    -----------
+
+    starting_point : 
+
+    data : data_loading.my_data
+        An instance of the class `data_loading.my_data` class, with all the data for the molecules of interest.
+
+    regularization : dict
+        Dictionary for the regularization to the force-field correction.
+
+    alpha, beta : float
+        Float values for the hyperparameters (either one of them must be infinite or None).
+    
+    which_measure : Which_measure
+        An instance of the `Which_measure` class, to specify the entropic measure used in the sampling
+        (chosen among `FLAT = &#39;uniform&#39;`, `JEFFREYS = &#39;jeffreys&#39;`, `AVERAGE = &#39;average&#39;`, `DIRICHLET = &#39;dirichlet&#39;`).
+
+    proposal_move : str or function or float or tuple
+        Variable used to specify the move employed in the Metropolis algorithm, as indicated in `run_Metropolis`;
+        if it is `&#39;default&#39;`, then a Gaussian move is used with standard deviation `proposal_move = 0.1`.
+
+    n_steps_MC : int
+        Integer for the number of steps in the Metropolis algorithm.
+
+    seed : int
+        Integer for the random state (seed) used in the Metropolis algorithm.
+
+    -----------
+    
+    Returns
+    -----------
+    
+    sampling : Result_MyQuantities
+        An instance of the `Result_MyQuantities` class, which merges the quantities returned by each step
+        of the MCMC sampling (as indicated in `MyQuantities`).
+    &#34;&#34;&#34;
+    
+    assert not ((not np.isinf(beta)) and (regularization is None)), &#39;regularization is None even if beta is not infinite&#39;
+    
+    a_fin, b_fin = _assert_one_finite_one_infinite(alpha, beta)
+
+    energy_function = lambda x0 : _energy_fun_mute(x0, data, regularization, alpha, beta, which_measure.value)
+    
+    if proposal_move == &#39;default&#39;: proposal_move = 0.1
+    # then, `run_Metropolis` will take a random move given by a normal distribution of given std
+
+    sampling = run_Metropolis(starting_point, proposal_move, energy_function, n_steps=n_steps_MC, seed=seed)
+
+    sampling.quantities = MyQuantities.merge(sampling.quantities)
+
+    return sampling</code></pre>
+</details>
+<div class="desc"><p>Main function of the <code>bayesian</code> module, it is the algorithm that samples from the posterior distribution
+exp(-L(P)) with the specified uninformative prior, either in the case of ensemble refinement or force-field refinement.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>starting_point</code></strong></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>data_loading.my_data</code></dt>
+<dd>An instance of the class <code>data_loading.my_data</code> class, with all the data for the molecules of interest.</dd>
+<dt><strong><code>regularization</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary for the regularization to the force-field correction.</dd>
+<dt><strong><code>alpha</code></strong>, <strong><code>beta</code></strong> :&ensp;<code>float</code></dt>
+<dd>Float values for the hyperparameters (either one of them must be infinite or None).</dd>
+<dt><strong><code>which_measure</code></strong> :&ensp;<code><a title="MDRefine.bayesian.Which_measure" href="#MDRefine.bayesian.Which_measure">Which_measure</a></code></dt>
+<dd>An instance of the <code><a title="MDRefine.bayesian.Which_measure" href="#MDRefine.bayesian.Which_measure">Which_measure</a></code> class, to specify the entropic measure used in the sampling
+(chosen among <code>FLAT = 'uniform'</code>, <code>JEFFREYS = 'jeffreys'</code>, <code>AVERAGE = 'average'</code>, <code>DIRICHLET = 'dirichlet'</code>).</dd>
+<dt><strong><code>proposal_move</code></strong> :&ensp;<code>str</code> or <code>function</code> or <code>float</code> or <code>tuple</code></dt>
+<dd>Variable used to specify the move employed in the Metropolis algorithm, as indicated in <code><a title="MDRefine.bayesian.run_Metropolis" href="#MDRefine.bayesian.run_Metropolis">run_Metropolis()</a></code>;
+if it is <code>'default'</code>, then a Gaussian move is used with standard deviation <code>proposal_move = 0.1</code>.</dd>
+<dt><strong><code>n_steps_MC</code></strong> :&ensp;<code>int</code></dt>
+<dd>Integer for the number of steps in the Metropolis algorithm.</dd>
+<dt><strong><code>seed</code></strong> :&ensp;<code>int</code></dt>
+<dd>Integer for the random state (seed) used in the Metropolis algorithm.</dd>
+</dl>
+<hr>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>sampling</code></strong> :&ensp;<code><a title="MDRefine.bayesian.Result_MyQuantities" href="#MDRefine.bayesian.Result_MyQuantities">Result_MyQuantities</a></code></dt>
+<dd>An instance of the <code><a title="MDRefine.bayesian.Result_MyQuantities" href="#MDRefine.bayesian.Result_MyQuantities">Result_MyQuantities</a></code> class, which merges the quantities returned by each step
+of the MCMC sampling (as indicated in <code><a title="MDRefine.bayesian.MyQuantities" href="#MDRefine.bayesian.MyQuantities">MyQuantities</a></code>).</dd>
+</dl></div>
+</dd>
+<dt id="MDRefine.bayesian.run_Metropolis"><code class="name flex">
+<span>def <span class="ident">run_Metropolis</span></span>(<span>x0,<br>proposal,<br>energy_function,<br>quantity_function=None,<br>*,<br>kT=1.0,<br>n_steps=100,<br>seed=1,<br>i_print=10000,<br>if_tqdm=True,<br>saving=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run_Metropolis(x0, proposal, energy_function, quantity_function = None, *, kT = 1.,
+    n_steps = 100, seed = 1, i_print = 10000, if_tqdm = True, saving = None):
+    &#34;&#34;&#34;
+    This function runs a Metropolis sampling algorithm.
+    
+    Parameters
+    -----------
+
+    x0 : numpy.ndarray
+        Numpy array for the initial configuration.
+    
+    proposal : function or float or tuple
+        Function for the proposal move, which takes as input variables just the starting configuration `x0`
+        and returns the new proposed configuration (trial move of Metropolis algorithm).
+        Alternatively, float variable for the standard deviation of a (zero-mean) multi-variate Gaussian variable
+        representing the proposed step (namely, the stride).
+        Another possibility is the tuple `(&#39;one-by-one&#39;, step)` where `step` is a float or int variable;
+        in this case, the proposal is done on each coordinate one at a time, following a cycle.
+
+    energy_function : function
+        Function for the energy, which takes as input variables just a configuration (`x0` for instance)
+        and returns its energy; `energy_function` can return also some quantities of interest,
+        defined on the input configuration.
+        If your energy function `energy_fun` has more than one input variables, just redefine it as
+        `energy_function = lambda x : energy_fun(x, simple_model, &#39;dirichlet&#39;)` before passing `energy_function`
+        to `run_Metropolis`.
+    
+    quantity_function : function
+        Function used to compute some quantities of interest on the initial configuration.
+        If `energy_function` has more than one output, `quantity_function` is ignored and the quantities
+        of interest are the 2nd output of `energy_function` (in this way, they are computed together with
+        the energy, avoiding the need for running twice the same function).
+        Notice that `quantity_function` does not support other input parameters beyond the configuration;
+        otherwise, you can use `energy_function`.
+
+    kT : float
+        Temperature of the Metropolis sampling algorithm.
+
+    n_steps : int
+        Number of steps of Metropolis.
+    
+    seed : int
+        Seed for the random generation.
+    
+    i_print : int
+        How many steps to print an indicator of the running algorithm (current n. of steps).
+
+    if_tqdm : Bool
+        Boolean variable, if `True` then use `tqdm`.
+
+    saving : None or float or Saving_function
+        An instance of the `Saving_function` class, used to save the results during Metropolis run (or in the end).
+        If `saving is None` do not save, if it is `&#39;yes&#39;` use default object of class `Saving_function`.
+
+    -----------
+
+    Returns
+    -----------
+
+    obj_result : Result_run_Metropolis
+        An instance of the `Result_run_Metropolis` class with trajectory, energy, average acceptance
+        and computed quantities.
+    &#34;&#34;&#34;
+
+    rng = np.random.default_rng(seed)
+
+    if saving == &#39;yes&#39;: saving = Saving_function()
+    if saving is None: i_save = n_steps - 1
+    else: i_save = saving.i_save
+
+    if energy_function is None:
+        # energy_function = {&#39;fun&#39;: lambda x : 0, &#39;args&#39;: ()}
+        energy_function = lambda x : 0
+
+    if type(proposal) is float:
+        
+        proposal_stride = proposal
+        # def fun_proposal(x0, dx = 0.01):
+        #     x_new = x0 + dx*np.random.normal(size=len(x0))
+        #     return x_new
+
+        # proposal = {&#39;fun&#39;: fun_proposal, &#39;args&#39;: ([proposal])}
+
+        def proposal_fun(x0):
+            x_new = x0 + proposal_stride*rng.normal(size=len(x0))
+            return x_new
+    
+    elif (proposal == &#39;one-by-one&#39;) or ((type(proposal) is tuple) and (proposal[0] == &#39;one-by-one&#39;)):
+        
+        if type(proposal) is tuple:
+            assert (type(proposal[1]) is int) or (type(proposal[1]) is float), &#39;error on proposal&#39;
+            step_width = proposal[1]
+        else: step_width = 1.
+
+        proposal_fun = Proposal_onebyone(step_width=step_width, rng=rng)
+
+    else:
+        assert callable(proposal), &#39;error on proposal&#39;
+        proposal_fun = proposal
+
+    x0_ = +x0  # in order TO AVOID OVERWRITING!
+    
+    traj = []
+    ene = []
+    quantities = []
+    sum_alpha = 0
+
+    traj.append([])
+    traj[-1] = +x0_
+
+    # energy_function may have more than one output
+    # out = energy_function[&#39;fun&#39;](x0_, *energy_function[&#39;args&#39;])
+    out = energy_function(x0_)
+    u0 = out[0]
+
+    if len(out) == 2:
+        print(&#39;Warning: the quantities of interest are given by energy_function&#39;)  #  and not by quantity_function&#39;)
+        q0 = out[1]  # if `energy_function` has more than one output, the second one is the quantity of interest
+    else: q0 = quantity_function(x0_)
+    
+    ene.append([])
+    ene[-1] = +u0
+
+    quantities.append([])
+    quantities[-1] = q0
+
+    counter = range(n_steps)
+    if if_tqdm: counter = tqdm(counter)
+
+    for i_step in counter:
+
+        x_try = +proposal_fun(x0_)  # proposal[&#39;fun&#39;](x0_, *proposal[&#39;args&#39;])
+
+        out = energy_function(x_try)  # energy_function[&#39;fun&#39;](x_try, *energy_function[&#39;args&#39;])
+        u_try = out[0]
+
+        alpha = np.exp(-(u_try - u0)/kT)
+        
+        if alpha &gt; 1: alpha = 1
+        if alpha &gt; rng.random():  # move accepted!
+            sum_alpha += 1
+            x0_ = +x_try
+            u0 = +u_try
+
+            if len(out) == 2: q0 = out[1]
+            else: q0 = quantity_function(x0_)
+        
+        # traj.append(x0_)
+        # to avoid overwriting!
+        traj.append([])
+        traj[-1] = +x0_
+        
+        ene.append([])
+        ene[-1] = +u0
+
+        quantities.append([])
+        quantities[-1] = q0
+
+        if (not if_tqdm) and (np.mod(i_step, i_print) == 0): print(i_step)
+
+        if (np.mod(i_step, i_save) == 0) or (i_step == (n_steps - 1)):
+            av_acceptance = sum_alpha/(i_step + 1)
+            if saving is not None:
+                if quantities[0] is not None:
+                    qs = np.array(quantities)
+                    saving(av_acceptance, np.array(traj), np.array(ene), qs)
+                else:
+                    saving(av_acceptance, np.array(traj), np.array(ene))
+    
+    if quantities[0] is None: obj_result = Result_run_Metropolis(np.array(traj), np.array(ene), av_acceptance)
+    else: obj_result = Result_run_Metropolis(np.array(traj), np.array(ene), av_acceptance, np.array(quantities))
+    return obj_result
+
+    # if quantities[0] is None: return np.array(traj), np.array(ene), av_acceptance
+    # else: return np.array(traj), np.array(ene), av_acceptance, np.array(quantities)</code></pre>
+</details>
+<div class="desc"><p>This function runs a Metropolis sampling algorithm.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x0</code></strong> :&ensp;<code>numpy.ndarray</code></dt>
+<dd>Numpy array for the initial configuration.</dd>
+<dt><strong><code>proposal</code></strong> :&ensp;<code>function</code> or <code>float</code> or <code>tuple</code></dt>
+<dd>Function for the proposal move, which takes as input variables just the starting configuration <code>x0</code>
+and returns the new proposed configuration (trial move of Metropolis algorithm).
+Alternatively, float variable for the standard deviation of a (zero-mean) multi-variate Gaussian variable
+representing the proposed step (namely, the stride).
+Another possibility is the tuple <code>('one-by-one', step)</code> where <code>step</code> is a float or int variable;
+in this case, the proposal is done on each coordinate one at a time, following a cycle.</dd>
+<dt><strong><code>energy_function</code></strong> :&ensp;<code>function</code></dt>
+<dd>Function for the energy, which takes as input variables just a configuration (<code>x0</code> for instance)
+and returns its energy; <code>energy_function</code> can return also some quantities of interest,
+defined on the input configuration.
+If your energy function <code><a title="MDRefine.bayesian.energy_fun" href="#MDRefine.bayesian.energy_fun">energy_fun()</a></code> has more than one input variables, just redefine it as
+<code>energy_function = lambda x : energy_fun(x, simple_model, 'dirichlet')</code> before passing <code>energy_function</code>
+to <code><a title="MDRefine.bayesian.run_Metropolis" href="#MDRefine.bayesian.run_Metropolis">run_Metropolis()</a></code>.</dd>
+<dt><strong><code>quantity_function</code></strong> :&ensp;<code>function</code></dt>
+<dd>Function used to compute some quantities of interest on the initial configuration.
+If <code>energy_function</code> has more than one output, <code>quantity_function</code> is ignored and the quantities
+of interest are the 2nd output of <code>energy_function</code> (in this way, they are computed together with
+the energy, avoiding the need for running twice the same function).
+Notice that <code>quantity_function</code> does not support other input parameters beyond the configuration;
+otherwise, you can use <code>energy_function</code>.</dd>
+<dt><strong><code>kT</code></strong> :&ensp;<code>float</code></dt>
+<dd>Temperature of the Metropolis sampling algorithm.</dd>
+<dt><strong><code>n_steps</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of steps of Metropolis.</dd>
+<dt><strong><code>seed</code></strong> :&ensp;<code>int</code></dt>
+<dd>Seed for the random generation.</dd>
+<dt><strong><code>i_print</code></strong> :&ensp;<code>int</code></dt>
+<dd>How many steps to print an indicator of the running algorithm (current n. of steps).</dd>
+<dt><strong><code>if_tqdm</code></strong> :&ensp;<code>Bool</code></dt>
+<dd>Boolean variable, if <code>True</code> then use <code>tqdm</code>.</dd>
+<dt><strong><code>saving</code></strong> :&ensp;<code>None</code> or <code>float</code> or <code><a title="MDRefine.bayesian.Saving_function" href="#MDRefine.bayesian.Saving_function">Saving_function</a></code></dt>
+<dd>An instance of the <code><a title="MDRefine.bayesian.Saving_function" href="#MDRefine.bayesian.Saving_function">Saving_function</a></code> class, used to save the results during Metropolis run (or in the end).
+If <code>saving is None</code> do not save, if it is <code>'yes'</code> use default object of class <code><a title="MDRefine.bayesian.Saving_function" href="#MDRefine.bayesian.Saving_function">Saving_function</a></code>.</dd>
+</dl>
+<hr>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>obj_result</code></strong> :&ensp;<code><a title="MDRefine.bayesian.Result_run_Metropolis" href="#MDRefine.bayesian.Result_run_Metropolis">Result_run_Metropolis</a></code></dt>
+<dd>An instance of the <code><a title="MDRefine.bayesian.Result_run_Metropolis" href="#MDRefine.bayesian.Result_run_Metropolis">Result_run_Metropolis</a></code> class with trajectory, energy, average acceptance
+and computed quantities.</dd>
+</dl></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="MDRefine.bayesian.Block_analysis_Result"><code class="flex name class">
+<span>class <span class="ident">Block_analysis_Result</span></span>
+<span>(</span><span>mean: float,<br>std: float,<br>opt_epsilon: float,<br>epsilons: numpy.ndarray,<br>epsilons_smooth: numpy.ndarray,<br>n_blocks: numpy.ndarray,<br>size_blocks: numpy.ndarray)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Block_analysis_Result(Result):
+    &#34;&#34;&#34;Result of a `block_analysis` calculation.&#34;&#34;&#34;
+    def __init__(self, mean : float, std : float, opt_epsilon : float, epsilons : np.ndarray,
+            epsilons_smooth : np.ndarray, n_blocks : np.ndarray, size_blocks : np.ndarray):
+        super().__init__()
+        self.mean = mean
+        &#34;&#34;&#34;`float` with the mean value of the time series.&#34;&#34;&#34;
+        self.std = std
+        &#34;&#34;&#34;`float` with the standard deviation of the time series (assuming independent frames).&#34;&#34;&#34;
+        self.opt_epsilon = opt_epsilon
+        &#34;&#34;&#34;`float` with the optimal estimate of the associated error `epsilon`.&#34;&#34;&#34;
+        self.epsilons = epsilons
+        &#34;&#34;&#34;`list` with the associated error `epsilon` for each block size.&#34;&#34;&#34;
+        self.epsilons_smooth = epsilons_smooth
+        &#34;&#34;&#34;`list` with the associated error `epsilon` for each block size (smooth time series).&#34;&#34;&#34;
+        self.n_blocks = n_blocks
+        &#34;&#34;&#34;`list` with the number of blocks in the time series, for each analysed block size.&#34;&#34;&#34;
+        self.size_blocks = size_blocks
+        &#34;&#34;&#34;`list` with the block sizes initially defined.&#34;&#34;&#34;</code></pre>
+</details>
+<div class="desc"><p>Result of a <code><a title="MDRefine.bayesian.block_analysis" href="#MDRefine.bayesian.block_analysis">block_analysis()</a></code> calculation.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="MDRefine.bayesian.Result" href="#MDRefine.bayesian.Result">Result</a></li>
+<li>builtins.dict</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="MDRefine.bayesian.Block_analysis_Result.epsilons"><code class="name">var <span class="ident">epsilons</span></code></dt>
+<dd>
+<div class="desc"><p><code>list</code> with the associated error <code>epsilon</code> for each block size.</p></div>
+</dd>
+<dt id="MDRefine.bayesian.Block_analysis_Result.epsilons_smooth"><code class="name">var <span class="ident">epsilons_smooth</span></code></dt>
+<dd>
+<div class="desc"><p><code>list</code> with the associated error <code>epsilon</code> for each block size (smooth time series).</p></div>
+</dd>
+<dt id="MDRefine.bayesian.Block_analysis_Result.mean"><code class="name">var <span class="ident">mean</span></code></dt>
+<dd>
+<div class="desc"><p><code>float</code> with the mean value of the time series.</p></div>
+</dd>
+<dt id="MDRefine.bayesian.Block_analysis_Result.n_blocks"><code class="name">var <span class="ident">n_blocks</span></code></dt>
+<dd>
+<div class="desc"><p><code>list</code> with the number of blocks in the time series, for each analysed block size.</p></div>
+</dd>
+<dt id="MDRefine.bayesian.Block_analysis_Result.opt_epsilon"><code class="name">var <span class="ident">opt_epsilon</span></code></dt>
+<dd>
+<div class="desc"><p><code>float</code> with the optimal estimate of the associated error <code>epsilon</code>.</p></div>
+</dd>
+<dt id="MDRefine.bayesian.Block_analysis_Result.size_blocks"><code class="name">var <span class="ident">size_blocks</span></code></dt>
+<dd>
+<div class="desc"><p><code>list</code> with the block sizes initially defined.</p></div>
+</dd>
+<dt id="MDRefine.bayesian.Block_analysis_Result.std"><code class="name">var <span class="ident">std</span></code></dt>
+<dd>
+<div class="desc"><p><code>float</code> with the standard deviation of the time series (assuming independent frames).</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="MDRefine.bayesian.MyQuantities"><code class="flex name class">
+<span>class <span class="ident">MyQuantities</span></span>
+<span>(</span><span>loss, reg, avs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MyQuantities():
+    &#34;&#34;&#34;Class with the evaluated quantities for each step of the MCMC sampling, beyond energy and trajectory.&#34;&#34;&#34;
+    def __init__(self, loss, reg, avs):
+        self.loss = loss
+        &#34;&#34;&#34;`float` with the loss value (excluding the entropic contribution).&#34;&#34;&#34;
+        self.reg = reg
+        &#34;&#34;&#34;`float` with the regularization value.&#34;&#34;&#34;
+        self.avs = avs
+        &#34;&#34;&#34;`float` with the average values.&#34;&#34;&#34;
+
+    @classmethod
+    def merge(cls, instances):
+        &#34;&#34;&#34;
+        Function to merge multiple instances of `MyQuantities` in a single one
+        (to be run in the end of the MCMC sampling to collect quantities).
+        &#34;&#34;&#34;
+        # get all attribute names
+        attrs = vars(instances[0]).keys()
+
+        merged = {}
+        for attr in attrs:
+            arrays = [getattr(obj, attr) for obj in instances]
+            arrays = np.stack(arrays).T
+            if arrays.shape[0] == 1: arrays = arrays[0]
+            
+            merged[attr] = arrays
+            # try: merged[attr] = np.concatenate(arrays, axis=0)  # join arrays
+            # except: merged[attr] = np.stack(arrays)  # for 0-dim arrays
+        return Result_MyQuantities(cls(**merged))
+        # cls(**merged) requires attributes of MyQuantities to be equal to the input variables __init__(self, ...)</code></pre>
+</details>
+<div class="desc"><p>Class with the evaluated quantities for each step of the MCMC sampling, beyond energy and trajectory.</p></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="MDRefine.bayesian.MyQuantities.merge"><code class="name flex">
+<span>def <span class="ident">merge</span></span>(<span>instances)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function to merge multiple instances of <code><a title="MDRefine.bayesian.MyQuantities" href="#MDRefine.bayesian.MyQuantities">MyQuantities</a></code> in a single one
+(to be run in the end of the MCMC sampling to collect quantities).</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="MDRefine.bayesian.MyQuantities.avs"><code class="name">var <span class="ident">avs</span></code></dt>
+<dd>
+<div class="desc"><p><code>float</code> with the average values.</p></div>
+</dd>
+<dt id="MDRefine.bayesian.MyQuantities.loss"><code class="name">var <span class="ident">loss</span></code></dt>
+<dd>
+<div class="desc"><p><code>float</code> with the loss value (excluding the entropic contribution).</p></div>
+</dd>
+<dt id="MDRefine.bayesian.MyQuantities.reg"><code class="name">var <span class="ident">reg</span></code></dt>
+<dd>
+<div class="desc"><p><code>float</code> with the regularization value.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="MDRefine.bayesian.Proposal_onebyone"><code class="flex name class">
+<span>class <span class="ident">Proposal_onebyone</span></span>
+<span>(</span><span>step_width=1.0, index=0, rng=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Proposal_onebyone:
+    &#34;&#34;&#34; Class for a proposal move which updates one coordinate per time (it includes the attribute `index`
+        to take in memory which coordinate to update) &#34;&#34;&#34;
+    def __init__(self, step_width = 1., index = 0, rng = None):
+        self.step_width = step_width
+        self.index = index
+        
+        if rng is None: self.rng = np.random.default_rng(np.random.randint(1000))
+        else: self.rng = rng
+    
+    def __call__(self, x0):
+        
+        x_new = + x0
+        x_new[self.index] = x0[self.index] + self.step_width*self.rng.normal()
+
+        self.index += 1
+        self.index = int(np.mod(self.index, len(x0)))
+        
+        return x_new</code></pre>
+</details>
+<div class="desc"><p>Class for a proposal move which updates one coordinate per time (it includes the attribute <code>index</code>
+to take in memory which coordinate to update)</p></div>
+</dd>
+<dt id="MDRefine.bayesian.Result"><code class="flex name class">
+<span>class <span class="ident">Result</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Result(dict):
+    # triple &#39; instead of triple &#34; to allow using docstrings in the example
+    &#39;&#39;&#39;Base class for objects returning results.
+
+       It allows one to create a return type that is similar to those
+       created by `scipy.optimize.minimize`.
+       The string representation of such an object contains a list
+       of attributes and values and is easy to visualize on notebooks.
+
+       Examples
+       --------
+
+       The simplest usage is this one:
+
+       ```python
+       from bussilab import coretools
+
+       class MytoolResult(coretools.Result):
+           &#34;&#34;&#34;Result of a mytool calculation.&#34;&#34;&#34;
+           pass
+
+       def mytool():
+           a = 3
+           b = &#34;ciao&#34;
+           return MytoolResult(a=a, b=b)
+
+       m=mytool()
+       print(m)
+       ```
+
+       Notice that the class variables are dynamic: any keyword argument
+       provided in the class constructor will be processed.
+       If you want to enforce the class attributes you should add an explicit
+       constructor. This will also allow you to add pdoc docstrings.
+       The recommended usage is thus:
+
+       ````
+       from bussilab import coretools
+
+       class MytoolResult(coretools.Result):
+           &#34;&#34;&#34;Result of a mytool calculation.&#34;&#34;&#34;
+           def __init__(a, b):
+               super().__init__()
+               self.a = a
+               &#34;&#34;&#34;Documentation for attribute a.&#34;&#34;&#34;
+               self.b = b
+               &#34;&#34;&#34;Documentation for attribute b.&#34;&#34;&#34;
+
+       def mytool():
+           a = 3
+           b = &#34;ciao&#34;
+           return MytoolResult(a=a, b=b)
+
+       m = mytool()
+       print(m)
+       ````
+
+    &#39;&#39;&#39;
+
+    def __getattr__(self, name: str):
+        try:
+            return self[name]
+        except KeyError:
+            raise AttributeError(name)
+
+    def __setattr__(self, item: str, value):
+        self[item] = value
+
+    def __delattr__(self, item: str):
+        del self[item]
+
+    def __repr__(self) -&gt; str:
+        if self.keys():
+            m = max(map(len, list(self.keys()))) + 1
+# when used recursively, the inner repr is properly indented:
+            return &#39;\n&#39;.join([k.rjust(m) + &#39;: &#39; + re.sub(&#34;\n&#34;, &#34;\n&#34;+&#34; &#34;*(m+2), repr(v))
+                              for k, v in sorted(self.items())])
+        return self.__class__.__name__ + &#34;()&#34;
+
+    def __dir__(self) -&gt; List[str]:
+        return list(sorted(self.keys()))</code></pre>
+</details>
+<div class="desc"><p>Base class for objects returning results.</p>
+<p>It allows one to create a return type that is similar to those
+created by <code>scipy.optimize.minimize</code>.
+The string representation of such an object contains a list
+of attributes and values and is easy to visualize on notebooks.</p>
+<h2 id="examples">Examples</h2>
+<p>The simplest usage is this one:</p>
+<pre><code class="language-python">from bussilab import coretools
+
+class MytoolResult(coretools.Result):
+    &quot;&quot;&quot;Result of a mytool calculation.&quot;&quot;&quot;
+    pass
+
+def mytool():
+    a = 3
+    b = &quot;ciao&quot;
+    return MytoolResult(a=a, b=b)
+
+m=mytool()
+print(m)
+</code></pre>
+<p>Notice that the class variables are dynamic: any keyword argument
+provided in the class constructor will be processed.
+If you want to enforce the class attributes you should add an explicit
+constructor. This will also allow you to add pdoc docstrings.
+The recommended usage is thus:</p>
+<pre><code>from bussilab import coretools
+
+class MytoolResult(coretools.Result):
+    &quot;&quot;&quot;Result of a mytool calculation.&quot;&quot;&quot;
+    def __init__(a, b):
+        super().__init__()
+        self.a = a
+        &quot;&quot;&quot;Documentation for attribute a.&quot;&quot;&quot;
+        self.b = b
+        &quot;&quot;&quot;Documentation for attribute b.&quot;&quot;&quot;
+
+def mytool():
+    a = 3
+    b = &quot;ciao&quot;
+    return MytoolResult(a=a, b=b)
+
+m = mytool()
+print(m)
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.dict</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="MDRefine.bayesian.Block_analysis_Result" href="#MDRefine.bayesian.Block_analysis_Result">Block_analysis_Result</a></li>
+<li><a title="MDRefine.bayesian.Result_MyQuantities" href="#MDRefine.bayesian.Result_MyQuantities">Result_MyQuantities</a></li>
+<li><a title="MDRefine.bayesian.Result_run_Metropolis" href="#MDRefine.bayesian.Result_run_Metropolis">Result_run_Metropolis</a></li>
+</ul>
+</dd>
+<dt id="MDRefine.bayesian.Result_MyQuantities"><code class="flex name class">
+<span>class <span class="ident">Result_MyQuantities</span></span>
+<span>(</span><span>my_quantities_concat: <a title="MDRefine.bayesian.MyQuantities" href="#MDRefine.bayesian.MyQuantities">MyQuantities</a>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Result_MyQuantities(Result):
+    &#34;&#34;&#34;Class with the merged quantities from `MyQuantities` (`MyQuantities.merge`).&#34;&#34;&#34;
+    def __init__(self, my_quantities_concat : MyQuantities):
+        super().__init__(**my_quantities_concat.__dict__)</code></pre>
+</details>
+<div class="desc"><p>Class with the merged quantities from <code><a title="MDRefine.bayesian.MyQuantities" href="#MDRefine.bayesian.MyQuantities">MyQuantities</a></code> (<code><a title="MDRefine.bayesian.MyQuantities.merge" href="#MDRefine.bayesian.MyQuantities.merge">MyQuantities.merge()</a></code>).</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="MDRefine.bayesian.Result" href="#MDRefine.bayesian.Result">Result</a></li>
+<li>builtins.dict</li>
+</ul>
+</dd>
+<dt id="MDRefine.bayesian.Result_run_Metropolis"><code class="flex name class">
+<span>class <span class="ident">Result_run_Metropolis</span></span>
+<span>(</span><span>traj, ene, av_acceptance, quantities=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Result_run_Metropolis(Result):
+    &#39;&#39;&#39;Result of a `run_Metropolis` calculation.&#39;&#39;&#39;
+    def __init__(self, traj, ene, av_acceptance, quantities = None):
+        self.traj = traj
+        &#34;&#34;&#34; Trajectory &#34;&#34;&#34;
+        self.ene = ene
+        &#34;&#34;&#34; Energy &#34;&#34;&#34;
+        self.av_acceptance = av_acceptance
+        &#34;&#34;&#34; Float value for the average acceptance &#34;&#34;&#34;
+        if quantities is not None:
+            self.quantities = quantities
+            &#34;&#34;&#34; Computed quantities &#34;&#34;&#34;</code></pre>
+</details>
+<div class="desc"><p>Result of a <code><a title="MDRefine.bayesian.run_Metropolis" href="#MDRefine.bayesian.run_Metropolis">run_Metropolis()</a></code> calculation.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="MDRefine.bayesian.Result" href="#MDRefine.bayesian.Result">Result</a></li>
+<li>builtins.dict</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="MDRefine.bayesian.Result_run_Metropolis.av_acceptance"><code class="name">var <span class="ident">av_acceptance</span></code></dt>
+<dd>
+<div class="desc"><p>Float value for the average acceptance</p></div>
+</dd>
+<dt id="MDRefine.bayesian.Result_run_Metropolis.ene"><code class="name">var <span class="ident">ene</span></code></dt>
+<dd>
+<div class="desc"><p>Energy</p></div>
+</dd>
+<dt id="MDRefine.bayesian.Result_run_Metropolis.traj"><code class="name">var <span class="ident">traj</span></code></dt>
+<dd>
+<div class="desc"><p>Trajectory</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="MDRefine.bayesian.Saving_function"><code class="flex name class">
+<span>class <span class="ident">Saving_function</span></span>
+<span>(</span><span>values: dict = {},<br>t0: float = 0.0,<br>date: str = '',<br>path: str = '.',<br>i_save: int = 10000)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Saving_function():
+    def __init__(self, values : dict={}, t0 : float=0., date : str=&#39;&#39;, path : str=&#39;.&#39;, i_save : int=10000):
+        self.values = values
+        self.date = date
+
+        if t0 == 0: self.t0 = time.time()
+        else: self.t0 = t0
+        
+        self.path = path
+        self.i_save = i_save
+
+    def __call__(self, av_acceptance, traj, energy, qs = None):
+
+        self.values[&#39;av. acceptance&#39;] = av_acceptance
+        self.values[&#39;time&#39;] = time.time() - self.t0
+
+        temp = pandas.DataFrame(list(self.values.values()), index=list(self.values.keys()), columns=[self.date]).T
+        temp.to_csv(self.path + &#39;/par_values&#39;)
+
+        np.save(self.path + &#39;/trajectory&#39;, traj)
+        np.save(self.path + &#39;/energy&#39;, energy)
+
+        # if type(sampling[2]) is not float:  # if float, it is the average acceptance
+        if qs is not None:
+            np.save(self.path + &#39;/quantities&#39;, qs)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="MDRefine.bayesian.Which_measure"><code class="flex name class">
+<span>class <span class="ident">Which_measure</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Which_measure(Enum):
+    &#34;&#34;&#34; Class with the strings for `which_measure` variable. &#34;&#34;&#34;
+    FLAT = &#39;uniform&#39;
+    JEFFREYS = &#39;jeffreys&#39;
+    AVERAGE = &#39;average&#39;
+    DIRICHLET = &#39;dirichlet&#39;</code></pre>
+</details>
+<div class="desc"><p>Class with the strings for <code>which_measure</code> variable.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="MDRefine.bayesian.Which_measure.AVERAGE"><code class="name">var <span class="ident">AVERAGE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="MDRefine.bayesian.Which_measure.DIRICHLET"><code class="name">var <span class="ident">DIRICHLET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="MDRefine.bayesian.Which_measure.FLAT"><code class="name">var <span class="ident">FLAT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="MDRefine.bayesian.Which_measure.JEFFREYS"><code class="name">var <span class="ident">JEFFREYS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="MDRefine" href="index.html">MDRefine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="MDRefine.bayesian.block_analysis" href="#MDRefine.bayesian.block_analysis">block_analysis</a></code></li>
+<li><code><a title="MDRefine.bayesian.energy_fun" href="#MDRefine.bayesian.energy_fun">energy_fun</a></code></li>
+<li><code><a title="MDRefine.bayesian.langevin_sampling" href="#MDRefine.bayesian.langevin_sampling">langevin_sampling</a></code></li>
+<li><code><a title="MDRefine.bayesian.local_density" href="#MDRefine.bayesian.local_density">local_density</a></code></li>
+<li><code><a title="MDRefine.bayesian.posterior_sampling" href="#MDRefine.bayesian.posterior_sampling">posterior_sampling</a></code></li>
+<li><code><a title="MDRefine.bayesian.run_Metropolis" href="#MDRefine.bayesian.run_Metropolis">run_Metropolis</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="MDRefine.bayesian.Block_analysis_Result" href="#MDRefine.bayesian.Block_analysis_Result">Block_analysis_Result</a></code></h4>
+<ul class="two-column">
+<li><code><a title="MDRefine.bayesian.Block_analysis_Result.epsilons" href="#MDRefine.bayesian.Block_analysis_Result.epsilons">epsilons</a></code></li>
+<li><code><a title="MDRefine.bayesian.Block_analysis_Result.epsilons_smooth" href="#MDRefine.bayesian.Block_analysis_Result.epsilons_smooth">epsilons_smooth</a></code></li>
+<li><code><a title="MDRefine.bayesian.Block_analysis_Result.mean" href="#MDRefine.bayesian.Block_analysis_Result.mean">mean</a></code></li>
+<li><code><a title="MDRefine.bayesian.Block_analysis_Result.n_blocks" href="#MDRefine.bayesian.Block_analysis_Result.n_blocks">n_blocks</a></code></li>
+<li><code><a title="MDRefine.bayesian.Block_analysis_Result.opt_epsilon" href="#MDRefine.bayesian.Block_analysis_Result.opt_epsilon">opt_epsilon</a></code></li>
+<li><code><a title="MDRefine.bayesian.Block_analysis_Result.size_blocks" href="#MDRefine.bayesian.Block_analysis_Result.size_blocks">size_blocks</a></code></li>
+<li><code><a title="MDRefine.bayesian.Block_analysis_Result.std" href="#MDRefine.bayesian.Block_analysis_Result.std">std</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="MDRefine.bayesian.MyQuantities" href="#MDRefine.bayesian.MyQuantities">MyQuantities</a></code></h4>
+<ul class="">
+<li><code><a title="MDRefine.bayesian.MyQuantities.avs" href="#MDRefine.bayesian.MyQuantities.avs">avs</a></code></li>
+<li><code><a title="MDRefine.bayesian.MyQuantities.loss" href="#MDRefine.bayesian.MyQuantities.loss">loss</a></code></li>
+<li><code><a title="MDRefine.bayesian.MyQuantities.merge" href="#MDRefine.bayesian.MyQuantities.merge">merge</a></code></li>
+<li><code><a title="MDRefine.bayesian.MyQuantities.reg" href="#MDRefine.bayesian.MyQuantities.reg">reg</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="MDRefine.bayesian.Proposal_onebyone" href="#MDRefine.bayesian.Proposal_onebyone">Proposal_onebyone</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.bayesian.Result" href="#MDRefine.bayesian.Result">Result</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.bayesian.Result_MyQuantities" href="#MDRefine.bayesian.Result_MyQuantities">Result_MyQuantities</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.bayesian.Result_run_Metropolis" href="#MDRefine.bayesian.Result_run_Metropolis">Result_run_Metropolis</a></code></h4>
+<ul class="">
+<li><code><a title="MDRefine.bayesian.Result_run_Metropolis.av_acceptance" href="#MDRefine.bayesian.Result_run_Metropolis.av_acceptance">av_acceptance</a></code></li>
+<li><code><a title="MDRefine.bayesian.Result_run_Metropolis.ene" href="#MDRefine.bayesian.Result_run_Metropolis.ene">ene</a></code></li>
+<li><code><a title="MDRefine.bayesian.Result_run_Metropolis.traj" href="#MDRefine.bayesian.Result_run_Metropolis.traj">traj</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="MDRefine.bayesian.Saving_function" href="#MDRefine.bayesian.Saving_function">Saving_function</a></code></h4>
+</li>
+<li>
+<h4><code><a title="MDRefine.bayesian.Which_measure" href="#MDRefine.bayesian.Which_measure">Which_measure</a></code></h4>
+<ul class="">
+<li><code><a title="MDRefine.bayesian.Which_measure.AVERAGE" href="#MDRefine.bayesian.Which_measure.AVERAGE">AVERAGE</a></code></li>
+<li><code><a title="MDRefine.bayesian.Which_measure.DIRICHLET" href="#MDRefine.bayesian.Which_measure.DIRICHLET">DIRICHLET</a></code></li>
+<li><code><a title="MDRefine.bayesian.Which_measure.FLAT" href="#MDRefine.bayesian.Which_measure.FLAT">FLAT</a></code></li>
+<li><code><a title="MDRefine.bayesian.Which_measure.JEFFREYS" href="#MDRefine.bayesian.Which_measure.JEFFREYS">JEFFREYS</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
